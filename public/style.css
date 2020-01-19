@@ -1,0 +1,14 @@
+:root {
+    --font-large: 2em;
+    --font-medium: 1em;
+    --accent-color: #42b983;
+    --pading-medium: 16px;
+}
+
+button {
+    font-size: var(--font-medium);
+    color: white;
+    background-color: var(--accent-color);
+    padding: var(--pading-medium);
+    outline: none;
+}
