@@ -12,3 +12,7 @@ button {
     padding: var(--pading-medium);
     outline: none;
 }
+
+.error {
+    color: red;
+}

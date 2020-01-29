@@ -13,16 +13,11 @@ import {routes} from '../routes.js';
 
 export default {
   name: 'Start',
-  data() {
-    return {
-
-    }
-  },
   methods: {
-    goToStart: function() {
+    goToStart() { 
       this.$router.push(routes.signUp);
     },
-    goToContinue: function() {
+    goToContinue() {
       this.$router.push(routes.signIn);
     }
   }
