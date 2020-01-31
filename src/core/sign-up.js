@@ -1,3 +1,7 @@
+import {isNameValid} from "./validator.js";
+
+console.log(isNameValid("Igor"));
+
 const model = {
     name: "",
     nameError: false,
