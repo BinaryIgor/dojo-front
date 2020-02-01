@@ -22,7 +22,7 @@ export class SignUpService {
 
 function createMethods(model, userRepository) {
     return {
-        validate() {
+        _validate() {
             model.nameError = !validator.isNameValid(model.name);
             model.emailError = !validator.isEmailValid(model.email);
             model.passwordError = !validator.isPasswordValid(model.password);
@@ -34,7 +34,7 @@ function createMethods(model, userRepository) {
             return !(model.nameError | model.emailError | model.passwordError | model.repeatedPasswordError);
         },
         signUp() {
-            if (this.validate()) {
+            if (this._validate()) {
                 let newUser = {
                     name: model.name,
                     email: model.email,
