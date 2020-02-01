@@ -9,26 +9,31 @@
         <p class="error" v-if="emailError">{{$t('badEmail')}}</p>
         <input type="email" name="email" v-model="email">
         <p>{{$t('password')}} </p>
+        <p class="error" v-if="passwordError">{{$t('badPassword')}}</p>
         <input type="password" name="password" v-model="password">
         <p>{{$t('repeatPassword')}} </p>
-        <input type="password" name="repeatPassword" v-model="repeatedPassword">
+        <p class="error" v-if="repeatedPasswordError">{{$t('badRepeatedPassword')}}</p>
+        <input type="password" name="repeatedPassword" v-model="repeatedPassword">
     </form>
     <button v-on:click="signUp">{{$t('ok')}}</button>
+    <p v-if="signingUp">{{$t("signUpWait")}}</p>
   </div>
 </template>
 
 <script>
-import {signUpModule} from "../core/sign-up.js";
-
+import {signUpServiceFactory as serviceFactory} from "../App.vue";
 
 export default {
+  beforeCreate() {
+    this.service = serviceFactory();
+  },
   name: "SignUp",
   data() {
-        return signUpModule.model;
+        return this.service.model;
   },
   methods: {
       signUp() {
-          signUpModule.methods.validate();
+          this.service.methods.signUp();
       }
   }
 };

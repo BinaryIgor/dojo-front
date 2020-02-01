@@ -32,7 +32,7 @@ describe('Validator tests', () => {
     });
   }
 
-  for (let password of ['tooeasyone', 'AlmostEnough', 'bad', '122xxlopp']) {
+  for (let password of ['tooeasyone', 'AlmostEnough', 'bad', 'WRONGG122', '122xxlopp']) {
     it(`Invalidates improper ${password} password`, () => {
       expect(isPasswordValid(password)).to.equal(false);
     });
