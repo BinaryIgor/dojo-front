@@ -22,6 +22,7 @@
 
 <script>
 import {signUpServiceFactory as serviceFactory} from "../App.vue";
+import {showModal, showErrorModal} from "./common/modals.js";
 
 export default {
   beforeCreate() {
@@ -35,6 +36,16 @@ export default {
       signUp() {
           this.service.methods.signUp();
       }
+  },
+  watch: {
+    exceptions: function(exceptions) {
+      showErrorModal(this, exceptions);
+
+    },
+    signedUp: function() {
+      //TODO go to sign in!
+      showModal(this, this.$t('signUpSuccessTitle'), this.$t('signUpSuccessMessage'));
+    } 
   }
 };
 </script>

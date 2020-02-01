@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <modal></modal>
   </div>
 </template>
 
@@ -45,7 +46,6 @@ const requests = new Requests('https://jsonplaceholder.typicode.com');
 const smartRequests = new SmartRequests(requests);
 const userRepository = new UserRepository(smartRequests);
 export const signUpServiceFactory = () => new SignUpService(userRepository);
-
 </script>
 
 

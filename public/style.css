@@ -2,7 +2,9 @@
     --font-large: 2em;
     --font-medium: 1em;
     --accent-color: #42b983;
+    --pading-large: 24px;
     --pading-medium: 16px;
+    --padding-small: 8px;
 }
 
 button {

@@ -15,6 +15,9 @@ export const messages = {
         badEmail: "Email powinien zawierać co najmniej 3 znaki, @ oraz domenę",
         badPassword: "Hasło powinno zawierać co najmniej 8 znaków, jedną wielką oraz małą literę, oraz cyfrę",
         badRepeatedPassword: "Wprowadzone hasła nie są sobie równe",
-        signUpWait: "Proszę czekać, trwa rejestracja..."
+        signUpWait: "Proszę czekać, trwa rejestracja...",
+        errorTitle: "Coś poszło nie tak...",
+        signUpSuccessTitle: "Rejestracja zakończyła się powodzeniem!",
+        signUpSuccessMessage: "Sprawdź swój email aby aktywować konto"
     }
 };

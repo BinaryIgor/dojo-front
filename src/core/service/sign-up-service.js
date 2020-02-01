@@ -12,8 +12,9 @@ export class SignUpService {
             passwordError: false,
             repeatedPassword: "",
             repeatedPasswordError: false,
-            signingUp: false
-
+            signingUp: false,
+            signedUp: false,
+            exceptions: []
         };
         this.methods = createMethods(this.model, userRepository);
     }
@@ -32,7 +33,6 @@ function createMethods(model, userRepository) {
             }
             return !(model.nameError | model.emailError | model.passwordError | model.repeatedPasswordError);
         },
-        //TODO how to show exceptions?
         signUp() {
             if (this.validate()) {
                 let newUser = {
@@ -42,17 +42,14 @@ function createMethods(model, userRepository) {
                 };
                 model.signingUp = true;
                 userRepository.createNewUser(newUser, r => {
-                    model.signingUp = false; 
+                    model.signingUp = false;
                     if (r.success) {
-                        console.log(`New id = ${r.value}`);
+                        model.signedUp = true;
                     } else {
-                        console.log(r.exceptions);
+                        model.exceptions = r.exceptions;
                     }
                 });
-                console.log("Fetching...");
-            } else {
-                console.log("Registration will not be fetched!");
-            }
+            } 
         }
     };
 }
