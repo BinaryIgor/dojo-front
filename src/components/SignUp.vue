@@ -1,21 +1,21 @@
 <template>
   <div>
-    <h1>{{$t('signUp')}}</h1>
+    <h1>{{$t('signingUp')}}</h1>
     <form>
       <p>{{$t('name')}}</p>
       <p class="error" v-if="nameError">{{$t('badName')}}</p>
-      <input type="text" name="name" v-model="name" />
+      <input type="text" v-model="name" />
       <p>{{$t('email')}}</p>
       <p class="error" v-if="emailError">{{$t('badEmail')}}</p>
-      <input type="email" name="email" v-model="email" />
+      <input type="email" v-model="email" />
       <p>{{$t('password')}}</p>
       <p class="error" v-if="passwordError">{{$t('badPassword')}}</p>
-      <input type="password" name="password" v-model="password" />
+      <input type="password" v-model="password" />
       <p>{{$t('repeatPassword')}}</p>
       <p class="error" v-if="repeatedPasswordError">{{$t('badRepeatedPassword')}}</p>
-      <input type="password" name="repeatedPassword" v-model="repeatedPassword" />
+      <input type="password" v-model="repeatedPassword" />
     </form>
-    <button v-on:click="signUp">{{$t('ok')}}</button>
+    <button v-on:click="signUp">{{$t('signUp')}}</button>
     <p v-if="signingUp">{{$t("signUpWait")}}</p>
   </div>
 </template>
@@ -23,6 +23,7 @@
 <script>
 import { signUpService as service } from "../App.vue";
 import { showModal, showErrorModal } from "./common/modals.js";
+import { routes } from "../routes.js";
 
 export default {
   name: "SignUp",
@@ -71,6 +72,7 @@ export default {
             this.$t("signUpSuccessTitle"),
             this.$t("signUpSuccessMessage")
           );
+          this.$router.push(routes.signIn);
         } else {
           showErrorModal(this, r.signUpErrors);
         }
