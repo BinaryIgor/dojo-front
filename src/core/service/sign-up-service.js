@@ -7,27 +7,27 @@ export class SignUpService {
     }
 
     signUp(newUserInput) {
-        let errors = this._validate(newUserInput);
-        let promise;
-        if (validator.hasErrors(errors)) {
-            promise = Promise.resolve(new SignUpResponse(errors, []));
+        let formErrors = this._validate(newUserInput);
+        let response;
+        if (validator.hasErrors(formErrors)) {
+            response = Promise.resolve(new SignUpResponse(formErrors, []));
         } else {
             let newUser = {
                 name: newUserInput.name,
                 email: newUserInput.email,
                 password: newUserInput.password
             };
-            promise = this._userRepository.createNewUser(newUser).then(r => {
+            response = this._userRepository.createNewUser(newUser).then(r => {
                 let exceptions;
                 if (r.success) {
                     exceptions = [];
                 } else {
                     exceptions = r.exceptions;
                 }
-                return new SignUpResponse(errors, exceptions);
+                return new SignUpResponse(formErrors, exceptions);
             });
         }
-        return promise;
+        return response;
     }
 
     _validate(newUserInput) {
