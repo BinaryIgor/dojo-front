@@ -18,6 +18,7 @@ import { Requests } from "./core/requests.js";
 import { SmartRequests } from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
 import { messages } from "./messages.js";
+import { StartService } from "./core/service/start-service.js";
 import { SignUpService } from "./core/service/sign-up-service.js";
 import { SignInService } from "./core/service/sign-in-service.js";
 import { tokenStore } from "./core/storage/token-store.js";
@@ -46,11 +47,15 @@ export default {
   i18n
 };
 
-const requests = new Requests("http://localhost:8080");
+//TODO remove, tmp develop purposes only
+tokenStore.clear();
+
+const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
 const userRepository = new UserRepository(smartRequests);
 
+export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
 export const signInService = new SignInService(userRepository, tokenStore);
 </script>

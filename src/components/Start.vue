@@ -9,19 +9,24 @@
 </template>
 
 <script>
-import {routes} from '../routes.js';
+import { startService as service } from "../App.vue";
+import { routes } from "../routes.js";
 
 export default {
-  name: 'Start',
+  name: "Start",
   methods: {
-    goToStart() { 
+    goToStart() {
       this.$router.push(routes.signUp);
     },
     goToContinue() {
-      this.$router.push(routes.signIn);
+      if (service.needToSignIn()) {
+        this.$router.push(routes.signIn);
+      } else {
+        this.$router.push(routes.home);
+      }
     }
   }
-}
+};
 </script>
 
 <style scoped>

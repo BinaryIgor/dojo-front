@@ -26,11 +26,10 @@ export class SmartRequests {
                 response = Response.failure([r]);
             }
             return response;
-        })
-            .catch(e => {
-                console.log(`Error occurred = ${e}`);
-                return Response.failure([e]);
-            });
+        }).catch(e => {
+            console.log(`Error occurred = ${e}`);
+            return Response.failure([e]);
+        });
     }
 
     //TODO json content type?

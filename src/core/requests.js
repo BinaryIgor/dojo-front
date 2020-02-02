@@ -1,15 +1,22 @@
 export class Requests {
 
-    constructor(baseUrl) {
+    constructor(baseUrl, tokenStore) {
         this._baseUrl = baseUrl;
+        this._tokenStore = tokenStore;
     }
 
     get(url, headers={}) {
         return this._execute(url, 'GET', headers, null);
     }
 
-    //TODO remove no-cors
+    _addTokenIf(headers) {
+        if (!this._tokenStore.empty) {
+            headers['Authorization'] = `Bearer ${this._tokenStore.get()}`
+        }
+    }
+
     _execute(url, method, headers, data) {
+        this._addTokenIf(headers);
         return fetch(this._createUrl(url), {
             method: method,
             headers: headers,
