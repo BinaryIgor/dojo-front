@@ -6,6 +6,7 @@ export class UserRepository {
         this._requests = smartRequests;
     }
 
+    //TODO real urls
     createNewUser(newUser) {
         return this._requests.postJson('posts', {
             name: newUser.name,
@@ -13,4 +14,12 @@ export class UserRepository {
             password: newUser.password
         }, r => r.success ? Response.success(r.value.id) : r);
     }
+
+    matchUser(nameOrEmail, password) {
+        return this._requests.postJson('posts', {
+            nameOrEmail: nameOrEmail,
+            password: password
+        }, r => r.success ? Response.success(r.value.token) : r);
+    }
+
 }

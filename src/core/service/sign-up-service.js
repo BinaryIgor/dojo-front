@@ -1,4 +1,5 @@
 import *  as validator from "../validator.js";
+import { FormResponse } from "./form-response.js";
 
 export class SignUpService {
 
@@ -10,22 +11,15 @@ export class SignUpService {
         let formErrors = this._validate(newUserInput);
         let response;
         if (validator.hasErrors(formErrors)) {
-            response = Promise.resolve(new SignUpResponse(formErrors, []));
+            response = FormResponse.asPromise(formErrors);
         } else {
             let newUser = {
                 name: newUserInput.name,
                 email: newUserInput.email,
                 password: newUserInput.password
             };
-            response = this._userRepository.createNewUser(newUser).then(r => {
-                let exceptions;
-                if (r.success) {
-                    exceptions = [];
-                } else {
-                    exceptions = r.exceptions;
-                }
-                return new SignUpResponse(formErrors, exceptions);
-            });
+            response = this._userRepository.createNewUser(newUser)
+                .then(r => FormResponse.fromResponse(formErrors, r));
         }
         return response;
     }
@@ -41,17 +35,5 @@ export class SignUpService {
             errors.repeatedPasswordError = newUserInput.password != newUserInput.repeatedPassword;
         }
         return errors;
-    }
-}
-
-class SignUpResponse {
-
-    constructor(formErrors, signUpErrors) {
-        this.formErrors = formErrors;
-        this.signUpErrors = signUpErrors;
-    }
-
-    get success() {
-        return !validator.hasErrors(this.formErrors) && this.signUpErrors.length == 0;
     }
 }

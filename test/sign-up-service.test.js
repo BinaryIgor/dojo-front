@@ -24,8 +24,8 @@ describe("SignUpService tests", () => {
                 userRepositoryFake.expectedResponse = Response.success(1);
                 return service.signUp(modelExpectation.model)
                     .then(r => {
-                        expect(modelExpectation.model).to.include(userRepositoryFake.capturedNewUser);
                         expect(r.success).to.equal(true);
+                        expect(modelExpectation.model).to.include(userRepositoryFake.capturedNewUser);
                     });
             }
         );

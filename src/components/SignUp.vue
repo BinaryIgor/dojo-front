@@ -74,7 +74,7 @@ export default {
           );
           this.$router.push(routes.signIn);
         } else {
-          showErrorModal(this, r.signUpErrors);
+          showErrorModal(this, r.requestErrors);
         }
       });
     }

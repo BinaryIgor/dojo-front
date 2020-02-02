@@ -18,6 +18,8 @@ import { SmartRequests} from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
 import { messages } from "./messages.js";
 import {SignUpService} from "./core/service/sign-up-service.js";
+import {SignInService} from "./core/service/sign-in-service.js";
+import tokenStorage from "./core/storage/token-store.js";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
@@ -44,8 +46,11 @@ export default {
 
 const requests = new Requests('https://jsonplaceholder.typicode.com');
 const smartRequests = new SmartRequests(requests);
+
 const userRepository = new UserRepository(smartRequests);
+
 export const signUpService = new SignUpService(userRepository);
+export const signInService = new SignInService(userRepository, tokenStorage);
 </script>
 
 
