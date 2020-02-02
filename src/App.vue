@@ -14,12 +14,12 @@ import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
 import { routes as routesNames } from "./routes.js";
 import { Requests } from "./core/requests.js";
-import { SmartRequests} from "./core/smart-requests.js";
+import { SmartRequests } from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
 import { messages } from "./messages.js";
-import {SignUpService} from "./core/service/sign-up-service.js";
-import {SignInService} from "./core/service/sign-in-service.js";
-import tokenStorage from "./core/storage/token-store.js";
+import { SignUpService } from "./core/service/sign-up-service.js";
+import { SignInService } from "./core/service/sign-in-service.js";
+import { tokenStore } from "./core/storage/token-store.js";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
@@ -44,13 +44,13 @@ export default {
   i18n
 };
 
-const requests = new Requests('https://jsonplaceholder.typicode.com');
+const requests = new Requests("http://localhost:8080");
 const smartRequests = new SmartRequests(requests);
 
 const userRepository = new UserRepository(smartRequests);
 
 export const signUpService = new SignUpService(userRepository);
-export const signInService = new SignInService(userRepository, tokenStorage);
+export const signInService = new SignInService(userRepository, tokenStore);
 </script>
 
 

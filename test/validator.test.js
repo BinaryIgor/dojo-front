@@ -26,7 +26,7 @@ describe('Validator tests', () => {
     });
   }
 
-  for (let password of ['Hard12one', 'Enough1!', 'Not88baD']) {
+  for (let password of ['Hard12one', 'Enough1!', 'Not88baD', 'rogi123R']) {
     it(`Validates proper ${password} password`, () => {
       expect(isPasswordValid(password)).to.equal(true);
     });

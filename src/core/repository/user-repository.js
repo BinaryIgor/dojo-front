@@ -6,9 +6,9 @@ export class UserRepository {
         this._requests = smartRequests;
     }
 
-    //TODO real urls
+    //TODO externalize urls
     createNewUser(newUser) {
-        return this._requests.postJson('posts', {
+        return this._requests.postJson('auth/sign-up', {
             name: newUser.name,
             email: newUser.email,
             password: newUser.password
@@ -16,7 +16,7 @@ export class UserRepository {
     }
 
     matchUser(nameOrEmail, password) {
-        return this._requests.postJson('posts', {
+        return this._requests.postJson('auth/sign-in', {
             nameOrEmail: nameOrEmail,
             password: password
         }, r => r.success ? Response.success(r.value.token) : r);

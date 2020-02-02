@@ -26,11 +26,15 @@ export function isPasswordValid(password) {
     let upperCase = false;
     let lowerCase = false;
     for (let c of password) {
-        if (!upperCase && isLetter(c)) {
-            upperCase = c == c.toUpperCase();
-        } else if (!lowerCase && isLetter(c)) {
-            lowerCase = c == c.toLowerCase();
-        } else if (!digit && /\d/.test(c)) {
+        if (isLetter(c)) {
+            if (!upperCase) {
+                upperCase = c == c.toUpperCase();
+            }
+            if (!lowerCase) {
+                lowerCase = c == c.toLowerCase();    
+            }
+        } 
+        if (!digit && /\d/.test(c)) {
             digit = true;
         }
 

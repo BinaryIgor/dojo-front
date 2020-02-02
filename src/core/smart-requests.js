@@ -12,28 +12,30 @@ export class SmartRequests {
 
     //TODO show status?
     _wrapRequestPromise(request) {
-        return request.then(r => r.text())
-            .then(r => {
-                let response;
-                try {
-                    let parsed = JSON.parse(r);
-                    if (parsed.errors) {
-                        response = Response.failure(parsed.errors);
-                    } else {
-                        response = Response.success(parsed);
-                    }
-                } catch (e) {
-                    response = Response.failure([r]);
+        return request.then(r => r.text()).then(r => {
+            let response;
+            try {
+                console.log(`Raw response ${r}`);
+                let parsed = JSON.parse(r);
+                if (parsed.errors) {
+                    response = Response.failure(parsed.errors);
+                } else {
+                    response = Response.success(parsed);
                 }
-                return response;
-            })
-            .catch(e => Response.failure([e]));
+            } catch (e) {
+                response = Response.failure([r]);
+            }
+            return response;
+        })
+            .catch(e => {
+                console.log(`Error occurred = ${e}`);
+                return Response.failure([e]);
+            });
     }
 
     //TODO json content type?
     postJson(url, data, headers = {}) {
         return this._wrapRequestPromise(this._requests.post(url, JSON.stringify(data), headers));
-
     }
 
     putJson(url, data, headers = {}) {

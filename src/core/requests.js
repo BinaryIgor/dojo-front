@@ -12,7 +12,6 @@ export class Requests {
     _execute(url, method, headers, data) {
         return fetch(this._createUrl(url), {
             method: method,
-            mode: 'no-cors',
             headers: headers,
             body: data
         });
