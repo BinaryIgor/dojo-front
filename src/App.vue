@@ -9,6 +9,7 @@
 import Start from "./components/Start.vue";
 import SignIn from "./components/SignIn.vue";
 import SignUp from "./components/SignUp.vue";
+import Home from "./components/Home.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
@@ -27,7 +28,8 @@ Vue.use(VueI18n);
 const routes = [
   { path: "*", component: Start },
   { path: routesNames.signUp, component: SignUp },
-  { path: routesNames.signIn, component: SignIn }
+  { path: routesNames.signIn, component: SignIn },
+  { path: routesNames.home, component: Home }
 ];
 const router = new VueRouter({ routes });
 

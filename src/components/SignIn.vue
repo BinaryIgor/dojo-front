@@ -18,6 +18,7 @@
 <script>
 import { signInService as service } from "../App.vue";
 import { showErrorModal } from "./common/modals.js";
+import { routes } from "../routes.js";
 
 export default {
   name: "SignIn",
@@ -45,17 +46,18 @@ export default {
     signIn() {
       this._removeErrors();
       this.signingIn = true;
-      service.signIn({
-          nameOrEmail: this.nameOrEmail,
-          password: this.password
-      }).then(r => {
-          this.signingIn = false;
-          this._setErrors(r.formErrors);
-          if (r.success) {
-              //TODO go to home page
-          } else {
-              showErrorModal(this, r.requestErrors);
-          }
+      let user = {
+        nameOrEmail: this.nameOrEmail,
+        password: this.password
+      };
+      service.signIn(user).then(r => {
+        this.signingIn = false;
+        this._setErrors(r.formErrors);
+        if (r.success) {
+          this.$router.replace(routes.home);
+        } else {
+          showErrorModal(this, r.requestErrors);
+        }
       });
     }
   }
