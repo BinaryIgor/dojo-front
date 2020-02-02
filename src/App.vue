@@ -47,13 +47,18 @@ export default {
   i18n
 };
 
+const endpoints = {
+  signUp: 'auth/sign-up',
+  signIn: 'auth/sign-in'
+};
+
 //TODO remove, tmp develop purposes only
 tokenStore.clear();
 
 const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
-const userRepository = new UserRepository(smartRequests);
+const userRepository = new UserRepository(smartRequests, endpoints);
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);

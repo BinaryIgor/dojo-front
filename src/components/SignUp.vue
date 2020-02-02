@@ -17,6 +17,8 @@
     </form>
     <button v-on:click="signUp">{{$t('signUp')}}</button>
     <p v-if="signingUp">{{$t("signUpWait")}}</p>
+    <h2>{{$t('hasAccountAlready')}}</h2>
+    <button v-on:click="goToSignIn">{{$t('signIn')}}</button>
   </div>
 </template>
 
@@ -76,6 +78,9 @@ export default {
           showErrorModal(this, r.requestErrors);
         }
       });
+    },
+    goToSignIn() {
+      this.$router.replace(routes.signIn);
     }
   }
 };

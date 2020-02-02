@@ -25,6 +25,8 @@ export const messages = {
         nameOrEmail: "Nazwa lub email",
         nonExistentName: "Podany użytkownik nie istnieje",
         nonExistentEmail: "Podany email nie istnieje",
-        wrongPassword: "Podane hasło jest nieprawidłowe"
+        wrongPassword: "Podane hasło jest nieprawidłowe",
+        hasAccountAlready: "Masz już konto?",
+        hasNotAccountYet: "Nie masz jeszcze konta?"
     }
 };

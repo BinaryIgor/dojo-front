@@ -2,13 +2,15 @@ import { Response } from "../model/response.js";
 
 export class UserRepository {
 
-    constructor(smartRequests) {
+    constructor(smartRequests, endpoints) {
         this._requests = smartRequests;
+        this._signUpEndpoint = endpoints.signUpEndpoint;
+        this._signInEndpoint = endpoints.signInEndpoint;
     }
 
     //TODO externalize urls
     createNewUser(newUser) {
-        return this._requests.postJson('auth/sign-up', {
+        return this._requests.postJson(this._signUpEndpoint, {
             name: newUser.name,
             email: newUser.email,
             password: newUser.password
@@ -16,10 +18,9 @@ export class UserRepository {
     }
 
     matchUser(nameOrEmail, password) {
-        return this._requests.postJson('auth/sign-in', {
+        return this._requests.postJson(this._signInEndpoint, {
             nameOrEmail: nameOrEmail,
             password: password
         }, r => r.success ? Response.success(r.value.token) : r);
     }
-
 }
