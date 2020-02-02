@@ -45,7 +45,7 @@ export default {
 const requests = new Requests('https://jsonplaceholder.typicode.com');
 const smartRequests = new SmartRequests(requests);
 const userRepository = new UserRepository(smartRequests);
-export const signUpServiceFactory = () => new SignUpService(userRepository);
+export const signUpService = new SignUpService(userRepository);
 </script>
 
 

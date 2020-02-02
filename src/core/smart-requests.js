@@ -6,12 +6,12 @@ export class SmartRequests {
         this._requests = requests;
     }
 
-    getJson(url, responseCallback, headers = {}) {
-        return this._wrapRequestPromise(this._requests.get(url, headers), responseCallback);
+    getJson(url, headers = {}) {
+        return this._wrapRequestPromise(this._requests.get(url, headers));
     }
 
     //TODO show status?
-    _wrapRequestPromise(request, responseCallback) {
+    _wrapRequestPromise(request) {
         return request.then(r => r.text())
             .then(r => {
                 let response;
@@ -25,24 +25,22 @@ export class SmartRequests {
                 } catch (e) {
                     response = Response.failure([r]);
                 }
-                responseCallback(response);
+                return response;
             })
-            .catch(e => responseCallback(Response.failure([e])));
+            .catch(e => Response.failure([e]));
     }
 
     //TODO json content type?
-    postJson(url, data, responseCallback, headers = {}) {
-        return this._wrapRequestPromise(this._requests.post(url, JSON.stringify(data), headers),
-            responseCallback);
+    postJson(url, data, headers = {}) {
+        return this._wrapRequestPromise(this._requests.post(url, JSON.stringify(data), headers));
 
     }
 
-    putJson(url, data, responseCallback, headers = {}) {
-        return this._wrapRequestPromise(this._requests.put(url, JSON.stringify(data), headers),
-            responseCallback);
+    putJson(url, data, headers = {}) {
+        return this._wrapRequestPromise(this._requests.put(url, JSON.stringify(data), headers));
     }
 
-    delete(url, responseCallback, headers = {}) {
-        return this._wrapRequestPromise(this._requests.delete(url, headers), responseCallback);
+    delete(url, headers = {}) {
+        return this._wrapRequestPromise(this._requests.delete(url, headers));
     }
 }

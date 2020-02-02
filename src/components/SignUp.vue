@@ -2,18 +2,18 @@
   <div>
     <h1>{{$t('signUp')}}</h1>
     <form>
-        <p>{{$t('name')}} </p>
-        <p class="error" v-if="nameError">{{$t('badName')}}</p>
-        <input type="text" name="name" v-model="name">
-        <p>{{$t('email')}} </p>
-        <p class="error" v-if="emailError">{{$t('badEmail')}}</p>
-        <input type="email" name="email" v-model="email">
-        <p>{{$t('password')}} </p>
-        <p class="error" v-if="passwordError">{{$t('badPassword')}}</p>
-        <input type="password" name="password" v-model="password">
-        <p>{{$t('repeatPassword')}} </p>
-        <p class="error" v-if="repeatedPasswordError">{{$t('badRepeatedPassword')}}</p>
-        <input type="password" name="repeatedPassword" v-model="repeatedPassword">
+      <p>{{$t('name')}}</p>
+      <p class="error" v-if="nameError">{{$t('badName')}}</p>
+      <input type="text" name="name" v-model="name" />
+      <p>{{$t('email')}}</p>
+      <p class="error" v-if="emailError">{{$t('badEmail')}}</p>
+      <input type="email" name="email" v-model="email" />
+      <p>{{$t('password')}}</p>
+      <p class="error" v-if="passwordError">{{$t('badPassword')}}</p>
+      <input type="password" name="password" v-model="password" />
+      <p>{{$t('repeatPassword')}}</p>
+      <p class="error" v-if="repeatedPasswordError">{{$t('badRepeatedPassword')}}</p>
+      <input type="password" name="repeatedPassword" v-model="repeatedPassword" />
     </form>
     <button v-on:click="signUp">{{$t('ok')}}</button>
     <p v-if="signingUp">{{$t("signUpWait")}}</p>
@@ -21,31 +21,61 @@
 </template>
 
 <script>
-import {signUpServiceFactory as serviceFactory} from "../App.vue";
-import {showModal, showErrorModal} from "./common/modals.js";
+import { signUpService as service } from "../App.vue";
+import { showModal, showErrorModal } from "./common/modals.js";
 
 export default {
-  beforeCreate() {
-    this.service = serviceFactory();
-  },
   name: "SignUp",
   data() {
-        return this.service.model;
+    return {
+      name: "",
+      nameError: false,
+      email: "",
+      emailError: false,
+      password: "",
+      passwordError: false,
+      repeatedPassword: "",
+      repeatedPasswordError: false,
+      signingUp: false
+    };
   },
   methods: {
-      signUp() {
-          this.service.methods.signUp();
-      }
-  },
-  watch: {
-    exceptions: function(exceptions) {
-      showErrorModal(this, exceptions);
-
+    _setErrors(errors) {
+      this.nameError = errors.nameError;
+      this.emailError = errors.emailError;
+      this.passwordError = errors.passwordError;
+      this.repeatedPasswordError = errors.repeatedPasswordError;
     },
-    signedUp: function() {
-      //TODO go to sign in!
-      showModal(this, this.$t('signUpSuccessTitle'), this.$t('signUpSuccessMessage'));
-    } 
+    _removeErrors() {
+      this.nameError = false;
+      this.emailError = false;
+      this.passwordError = false;
+      this.repeatedPasswordError = false;
+    },
+    signUp() {
+      this._removeErrors();
+      this.signingUp = true;
+      let newUserInput = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        repeatedPassword: this.repeatedPassword
+      };
+      service.signUp(newUserInput).then(r => {
+        this.signingUp = false;
+        this._setErrors(r.formErrors);
+        if (r.success) {
+          //TODO go to signIn
+          showModal(
+            this,
+            this.$t("signUpSuccessTitle"),
+            this.$t("signUpSuccessMessage")
+          );
+        } else {
+          showErrorModal(this, r.signUpErrors);
+        }
+      });
+    }
   }
 };
 </script>

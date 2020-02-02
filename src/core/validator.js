@@ -40,3 +40,12 @@ export function isPasswordValid(password) {
     }
     return digit && upperCase && lowerCase;
 }
+
+export function hasErrors(errorsObject) {
+    for (let k in errorsObject) {
+        if (errorsObject[k]) {
+            return true;
+        }
+    }
+    return false;
+}

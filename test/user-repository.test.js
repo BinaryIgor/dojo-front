@@ -24,7 +24,7 @@ describe('UserRepository tests', () => {
         it(`Creates new user ${JSON.stringify(newUser)}`, () => {
             let expectedResponse = Response.success(1);
             requestsFake.expectedResponse = Response.success({id: 1});
-            return userRepository.createNewUser(newUser, r => {
+            return userRepository.createNewUser(newUser).then(r => {
                 expect(requestsFake.capturedData).to.eql(newUser);
                 expect(r.success).to.eq(true)
                 expect(r.value).to.eq(expectedResponse.value);

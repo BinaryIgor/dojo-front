@@ -14,12 +14,16 @@ const service = new SignUpService(userRepository);
 describe("SignUpService tests", () => {
     for (let modelExpectations of provideModelsWithExpectations()) {
         it(`Sets ${tools.printObject(modelExpectations.expectations)} errors`, () => {
-            tools.setObjectFromObject(["name", "email", "password", "repeatedPassword"],
-                service.model, modelExpectations.model);
+            let userInput = {
+                name: modelExpectations.model.name,
+                email: modelExpectations.model.email, 
+                password: modelExpectations.model.password,
+                repeatedPassword: modelExpectations.model.repeatedPassword
+            };
 
-            service.methods.signUp();
-
-            expect(service.model).to.include(modelExpectations.expectations);
+            return service.signUp(userInput).then(r => {
+                expect(r.formErrors).to.include(modelExpectations.expectations);
+            });
         });
     }
 });
