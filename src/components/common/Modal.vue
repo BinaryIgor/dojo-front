@@ -2,7 +2,7 @@
   <div class="modal-mask" v-bind:class="{ hidden: !show}" v-on:click="hide">
     <div class="modal">
       <h1>{{ title }}</h1>
-      <p>{{ text }}</p>
+      <p v-for="(t, index) in texts" v-bind:key="index">{{t}}</p>
       <button>{{$t('ok')}}</button>
     </div>
   </div>
@@ -11,23 +11,23 @@
 <script>
 export default {
   data() {
-      return {
-          title: '',
-          text: '',
-          show: false
-      };
+    return {
+      title: "",
+      texts: [],
+      show: false
+    };
   },
   methods: {
-      hide() {
-          this.show = false;
-      }
+    hide() {
+      this.show = false;
+    }
   },
   created() {
-      this.$parent.$on('show', d => {
-          this.title = d.title;
-          this.text = d.text;
-          this.show = true;
-      });
+    this.$parent.$on("show", d => {
+      this.title = d.title;
+      this.texts = d.texts;
+      this.show = true;
+    });
   }
 };
 </script>
@@ -55,6 +55,6 @@ export default {
   padding: var(--pading-large);
 }
 button {
-    width: 80%;
+  width: 80%;
 }
 </style>

@@ -27,6 +27,15 @@ export const messages = {
         nonExistentEmail: "Podany email nie istnieje",
         wrongPassword: "Podane hasło jest nieprawidłowe",
         hasAccountAlready: "Masz już konto?",
-        hasNotAccountYet: "Nie masz jeszcze konta?"
+        hasNotAccountYet: "Nie masz jeszcze konta?",
+        accountActivationTitle: "Aktywowanie konta...",
+        accountActivatedTitle: "Twoje konto zostało aktywowane!",
+        accountActivatedMessage: "Możesz się teraz zalogować",
+        //TODO create apiErrors dictionary
+        apiErrors: {
+            INVALID_EMAIL: "Podany email jest nieprawidłowy",
+            UNAUTHENTICATED: "Brak dostępu",
+            INVALID_ACTIVATION_TOKEN: "Nieprawidłowy link aktywacyjny. Wygeneruj go ponownie."
+        }
     }
 };

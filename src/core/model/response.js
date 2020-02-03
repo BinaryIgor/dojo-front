@@ -5,8 +5,12 @@ export class Response {
         this._exceptions = exceptions;
     }
 
-    static success(value) {
+    static successOf(value) {
         return new Response(value, null);
+    }
+
+    static success() {
+        return new Response({}, null);
     }
 
     static failure(exceptions) {

@@ -5,7 +5,7 @@ export class Requests {
         this._tokenStore = tokenStore;
     }
 
-    get(url, headers={}) {
+    get(url, headers = {}) {
         return this._execute(url, 'GET', headers, null);
     }
 
@@ -24,19 +24,19 @@ export class Requests {
         });
     }
 
-    _createUrl(url){
+    _createUrl(url) {
         return `${this._baseUrl}/${url}`;
     }
 
-    post(url, data, headers={}) {
-        return this._execute(url, 'POST', headers, data);  
+    post(url, data = null, headers = {}) {
+        return this._execute(url, 'POST', headers, data);
     }
 
-    put(url, data, headers={}) {
-        return this._execute(url, 'PUT', headers, data);  
+    put(url, data = null, headers = {}) {
+        return this._execute(url, 'PUT', headers, data);
     }
 
-    delete(url, headers={}) {
+    delete(url, headers = {}) {
         return this._execute(url, 'DELETE', headers, null);
     }
 }

@@ -4,8 +4,13 @@ import { UserRepository } from "../src/core/repository/user-repository.js";
 import {SmartRequestsFake} from "./fake/smart-requests-fake.js";
 import * as tools  from "./tools/test-tools.js";
 
+const endpoints = {
+    signIn: "sign-in",
+    signUp: "sign-up",
+    activateAccount: "account-activation"
+};
 const requestsFake = new SmartRequestsFake();
-const userRepository = new UserRepository(requestsFake);
+const userRepository = new UserRepository(requestsFake, endpoints);
 
 describe('UserRepository tests', () => {
     const validNewUsers = [
@@ -22,8 +27,8 @@ describe('UserRepository tests', () => {
     ];
     for (let newUser of validNewUsers) {
         it(`Creates new user ${tools.printObject(newUser)}`, () => {
-            let expectedResponse = Response.success(1);
-            requestsFake.expectedResponse = Response.success({id: 1});
+            let expectedResponse = Response.successOf(1);
+            requestsFake.expectedResponse = Response.successOf({id: expectedResponse.value});
             return userRepository.createNewUser(newUser).then(r => {
                 expect(requestsFake.capturedData).to.eql(newUser);
                 expect(r.success).to.eq(true)
@@ -45,7 +50,7 @@ describe('UserRepository tests', () => {
     for (let user of validUsers) {
         it(`Matches user ${tools.printObject(user)}`, () => {
             let tokenValue = user.nameOrEmail;
-            requestsFake.expectedResponse = Response.success({token: tokenValue});
+            requestsFake.expectedResponse = Response.successOf({token: tokenValue});
             return userRepository.matchUser(user.nameOrEmail, user.password).then(r => {
                 expect(requestsFake.capturedData).to.eql(user);
                 expect(r.success).to.eq(true)
@@ -53,6 +58,16 @@ describe('UserRepository tests', () => {
             });
         });
     }
+
+    it(`Activates user from token`, () => {
+        let token = "ABc35DDf_f34";
+        requestsFake.expectedResponse = Response.success();
+        return userRepository.activateUser(token).then(r => {
+            expect(requestsFake.capturedUrl).to.equal(endpoints.activateAccount + "/" + token);
+            expect(r.success).to.eq(true);
+            expect(r.value).to.include({});
+        });
+    });
 });
 
 

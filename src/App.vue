@@ -10,6 +10,7 @@ import Start from "./components/Start.vue";
 import SignIn from "./components/SignIn.vue";
 import SignUp from "./components/SignUp.vue";
 import Home from "./components/Home.vue";
+import AccountActivation from "./components/AccountActivation.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
@@ -21,6 +22,7 @@ import { messages } from "./messages.js";
 import { StartService } from "./core/service/start-service.js";
 import { SignUpService } from "./core/service/sign-up-service.js";
 import { SignInService } from "./core/service/sign-in-service.js";
+import {AccountActivationService } from "./core/service/account-activation-service.js";
 import { tokenStore } from "./core/storage/token-store.js";
 
 Vue.use(VueRouter);
@@ -30,7 +32,8 @@ const routes = [
   { path: "*", component: Start },
   { path: routesNames.signUp, component: SignUp },
   { path: routesNames.signIn, component: SignIn },
-  { path: routesNames.home, component: Home }
+  { path: routesNames.home, component: Home },
+  { path: routesNames.accountActivation, component: AccountActivation}
 ];
 const router = new VueRouter({ routes });
 
@@ -49,7 +52,8 @@ export default {
 
 const endpoints = {
   signUp: 'auth/sign-up',
-  signIn: 'auth/sign-in'
+  signIn: 'auth/sign-in',
+  activateAccount: 'auth/activate'
 };
 
 //TODO remove, tmp develop purposes only
@@ -63,6 +67,7 @@ const userRepository = new UserRepository(smartRequests, endpoints);
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
 export const signInService = new SignInService(userRepository, tokenStore);
+export const accountActivationService = new AccountActivationService(userRepository);
 </script>
 
 

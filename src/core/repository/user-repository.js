@@ -4,8 +4,9 @@ export class UserRepository {
 
     constructor(smartRequests, endpoints) {
         this._requests = smartRequests;
-        this._signUpEndpoint = endpoints.signUpEndpoint;
-        this._signInEndpoint = endpoints.signInEndpoint;
+        this._signUpEndpoint = endpoints.signUp;
+        this._signInEndpoint = endpoints.signIn;
+        this._activateAccountEndpoint = endpoints.activateAccount;
     }
 
     //TODO externalize urls
@@ -14,13 +15,18 @@ export class UserRepository {
             name: newUser.name,
             email: newUser.email,
             password: newUser.password
-        }, r => r.success ? Response.success(r.value.id) : r);
+        }).then(r => r.success ? Response.successOf(r.value.id) : r);
     }
 
     matchUser(nameOrEmail, password) {
         return this._requests.postJson(this._signInEndpoint, {
             nameOrEmail: nameOrEmail,
             password: password
-        }, r => r.success ? Response.success(r.value.token) : r);
+        }).then(r => r.success ? Response.successOf(r.value.token) : r);
+    }
+
+    activateUser(token) {
+        return this._requests.post(`${this._activateAccountEndpoint}/${token}`)
+            .then(r => r.success ? Response.success() : r);
     }
 }

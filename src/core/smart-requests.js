@@ -20,7 +20,7 @@ export class SmartRequests {
                 if (parsed.errors) {
                     response = Response.failure(parsed.errors);
                 } else {
-                    response = Response.success(parsed);
+                    response = Response.successOf(parsed);
                 }
             } catch (e) {
                 response = Response.failure([r]);
@@ -35,6 +35,10 @@ export class SmartRequests {
     //TODO json content type?
     postJson(url, data, headers = {}) {
         return this._wrapRequestPromise(this._requests.post(url, JSON.stringify(data), headers));
+    }
+
+    post(url, headers={}) {
+        return this._wrapRequestPromise(this._requests.post(url, null, headers));
     }
 
     putJson(url, data, headers = {}) {

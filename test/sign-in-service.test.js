@@ -27,7 +27,7 @@ describe('SignInService tests', () => {
         it(`Returns success with ${tools.printObject(modelExpectation.model)} input`,
          () => {
             let tokenValue = modelExpectation.expectation;
-            userRepositoryFake.expectedResponse = Response.success(tokenValue);
+            userRepositoryFake.expectedResponse = Response.successOf(tokenValue);
             return service.signIn(modelExpectation.model)
                 .then(r => {
                     expect(r.success).to.equal(true);
