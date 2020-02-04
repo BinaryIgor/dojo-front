@@ -29,6 +29,7 @@ import { StartService } from "./core/service/start-service.js";
 import { SignUpService } from "./core/service/sign-up-service.js";
 import { SignInService } from "./core/service/sign-in-service.js";
 import { AccountActivationService } from "./core/service/account-activation-service.js";
+import { ProfileService } from "./core/service/profile-service.js";
 import { NavigationService } from "./core/service/navigation-service.js";
 import { tokenStore } from "./core/storage/token-store.js";
 import { RouteGuard } from "./core/route-guard.js";
@@ -59,15 +60,17 @@ const routeGuard = new RouteGuard(
   ],
   defaultRouteName
 );
+//TODO fix guard
 const router = new VueRouter({ routes });
 router.beforeEach((from, to, next) => {
   let route = to.path;
+  console.log('Route:', route);
   if (routeGuard.allowsEntry(route, getMatchedRouteName(router, route))) {
     console.log("Allows!");
     next();
   } else {
     //TODO go back
-    console.log('Does not allow!');
+    console.log("Does not allow!");
     next();
   }
 });
@@ -102,6 +105,8 @@ export const signInService = new SignInService(userRepository, tokenStore);
 export const accountActivationService = new AccountActivationService(
   userRepository
 );
+export const profileService = new ProfileService(tokenStore);
+
 export const navigationService = new NavigationService(
   [
     routesNames.home,

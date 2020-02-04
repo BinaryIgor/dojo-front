@@ -8,6 +8,7 @@ export class RouteGuard {
 
     allowsEntry(route, matchedRouteName) {
         let allows;
+        console.log("Matched:", matchedRouteName);
         if (!this._tokenStore.empty || this._defaultRouteName == matchedRouteName) {
             allows = true;
         } else {
