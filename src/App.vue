@@ -20,6 +20,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
 import { routes as routesNames } from "./routes.js";
+import { getMatchedRouteName } from "./components/common/router.js";
 import { Requests } from "./core/requests.js";
 import { SmartRequests } from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
@@ -30,6 +31,7 @@ import { SignInService } from "./core/service/sign-in-service.js";
 import { AccountActivationService } from "./core/service/account-activation-service.js";
 import { NavigationService } from "./core/service/navigation-service.js";
 import { tokenStore } from "./core/storage/token-store.js";
+import { RouteGuard } from "./core/route-guard.js";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
@@ -39,13 +41,36 @@ const routes = [
   { path: routesNames.signUp, component: SignUp },
   { path: routesNames.signIn, component: SignIn },
   { path: routesNames.home, component: Home },
-  { path: routesNames.events, component: Events},
-  { path: routesNames.tasks, component: Tasks},
+  { path: routesNames.events, component: Events },
+  { path: routesNames.tasks, component: Tasks },
   { path: routesNames.doers, component: Doers },
-  { path: routesNames.profile, component: Profile},
+  { path: routesNames.profile, component: Profile },
   { path: routesNames.accountActivation, component: AccountActivation }
 ];
+
+const defaultRouteName = "Start";
+const routeGuard = new RouteGuard(
+  tokenStore,
+  [
+    routesNames.start,
+    routesNames.signUp,
+    routesNames.signIn,
+    routesNames.accountActivation
+  ],
+  defaultRouteName
+);
 const router = new VueRouter({ routes });
+router.beforeEach((from, to, next) => {
+  let route = to.path;
+  if (routeGuard.allowsEntry(route, getMatchedRouteName(router, route))) {
+    console.log("Allows!");
+    next();
+  } else {
+    //TODO go back
+    console.log('Does not allow!');
+    next();
+  }
+});
 
 //get it dynamically
 const i18n = new VueI18n({
@@ -66,9 +91,6 @@ const endpoints = {
   activateAccount: "auth/activate"
 };
 
-//TODO remove, tmp develop purposes only
-tokenStore.clear();
-
 const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
@@ -80,13 +102,16 @@ export const signInService = new SignInService(userRepository, tokenStore);
 export const accountActivationService = new AccountActivationService(
   userRepository
 );
-export const navigationService = new NavigationService([
-  routesNames.home,
-  routesNames.events,
-  routesNames.tasks,
-  routesNames.doers,
-  routesNames.profile
-]);
+export const navigationService = new NavigationService(
+  [
+    routesNames.home,
+    routesNames.events,
+    routesNames.tasks,
+    routesNames.doers,
+    routesNames.profile
+  ],
+  defaultRouteName
+);
 </script>
 
 

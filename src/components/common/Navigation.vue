@@ -11,16 +11,18 @@
 <script>
 import { navigationService as service } from "../../App.vue";
 import { routes } from "../../routes.js";
+import {getMatchedRouteName} from "./router.js";
 
 export default {
   //TODO guard against unauthenticated access, duplicated routes
   created() {
+    console.log('Created...');
     this._resolveState(this.$router.currentRoute.path);
   },
   watch: {
     $route(to) {
       console.log("To route", to.path);
-      console.log(`Current route:`, this.$router.currentRoute.path);
+      console.log(`Current route:`, this.$router.currentRoute);
       this._resolveState(to.path);
     }
   },
@@ -37,14 +39,14 @@ export default {
   },
   methods: {
     _resolveState(route) {
-      let response = service.resolveState(route);
+      let matched = getMatchedRouteName(this.$router, route);
+      let response = service.resolveState(route, matched);
       this.visible = response.visible;
       this.homeActive = response.navigationState.homeActive;
       this.eventsActive = response.navigationState.eventsActive;
       this.tasksActive = response.navigationState.tasksActive;
       this.doersActive = response.navigationState.doersActive;
       this.profileActive = response.navigationState.profileActive;
-      console.log("Resolved state", response);
     },
     goToHome() {
       this.$router.replace(routes.home);

@@ -49,12 +49,12 @@ describe('UserRepository tests', () => {
     ];
     for (let user of validUsers) {
         it(`Matches user ${tools.printObject(user)}`, () => {
-            let tokenValue = user.nameOrEmail;
-            requestsFake.expectedResponse = Response.successOf({token: tokenValue});
+            let token = {token: user.nameOrEmail};
+            requestsFake.expectedResponse = Response.successOf(token);
             return userRepository.matchUser(user.nameOrEmail, user.password).then(r => {
                 expect(requestsFake.capturedData).to.eql(user);
                 expect(r.success).to.eq(true)
-                expect(r.value).to.eq(tokenValue);
+                expect(r.value).to.eq(token);
             });
         });
     }

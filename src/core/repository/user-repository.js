@@ -22,7 +22,7 @@ export class UserRepository {
         return this._requests.postJson(this._signInEndpoint, {
             nameOrEmail: nameOrEmail,
             password: password
-        }).then(r => r.success ? Response.successOf(r.value.token) : r);
+        }).then(r => r.success ? Response.successOf(r.value) : r);
     }
 
     activateUser(token) {
