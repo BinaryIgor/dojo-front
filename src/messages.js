@@ -31,6 +31,13 @@ export const messages = {
         accountActivationTitle: "Aktywowanie konta...",
         accountActivatedTitle: "Twoje konto zostało aktywowane!",
         accountActivatedMessage: "Możesz się teraz zalogować",
+        navigation: {
+            home: 'Home',
+            events: 'Wydarzenia',
+            tasks: 'Zadania',
+            doers: 'Sprawcy',
+            profile: 'Profil'
+        },
         //TODO create apiErrors dictionary
         apiErrors: {
             INVALID_EMAIL: "Podany email jest nieprawidłowy",
