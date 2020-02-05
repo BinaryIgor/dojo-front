@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { NavigationService } from "../src/core/service/navigation-service.js";
+import { NavigationService } from "../../src/core/service/navigation-service.js";
 
 const navigationRoutes = [
     "/home", "/events", "/tasks", "/doers", "/profile"

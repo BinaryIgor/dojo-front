@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { Response } from "../src/core/model/response.js";
-import { UserRepository } from "../src/core/repository/user-repository.js";
-import {SmartRequestsFake} from "./fake/smart-requests-fake.js";
-import * as tools  from "./tools/test-tools.js";
+import { Response } from "../../src/core/model/response.js";
+import { UserRepository } from "../../src/core/repository/user-repository.js";
+import {SmartRequestsFake} from "../fake/smart-requests-fake.js";
+import * as tools  from "../tools/test-tools.js";
 
 const endpoints = {
     signIn: "sign-in",

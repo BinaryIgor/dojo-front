@@ -7,13 +7,8 @@ export class RouteGuard {
     }
 
     allowsEntry(route, matchedRouteName) {
-        let allows;
-        console.log("Matched:", matchedRouteName);
-        if (!this._tokenStore.empty || this._defaultRouteName == matchedRouteName) {
-            allows = true;
-        } else {
-            allows = this._publicRoutes.filter(e => route.indexOf(e) == 0).length > 0;
-        }
-        return allows;
+        return !this._tokenStore.empty ||
+            this._defaultRouteName == matchedRouteName ||
+            this._publicRoutes.filter(e => route.indexOf(e) == 0).length > 0
     }
 }

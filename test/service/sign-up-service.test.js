@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import chai from 'chai';
-import { Response } from "../src/core/model/response.js";
-import { UserRepositoryFake } from "./fake/user-repository-fake.js";
-import { SignUpService } from "../src/core/service/sign-up-service.js";
-import * as tools from "./tools/test-tools.js";
+import { Response } from "../../src/core/model/response.js";
+import { UserRepositoryFake } from "../fake/user-repository-fake.js";
+import { SignUpService } from "../../src/core/service/sign-up-service.js";
+import * as tools from "../tools/test-tools.js";
 
 chai.config.truncateThreshold = 0;
 

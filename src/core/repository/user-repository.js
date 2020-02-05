@@ -9,7 +9,6 @@ export class UserRepository {
         this._activateAccountEndpoint = endpoints.activateAccount;
     }
 
-    //TODO externalize urls
     createNewUser(newUser) {
         return this._requests.postJson(this._signUpEndpoint, {
             name: newUser.name,

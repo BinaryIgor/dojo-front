@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { Response } from "../src/core/model/response.js";
-import { UserRepositoryFake } from "./fake/user-repository-fake.js";
-import { SignInService } from "../src/core/service/sign-in-service.js";
-import * as tools from "./tools/test-tools.js";
+import { Response } from "../../src/core/model/response.js";
+import { UserRepositoryFake } from "../fake/user-repository-fake.js";
+import { SignInService } from "../../src/core/service/sign-in-service.js";
+import * as tools from "../tools/test-tools.js";
 
 const userRepositoryFake = new UserRepositoryFake();
 const tokenStorageFake = {

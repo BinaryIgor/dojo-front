@@ -6,7 +6,6 @@
 
 <script>
 import {profileService as service} from  "../App.vue";
-import {routes} from "../routes.js";
 
 export default {
   name: "Profile",
@@ -16,7 +15,7 @@ export default {
   methods: {
       signOut() {
           service.signOut();
-          this.$router.replace(routes.start);
+          this.$router.replace('/');
       }
   }
 

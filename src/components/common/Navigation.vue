@@ -14,15 +14,11 @@ import { routes } from "../../routes.js";
 import {getMatchedRouteName} from "./router.js";
 
 export default {
-  //TODO guard against unauthenticated access, duplicated routes
   created() {
-    console.log('Created...');
     this._resolveState(this.$router.currentRoute.path);
   },
   watch: {
     $route(to) {
-      console.log("To route", to.path);
-      console.log(`Current route:`, this.$router.currentRoute);
       this._resolveState(to.path);
     }
   },

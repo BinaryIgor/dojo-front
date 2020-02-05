@@ -60,18 +60,14 @@ const routeGuard = new RouteGuard(
   ],
   defaultRouteName
 );
-//TODO fix guard
+
 const router = new VueRouter({ routes });
-router.beforeEach((from, to, next) => {
+router.beforeEach((to, from, next) => {
   let route = to.path;
-  console.log('Route:', route);
   if (routeGuard.allowsEntry(route, getMatchedRouteName(router, route))) {
-    console.log("Allows!");
     next();
   } else {
-    //TODO go back
-    console.log("Does not allow!");
-    next();
+    next({ path: "/" });
   }
 });
 
