@@ -8,12 +8,18 @@ export class SmartRequestsFake {
         this.rejectPromise = false;
     }
 
+    getJson(url) {
+        this.capturedUrl = url;
+        return this._createPromise();
+    }
+
     postJson(url, data) {
         this.capturedUrl = url;
         this.capturedData = data;
         return this._createPromise();
     }
 
+    //TODO reject not neccessary
     _createPromise() {
         return new Promise((resolve, reject) => {
             if (this.rejectPromise) {

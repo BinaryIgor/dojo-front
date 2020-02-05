@@ -18,7 +18,7 @@ html, body {
     --light-gray: #eee;
     --accent-light: #77dae5;
     --accent-dark: #00e5ff;
-    --error: red;
+    --error-color: red;
     --font-dark: black;
     --font-light: white;
     --padding-large: 24px;
@@ -34,12 +34,18 @@ html, body {
 
 button {
     font-size: var(--font-medium);
-    color: white;
+    color: var(--font-light);
     background-color: var(--primary-dark);
     padding: var(--padding-medium);
+    margin-top: var(--padding-small);
     outline: none;
 }
 
+button:hover {
+    color: var(--font-dark);
+    background-color: var(--primary-light);
+  }
+
 .error {
-    color: red;
+    color: var(--error-color);
 }

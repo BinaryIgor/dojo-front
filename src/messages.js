@@ -32,6 +32,9 @@ export const messages = {
         accountActivatedTitle: "Twoje konto zostało aktywowane!",
         accountActivatedMessage: "Możesz się teraz zalogować",
         signOut: "Wyloguj się",
+        edit: "Edytuj",
+        details: "Szczegóły",
+        messages: "Wiadomości",
         navigation: {
             home: 'Home',
             events: 'Wydarzenia',
