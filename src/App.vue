@@ -16,6 +16,9 @@ import Events from "./components/Events.vue";
 import Tasks from "./components/Tasks.vue";
 import Doers from "./components/Doers.vue";
 import Profile from "./components/Profile.vue";
+import EditProfile from "./components/EditProfile.vue";
+import ProfileDetails from "./components/ProfileDetails.vue";
+import Messages from "./components/Messages.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
@@ -24,6 +27,7 @@ import { getMatchedRouteName } from "./components/common/router.js";
 import { Requests } from "./core/requests.js";
 import { SmartRequests } from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
+import { UserProfileRepository } from "./core/repository/user-profile-repository.js";
 import { messages } from "./messages.js";
 import { StartService } from "./core/service/start-service.js";
 import { SignUpService } from "./core/service/sign-up-service.js";
@@ -45,7 +49,10 @@ const routes = [
   { path: routesNames.events, component: Events },
   { path: routesNames.tasks, component: Tasks },
   { path: routesNames.doers, component: Doers },
-  { path: routesNames.profile, component: Profile },
+  { path: routesNames.profile, component: Profile},
+  { path: routesNames.editProfile, component: EditProfile},
+  { path: routesNames.profileDetails, component: ProfileDetails},
+  { path: routesNames.messages, component: Messages},
   { path: routesNames.accountActivation, component: AccountActivation }
 ];
 
@@ -87,13 +94,15 @@ export default {
 const endpoints = {
   signUp: "auth/sign-up",
   signIn: "auth/sign-in",
-  activateAccount: "auth/activate"
+  activateAccount: "auth/activate",
+  currentUserProfile: "user/profile"
 };
 
 const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
 const userRepository = new UserRepository(smartRequests, endpoints);
+const userProfileRepository = new UserProfileRepository(smartRequests, endpoints);
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
@@ -101,7 +110,7 @@ export const signInService = new SignInService(userRepository, tokenStore);
 export const accountActivationService = new AccountActivationService(
   userRepository
 );
-export const profileService = new ProfileService(tokenStore);
+export const profileService = new ProfileService(tokenStore, userProfileRepository);
 
 export const navigationService = new NavigationService(
   [

@@ -1,11 +1,24 @@
+const home = '/home';
+const events = '/events';
+const tasks = '/tasks';
+const doers = '/doers';
+const profile = '/profile';
+
 export const routes = {
     start: '*',
     signUp: '/sign-up',
     signIn: '/sign-in',
-    home: '/home',
+    home: home,
     accountActivation: '/account-activation/:token',
-    events: '/events',
-    tasks: '/tasks',
-    doers: '/doers',
-    profile: '/profile'
+    events: events,
+    tasks: tasks,
+    doers: doers,
+    profile: profile,
+    editProfile: createSubpath(profile, 'edit'),
+    profileDetails: createSubpath(profile, 'details'),
+    messages: createSubpath(profile, 'messages')
 };
+
+function createSubpath(main, path) {
+    return `${main}/${path}`;
+}
