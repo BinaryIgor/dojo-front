@@ -26,7 +26,9 @@ npm run test
 ```
 
 ### Run test
+```
 npm run test:only {test-prefix(under test folder)}
+```
 
 
 ### Customize configuration
