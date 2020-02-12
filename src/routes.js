@@ -1,5 +1,4 @@
 const home = '/home';
-const events = '/events';
 const tasks = '/tasks';
 const doers = '/doers';
 const profile = '/profile';
@@ -10,7 +9,6 @@ export const routes = {
     signIn: '/sign-in',
     home: home,
     accountActivation: '/account-activation/:token',
-    events: events,
     tasks: tasks,
     doers: doers,
     profile: profile,

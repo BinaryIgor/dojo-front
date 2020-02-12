@@ -1,7 +1,6 @@
 <template>
   <div v-if="visible">
     <button v-on:click="goToHome" :class="{'active': homeActive}">{{$t('navigation.home')}}</button>
-    <button v-on:click="goToEvents" :class="{'active': eventsActive}">{{$t('navigation.events')}}</button>
     <button v-on:click="goToTasks" :class="{'active': tasksActive}">{{$t('navigation.tasks')}}</button>
     <button v-on:click="goToDoers" :class="{'active': doersActive}">{{$t('navigation.doers')}}</button>
     <button v-on:click="goToProfile" :class="{'active': profileActive}">{{$t('navigation.profile')}}</button>
@@ -27,7 +26,6 @@ export default {
       active: "active",
       visible: false,
       homeActive: false,
-      eventsActive: false,
       tasksActive: false,
       doersActive: false,
       profileActive: false
@@ -39,7 +37,6 @@ export default {
       let response = service.resolveState(route, matched);
       this.visible = response.visible;
       this.homeActive = response.navigationState.homeActive;
-      this.eventsActive = response.navigationState.eventsActive;
       this.tasksActive = response.navigationState.tasksActive;
       this.doersActive = response.navigationState.doersActive;
       this.profileActive = response.navigationState.profileActive;
@@ -81,7 +78,7 @@ div button {
   margin: 0;
   transition: 0.5s;
   font-size: var(--font-medium-large);
-  width: 20%;
+  width: 25%;
   outline: none;
   border: none;
   border-radius: 0;

@@ -12,7 +12,6 @@ import SignIn from "./components/SignIn.vue";
 import SignUp from "./components/SignUp.vue";
 import AccountActivation from "./components/AccountActivation.vue";
 import Home from "./components/Home.vue";
-import Events from "./components/Events.vue";
 import Tasks from "./components/Tasks.vue";
 import Doers from "./components/Doers.vue";
 import Profile from "./components/Profile.vue";
@@ -46,7 +45,6 @@ const routes = [
   { path: routesNames.signUp, component: SignUp },
   { path: routesNames.signIn, component: SignIn },
   { path: routesNames.home, component: Home },
-  { path: routesNames.events, component: Events },
   { path: routesNames.tasks, component: Tasks },
   { path: routesNames.doers, component: Doers },
   { path: routesNames.profile, component: Profile},
@@ -115,7 +113,6 @@ export const profileService = new ProfileService(tokenStore, userProfileReposito
 export const navigationService = new NavigationService(
   [
     routesNames.home,
-    routesNames.events,
     routesNames.tasks,
     routesNames.doers,
     routesNames.profile
