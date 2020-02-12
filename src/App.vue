@@ -35,7 +35,7 @@ import { SignInService } from "./core/service/sign-in-service.js";
 import { AccountActivationService } from "./core/service/account-activation-service.js";
 import { ProfileService } from "./core/service/profile-service.js";
 import { NavigationService } from "./core/service/navigation-service.js";
-import { tokenStore } from "./core/storage/token-store.js";
+import { tokenStore } from "./core/store/token-store.js";
 import { RouteGuard } from "./core/route-guard.js";
 
 Vue.use(VueRouter);
