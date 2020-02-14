@@ -1,8 +1,8 @@
 <template>
   <div class="centered-container">
     <img v-bind:src="imagePath" class="profile"/>
-    <p>{{name}}</p>
-    <p>{{email}}</p>
+    <h2>{{name}}</h2>
+    <h2>{{email}}</h2>
     <button v-on:click="goToEditProfile">{{$t('edit')}}</button>
     <button v-on:click="goToDetails">{{$t('details')}}</button>
     <button v-on:click="goToMessages">{{$t('messages')}}</button>
