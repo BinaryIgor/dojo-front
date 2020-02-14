@@ -5,7 +5,6 @@ export class ProfileService {
         this._userProfileRepository = userProfileRepository;
     }
 
-    //TODO load image!
     getProfile() {
         return this._userProfileRepository.findCurrentUserProfile();
     }

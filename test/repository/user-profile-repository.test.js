@@ -6,8 +6,10 @@ import {SmartRequestsFake} from "../fake/smart-requests-fake.js";
 const endpoints = {
     currentUserProfile: 'user/profile'
 };
+const imagesEndpointPrefix = 'image';
+
 const requestsFake = new SmartRequestsFake();
-const repository = new UserProfileRepository(requestsFake, endpoints);
+const repository = new UserProfileRepository(requestsFake, endpoints, imagesEndpointPrefix);
 
 describe('UserProfileRepository tests', () => {
     it('Returns current user', () => {
@@ -15,12 +17,16 @@ describe('UserProfileRepository tests', () => {
             id: 1,
             name: "name",
             email: "name@email.com",
-            imagePath: "https://secret-images.com/1"
+            imagePath: "1/profile.jpg"
         };
+        let expectedCapturedImagePath = `${imagesEndpointPrefix}/${expectedUser.imagePath}`;
+        let expectedBlobUrl = "blob:http://localhost:8081/1a075489-d34f-4293-9bba-0aa3f478c11d";    
         requestsFake.expectedResponse = Response.successOf(expectedUser);
+        requestsFake.expectedBlobResponse = Response.successOf(expectedBlobUrl);
 
-        return repository.findCurrentUserProfile().then(r => {
+        return repository.findCurrentUserProfile().then(r => {            
             expect(requestsFake.capturedUrl).to.equal(endpoints.currentUserProfile);
+            expect(requestsFake.capturedBlobUrl).to.equal(expectedCapturedImagePath);
             expect(r.success).to.equal(true);
             expect(r.value).to.eq(expectedUser);
         });

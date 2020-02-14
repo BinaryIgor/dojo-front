@@ -13,6 +13,7 @@ export class Response {
         return new Response({}, null);
     }
 
+    //TODO support single arg
     static failure(exceptions) {
         return new Response(null, exceptions);
     }

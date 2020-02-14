@@ -1,17 +1,13 @@
 import { expect } from 'chai';
 import { Response } from "../../src/core/model/response.js";
 import { UserRepositoryFake } from "../fake/user-repository-fake.js";
+import { TokenStoreFake} from "../fake/token-store-fake.js";
 import { SignInService } from "../../src/core/service/sign-in-service.js";
 import * as tools from "../tools/test-tools.js";
 
 const userRepositoryFake = new UserRepositoryFake();
-const tokenStorageFake = {
-    capturedToken: null,
-    save(token) {
-        this.capturedToken = token;
-    }
-};
-const service = new SignInService(userRepositoryFake, tokenStorageFake);
+const tokenStoreFake = new TokenStoreFake();
+const service = new SignInService(userRepositoryFake, tokenStoreFake);
 
 describe('SignInService tests', () => {
     for (let modelExpectation of provideModelsWithExpectedErrors()) {
@@ -32,7 +28,7 @@ describe('SignInService tests', () => {
                 .then(r => {
                     expect(r.success).to.equal(true);
                     expect(modelExpectation.model).to.include(userRepositoryFake.capturedUser);
-                    expect(tokenStorageFake.capturedToken).to.eq(tokenValue);
+                    expect(tokenStoreFake.token).to.eq(tokenValue);
                 });  
         });
     }

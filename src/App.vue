@@ -100,7 +100,7 @@ const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
 const userRepository = new UserRepository(smartRequests, endpoints);
-const userProfileRepository = new UserProfileRepository(smartRequests, endpoints);
+const userProfileRepository = new UserProfileRepository(smartRequests, endpoints, 'image');
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);

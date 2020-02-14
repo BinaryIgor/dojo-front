@@ -1,6 +1,5 @@
 export function showErrorModal(vue, exceptions) {
     if (exceptions.length > 0) {
-        //TODO translate exceptions
         showModal(vue, vue.$t('errorTitle'), translateExceptions(vue, exceptions));
     }
 }

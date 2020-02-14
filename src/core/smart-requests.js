@@ -6,8 +6,15 @@ export class SmartRequests {
         this._requests = requests;
     }
 
+    //TODO are all of these headers needed?
     getJson(url, headers = {}) {
         return this._wrapRequestPromise(this._requests.get(url, headers));
+    }
+
+    getBlob(url, headers = {}) {
+        return this._requests.get(url, headers).then(r => r.blob())
+            .then(blob => Response.successOf(URL.createObjectURL(blob)))
+            .catch(e => Response.failure([e]));
     }
 
     //TODO show status?
@@ -37,7 +44,7 @@ export class SmartRequests {
         return this._wrapRequestPromise(this._requests.post(url, JSON.stringify(data), headers));
     }
 
-    post(url, headers={}) {
+    post(url, headers = {}) {
         return this._wrapRequestPromise(this._requests.post(url, null, headers));
     }
 

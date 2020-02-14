@@ -18,13 +18,11 @@ import { routes } from "../routes.js";
 export default {
   name: "Profile",
   created() {
-    console.log('Created!');
     this.getProfile();
   },
   data() {
     return {
-      //TODO unhardcode and load real image
-      imagePath: "placeholder.jpg",
+      imagePath: "",
       name: "",
       email: ""
     };
@@ -36,6 +34,7 @@ export default {
           let profile = r.value;
           this.name = profile.name;
           this.email = profile.email;
+          this.imagePath = profile.imagePath ? profile.imagePath : "placeholder.jpg";
         } else {
           showErrorModal(this, r.exceptions);
         }
