@@ -27,6 +27,7 @@ import { Requests } from "./core/requests.js";
 import { SmartRequests } from "./core/smart-requests.js";
 import { UserRepository } from "./core/repository/user-repository.js";
 import { UserProfileRepository } from "./core/repository/user-profile-repository.js";
+import { CacheableUserProfileRepository } from "./core/repository/cacheable-user-profile-repository.js";
 import { messages } from "./messages.js";
 import { StartService } from "./core/service/start-service.js";
 import { SignUpService } from "./core/service/sign-up-service.js";
@@ -100,7 +101,8 @@ const requests = new Requests("http://localhost:8080", tokenStore);
 const smartRequests = new SmartRequests(requests);
 
 const userRepository = new UserRepository(smartRequests, endpoints);
-const userProfileRepository = new UserProfileRepository(smartRequests, endpoints, 'image');
+const userProfileRepository = new CacheableUserProfileRepository(new UserProfileRepository(smartRequests,
+   endpoints, 'image'));
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
