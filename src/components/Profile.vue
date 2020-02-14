@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <img v-bind:src="imagePath" />
+  <div class="centered-container">
+    <img v-bind:src="imagePath" class="profile"/>
     <p>{{name}}</p>
     <p>{{email}}</p>
     <button v-on:click="goToEditProfile">{{$t('edit')}}</button>
@@ -58,21 +58,8 @@ export default {
 </script>
 
 <style scoped>
-img {
-  max-width: 20%;
-  max-height: 30%;
-}
 
 button {
   width: 40%;
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
 }
 </style>

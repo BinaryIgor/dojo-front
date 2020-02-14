@@ -35,6 +35,8 @@ export const messages = {
         edit: "Edytuj",
         details: "Szczegóły",
         messages: "Wiadomości",
+        change: "Zmień",
+        clickImageToChange: "Kliknij w obrazek aby potwierdzić zmianę",
         navigation: {
             home: 'Home',
             events: 'Wydarzenia',

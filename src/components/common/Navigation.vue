@@ -67,6 +67,7 @@ div {
   top: 0;
   position: sticky;
   z-index: 99;
+  margin-bottom: var(--padding-medium);
 }
 div button {
   background-color: inherit;
