@@ -17,6 +17,10 @@ export class SmartRequests {
             .catch(e => Response.failure([e]));
     }
 
+    postMultipart(url, formData) {
+        return this._wrapRequestPromise(this._requests.post(url, formData));
+    }
+
     //TODO show status?
     _wrapRequestPromise(request) {
         return request.then(r => r.text()).then(r => {

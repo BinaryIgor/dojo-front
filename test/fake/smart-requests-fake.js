@@ -7,6 +7,7 @@ export class SmartRequestsFake {
         this.capturedUrl = null;
         this.capturedBlobUrl = null;
         this.capturedData = null;
+        this.capturedFormData = null;
         this.rejectPromise = false;
     }
 
@@ -23,6 +24,12 @@ export class SmartRequestsFake {
     postJson(url, data) {
         this.capturedUrl = url;
         this.capturedData = data;
+        return this._createPromise();
+    }
+
+    postMultipart(url, formData) {
+        this.capturedUrl = url;
+        this.capturedFormData = formData;
         return this._createPromise();
     }
 

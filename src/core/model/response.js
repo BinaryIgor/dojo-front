@@ -18,6 +18,10 @@ export class Response {
         return new Response(null, exceptions);
     }
 
+    static isNullOrFailure(response) {
+        return response == null || !response.success; 
+    }
+
     get success() {
         return this._value != null;
     }

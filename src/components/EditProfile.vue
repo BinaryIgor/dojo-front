@@ -1,9 +1,9 @@
 <template>
   <div class="centered-container">
+    <img v-bind:src="imagePath" class="profile" v-on:click="uploadImage" />
+    <p v-if="newImagePath">{{$t("clickImageToChange")}}</p>
     <label for="file-upload" class="button-like">{{$t("change")}}</label>
     <input v-on:change="loadImage" id="file-upload" type="file" accept="image/*" />
-    <p v-if="newImagePath">{{$t("clickImageToChange")}}</p>
-    <img v-bind:src="imagePath" class="profile" v-on:click="uploadImage" />
     <h2>{{name}}</h2>
     <p class="error" v-if="nameError">{{$t('badName')}}</p>
     <input v-if="editName" v-bind:placeholder="$t('newName')" />
@@ -29,12 +29,19 @@
 </template>
 
 <script>
+import { editProfileService as service } from "../App.vue";
+import { showErrorModal } from "../components/common/modals.js";
+
 export default {
   name: "EditProfile",
+  created() {
+    this.getProfile();
+  },
   data() {
     return {
       imagePath: "",
       newImagePath: "",
+      uploadedImage: null,
       name: "",
       nameError: false,
       editName: false,
@@ -51,13 +58,34 @@ export default {
     };
   },
   methods: {
+    getProfile() {
+      service.getCurrentUserProfile().then(r => {
+        if (r.success) {
+          let profile = r.value;
+          this.name = profile.name;
+          this.email = profile.email;
+          this.imagePath = profile.imagePath
+            ? profile.imagePath
+            : "placeholder.jpg";
+        } else {
+          showErrorModal(this, r.exceptions);
+        }
+      });
+    },
     loadImage(e) {
-      let uploaded = e.target.files[0];
-      this.newImagePath = URL.createObjectURL(uploaded);
+      this.uploadedImage = e.target.files[0];
+      this.newImagePath = URL.createObjectURL(this.uploadedImage);
       this.imagePath = this.newImagePath;
     },
     uploadImage() {
-      console.log("Should upload image...", this.newImagePath);
+      service.uploadProfileImage(this.uploadedImage).then(r => {
+        if (r.success) {
+          this.newImagePath = "";
+          this.uploadedImage = null;
+        } else {
+          showErrorModal(this, r.exceptions);
+        }
+      })
     },
     changeName() {
       this.editName = !this.editName;

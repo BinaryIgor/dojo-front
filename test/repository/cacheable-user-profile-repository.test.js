@@ -3,17 +3,12 @@ import { Response } from "../../src/core/model/response.js";
 import { CacheableUserProfileRepository } from "../../src/core/repository/cacheable-user-profile-repository.js";
 import { UserProfileRepositoryFake } from '../fake/user-profile-repository-fake.js';
 
-
 const repositoryFake = new UserProfileRepositoryFake();
 const repository = new CacheableUserProfileRepository(repositoryFake);
 
 describe('CacheableUserRepository tests', () => {
     it('Caches repository response', () => {
-        let firstUser = {
-            name: 'first',
-            email: 'first@first.com',
-            imagePath: 'image.jpg'
-        };
+        let firstUser = provideUser();
         repositoryFake.expectedResponse = Response.successOf(firstUser);
 
         return repository.findCurrentUserProfile().then(r => {
@@ -27,6 +22,49 @@ describe('CacheableUserRepository tests', () => {
             expect(r.success).to.equal(true);
             expect(r.value).to.deep.equal(firstUser);
         });
+    });
 
+    it('Invalidates cache after image upload', () => {
+        let firstUser = provideUser();
+        repositoryFake.expectedResponse = Response.successOf(firstUser);
+        let newImagePath = '1/1/profile.jpg';
+        let secondUser = provideAnotherUser();
+
+        return repository.findCurrentUserProfile().then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.deep.equal(firstUser);
+
+            repositoryFake.expectedResponse = Response.successOf(newImagePath);
+            let image = new Blob(["Complex image"], { type: 'text/plain', name: 'image' });
+
+            return repository.uploadUserProfileImage(image);
+        }).then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.equal(newImagePath);
+
+            repositoryFake.expectedResponse = Response.successOf(secondUser);
+
+            return repository.findCurrentUserProfile();
+        }).then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.deep.equal(secondUser);
+        });
     });
 });
+
+
+function provideUser() {
+    return {
+        name: 'first',
+        email: 'first@first.com',
+        imagePath: 'image.jpg'
+    };
+}
+
+function provideAnotherUser() {
+    return {
+        name: 'another',
+        email: 'another@another.com',
+        imagePath: 'another_image.jpg'
+    };
+}

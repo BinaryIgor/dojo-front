@@ -1,20 +1,29 @@
-import {Response} from "../model/response.js";
+import { Response } from "../model/response.js";
 
 export class CacheableUserProfileRepository {
 
     constructor(userProfileRepository) {
         this._userProfileRepository = userProfileRepository;
-        this._cachedUserProfileResponse = Response.failure();
+        this._cachedUserProfileResponse = null;
     }
 
     findCurrentUserProfile() {
-        if (this._cachedUserProfileResponse.success) {
-            return Promise.resolve(this._cachedUserProfileResponse);
+        if (Response.isNullOrFailure(this._cachedUserProfileResponse)) {
+            return this._userProfileRepository.findCurrentUserProfile().then(r => {
+                if (r.success) {
+                    this._cachedUserProfileResponse = r;
+                }
+                return r;
+            });
         }
 
-        return this._userProfileRepository.findCurrentUserProfile().then(r => {
+        return Promise.resolve(this._cachedUserProfileResponse);
+    }
+
+    uploadUserProfileImage(image) {
+        return this._userProfileRepository.uploadUserProfileImage(image).then(r => {
             if (r.success) {
-                this._cachedUserProfileResponse = r;
+                this._cachedUserProfileResponse = null;
             }
             return r;
         });

@@ -34,6 +34,7 @@ import { SignUpService } from "./core/service/sign-up-service.js";
 import { SignInService } from "./core/service/sign-in-service.js";
 import { AccountActivationService } from "./core/service/account-activation-service.js";
 import { ProfileService } from "./core/service/profile-service.js";
+import { EditProfileService } from "./core/service/edit-profile-service.js";
 import { NavigationService } from "./core/service/navigation-service.js";
 import { tokenStore } from "./core/store/token-store.js";
 import { RouteGuard } from "./core/route-guard.js";
@@ -94,7 +95,8 @@ const endpoints = {
   signUp: "auth/sign-up",
   signIn: "auth/sign-in",
   activateAccount: "auth/activate",
-  currentUserProfile: "user/profile"
+  currentUserProfile: "user/profile",
+  currentUserProfileImageUpload: "user/profile/image"
 };
 
 const requests = new Requests("http://localhost:8080", tokenStore);
@@ -111,6 +113,7 @@ export const accountActivationService = new AccountActivationService(
   userRepository
 );
 export const profileService = new ProfileService(tokenStore, userProfileRepository);
+export const editProfileService = new EditProfileService(userProfileRepository);
 
 export const navigationService = new NavigationService(
   [

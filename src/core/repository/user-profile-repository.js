@@ -1,10 +1,11 @@
-import {Response} from "../model/response.js";
+import { Response } from "../model/response.js";
 
 export class UserProfileRepository {
 
     constructor(smartRequests, endpoints, imagesEndpointPrefix) {
         this._requests = smartRequests;
         this._currentUserProfileEndpoint = endpoints.currentUserProfile;
+        this._currentUserProfileImageUploadEndpoint = endpoints.currentUserProfileImageUpload;
         this._imagesEndpointPrefix = imagesEndpointPrefix;
     }
 
@@ -14,7 +15,7 @@ export class UserProfileRepository {
                 if (ur.success) {
                     let user = ur.value;
                     return this._requests.getBlob(`${this._imagesEndpointPrefix}/${user.imagePath}`)
-                        .then(ir =>  {
+                        .then(ir => {
                             let response;
                             if (ir.success) {
                                 user.imagePath = ir.value;
@@ -28,5 +29,11 @@ export class UserProfileRepository {
                     return ur;
                 }
             });
+    }
+
+    uploadUserProfileImage(image) {
+        let form = new FormData();
+        form.append('image', image, image.name);
+        return this._requests.postMultipart(this._currentUserProfileImageUploadEndpoint, form);
     }
 }

@@ -41,4 +41,20 @@ describe('UserProfileRepository tests', () => {
             expect(r.exceptions).to.include(expectedException);
         });
     });
+
+    it('Uploades image', () => {
+        let expectedImagePath = "1/1/profile.jpg";
+        requestsFake.expectedResponse = Response.successOf(expectedImagePath);
+        
+        let image = new Blob(["Complex image"], {type: 'text/plain', name:'image'});
+        let expectedForm = new FormData();
+        expectedForm.append('image', image, image.name);
+
+        return repository.uploadUserProfileImage(image).then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.equal(expectedImagePath);
+
+            expect(requestsFake.capturedFormData).to.deep.equal(expectedForm);
+        });
+    });
 });
