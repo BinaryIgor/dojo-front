@@ -1,3 +1,6 @@
+export const SHOW_CONFIRMATION_MODAL_EVENT = 'showConfirmationModal';
+export const HIDE_CONFIRMATION_MODAL_EVENT = 'hideConfirmationModal';
+
 export function showErrorModal(vue, exceptions) {
     if (exceptions.length > 0) {
         _showModal(vue, vue.$t('errorTitle'), translateExceptions(vue, exceptions));
@@ -14,7 +17,7 @@ function translateExceptions(vue, exceptions) {
 
 export function showModal(vue, titleKey, textKey="") {
     let title = vue.$t(titleKey);
-    let text = textKey == "" ? "" :vue.$(textKey); 
+    let text = textKey == "" ? "" : vue.$t(textKey); 
     _showModal(vue, title, [text]);
 }
 
@@ -23,4 +26,17 @@ function _showModal(vue, title, texts) {
         title: title,
         texts: texts
     });
+}
+
+export function showConfirmationModal(vue, titleKey, textKey="") {
+    let title = vue.$t(titleKey);
+    let text = textKey == "" ? "" : vue.$t(textKey);
+    vue.$emit(SHOW_CONFIRMATION_MODAL_EVENT, {
+        title: title,
+        text: text
+    });
+}
+
+export function registerConfirmationModalListener(vue, listener) {
+    vue.$on(HIDE_CONFIRMATION_MODAL_EVENT, listener);
 }

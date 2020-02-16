@@ -26,16 +26,23 @@
     </form>
     <button v-if="editPassword" v-on:click="updatePassword">{{$t('change')}}</button>
     <button v-on:click="toggleEditPassword">{{$t("password")}}</button>
+    <confirmation-modal></confirmation-modal>
   </div>
 </template>
 
 <script>
 import { editProfileService as service } from "../App.vue";
-import { showErrorModal, showModal } from "../components/common/modals.js";
+import {
+  showErrorModal,
+  showModal,
+  showConfirmationModal,
+  registerConfirmationModalListener
+} from "../components/common/modals.js";
 
 export default {
   name: "EditProfile",
   created() {
+    registerConfirmationModalListener(this, this.updateOnConfirmation);
     this.getProfile();
   },
   data() {
@@ -104,14 +111,26 @@ export default {
       this.editPassword = !this.editPassword;
     },
     updateProfile() {
-      if (!service.shouldUpdateProfile(this.name, this.newName, this.email, this.newEmail)) {
+      if (
+        !service.shouldUpdateProfile(
+          this.name,
+          this.newName,
+          this.email,
+          this.newEmail
+        )
+      ) {
         showModal(this, "noChangesToSave");
+      } else {
+        showConfirmationModal(this, "changesConfirmation");
+      }
+    },
+    updateOnConfirmation(confirmed) {
+      if (!confirmed) {
         return;
       }
-      //TODO confirmation!
       let profileUpdate = {
         newName: this.newName,
-        newEmail: this.newEmail,
+        newEmail: this.newEmail
       };
       let previousProfile = {
         name: this.name,
@@ -139,7 +158,6 @@ export default {
       this.email = updatedProfile.email;
       this.clearProfileInputs();
       this.editProfile = this.editPassword = false;
-      showModal(this, "changesSaved");
     },
     updatePassword() {
       console.log("Implement password update");

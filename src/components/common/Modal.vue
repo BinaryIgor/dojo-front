@@ -33,27 +33,6 @@ export default {
 </script>
 
 <style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease;
-}
-.hidden {
-  display: none;
-}
-.modal {
-  width: 50%;
-  background-color: white;
-  padding: var(--pading-large);
-}
 button {
   width: 90%;
   margin-bottom: var(--padding-small);
