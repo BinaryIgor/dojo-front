@@ -55,6 +55,7 @@ export default {
   padding: var(--pading-large);
 }
 button {
-  width: 80%;
+  width: 90%;
+  margin-bottom: var(--padding-small);
 }
 </style>

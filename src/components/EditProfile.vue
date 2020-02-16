@@ -1,18 +1,18 @@
 <template>
-  <div class="centered-container">
-    <img v-bind:src="imagePath" class="profile" v-on:click="uploadImage" />
-    <p v-if="newImagePath">{{$t("clickImageToChange")}}</p>
-    <label for="file-upload" class="button-like">{{$t("change")}}</label>
+  <div class="centered-container body">
+    <img v-bind:src="imagePath" class="profile" />
+    <button v-if="uploadedImage" v-on:click="cancelImageUpload">{{$t("cancel")}}</button>
+    <button v-if="uploadedImage" v-on:click="uploadImage">{{$t("change")}}</button>
+    <label for="file-upload" class="button-like">{{$t("icon")}}</label>
     <input v-on:change="loadImage" id="file-upload" type="file" accept="image/*" />
     <h2>{{name}}</h2>
-    <p class="error" v-if="nameError">{{$t('badName')}}</p>
-    <input v-if="editName" v-bind:placeholder="$t('newName')" />
-    <button v-on:click="changeName">{{$t("change")}}</button>
     <h2>{{email}}</h2>
-    <p class="error" v-if="emailError">{{$t('badEmail')}}</p>
-    <input type="email" v-if="editEmail" v-bind:placeholder="$t('newEmail')" />
-    <button v-on:click="changeEmail">{{$t("change")}}</button>
-    <button v-on:click="toggleEditPassword">{{$t("password")}}</button>
+    <p class="error" v-if="newNameError">{{$t('badName')}}</p>
+    <input v-if="editProfile" v-bind:placeholder="$t('newName')" v-model="newName" />
+    <p class="error" v-if="newEmailError">{{$t('badEmail')}}</p>
+    <input type="email" v-if="editProfile" v-bind:placeholder="$t('newEmail')" v-model="newEmail" />
+    <button v-if="editProfile" v-on:click="updateProfile">{{$t("change")}}</button>
+    <button v-on:click="toggleEditProfile">{{$t("profile")}}</button>
     <form v-if="editPassword">
       <p>{{$t('oldPassword')}}</p>
       <p class="error" v-if="oldPasswordError">{{$t('badPassword')}}</p>
@@ -24,13 +24,14 @@
       <p class="error" v-if="repeatedNewPasswordError">{{$t('badRepeatedPassword')}}</p>
       <input type="password" v-model="repeatedNewPassword" />
     </form>
-    <button v-if="editPassword" v-on:click="changePassword">{{$t('change')}}</button>
+    <button v-if="editPassword" v-on:click="updatePassword">{{$t('change')}}</button>
+    <button v-on:click="toggleEditPassword">{{$t("password")}}</button>
   </div>
 </template>
 
 <script>
 import { editProfileService as service } from "../App.vue";
-import { showErrorModal } from "../components/common/modals.js";
+import { showErrorModal, showModal } from "../components/common/modals.js";
 
 export default {
   name: "EditProfile",
@@ -39,15 +40,16 @@ export default {
   },
   data() {
     return {
+      previousImagePath: "",
       imagePath: "",
-      newImagePath: "",
       uploadedImage: null,
       name: "",
-      nameError: false,
-      editName: false,
+      newName: "",
+      newNameError: false,
       email: "",
-      emailError: false,
-      editEmail: false,
+      newEmail: "",
+      newEmailError: false,
+      editProfile: false,
       oldPassword: "",
       oldPasswordError: false,
       newPassword: "",
@@ -74,30 +76,74 @@ export default {
     },
     loadImage(e) {
       this.uploadedImage = e.target.files[0];
-      this.newImagePath = URL.createObjectURL(this.uploadedImage);
-      this.imagePath = this.newImagePath;
+      if (this.uploadedImage) {
+        this.previousImagePath = this.imagePath;
+        this.imagePath = URL.createObjectURL(this.uploadedImage);
+      }
+    },
+    cancelImageUpload() {
+      this.uploadedImage = null;
+      this.imagePath = this.previousImagePath;
     },
     uploadImage() {
       service.uploadProfileImage(this.uploadedImage).then(r => {
         if (r.success) {
-          this.newImagePath = "";
           this.uploadedImage = null;
         } else {
           showErrorModal(this, r.exceptions);
         }
-      })
+      });
     },
-    changeName() {
-      this.editName = !this.editName;
-    },
-    changeEmail() {
-      this.editEmail = !this.editEmail;
+    toggleEditProfile() {
+      if (this.editProfile) {
+        this.clearProfileInputs();
+      }
+      this.editProfile = !this.editProfile;
     },
     toggleEditPassword() {
       this.editPassword = !this.editPassword;
     },
-    changePassword() {},
-    loadProfile() {}
+    updateProfile() {
+      if (!service.shouldUpdateProfile(this.name, this.newName, this.email, this.newEmail)) {
+        showModal(this, "noChangesToSave");
+        return;
+      }
+      //TODO confirmation!
+      let profileUpdate = {
+        newName: this.newName,
+        newEmail: this.newEmail,
+      };
+      let previousProfile = {
+        name: this.name,
+        email: this.email
+      };
+      service.updateProfile(profileUpdate, previousProfile).then(r => {
+        if (r.success) {
+          this.profileUpdateSuccess(r.value);
+        } else {
+          this.setProfileErrors(r.inputErrors);
+          showErrorModal(this, r.requestErrors);
+        }
+      });
+    },
+    setProfileErrors(errors) {
+      this.newNameError = errors.newNameError;
+      this.newEmailError = errors.newEmailError;
+    },
+    clearProfileInputs() {
+      this.newName = this.newEmail = "";
+      this.newNameError = this.newEmailError = false;
+    },
+    profileUpdateSuccess(updatedProfile) {
+      this.name = updatedProfile.name;
+      this.email = updatedProfile.email;
+      this.clearProfileInputs();
+      this.editProfile = this.editPassword = false;
+      showModal(this, "changesSaved");
+    },
+    updatePassword() {
+      console.log("Implement password update");
+    }
   }
 };
 </script>

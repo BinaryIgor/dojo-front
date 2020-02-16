@@ -41,7 +41,13 @@ export const messages = {
         details: "Szczegóły",
         messages: "Wiadomości",
         change: "Zmień",
+        profile: "Profil",
+        icon: "Ikona",
+        cancel: "Anuluj",
         clickImageToChange: "Kliknij w obrazek aby potwierdzić zmianę",
+        changesConfirmation: "Czy jesteś pewny dokonanych zmian?",
+        changesSaved: "Zmiany zostały zapisane",
+        noChangesToSave: "Brak zmian do zapisania",
         navigation: {
             home: 'Home',
             events: 'Wydarzenia',
@@ -51,7 +57,10 @@ export const messages = {
         },
         //TODO create apiErrors dictionary
         apiErrors: {
+            INVALID_NAME: "Podana nazwa jest nieprawidłowa",
             INVALID_EMAIL: "Podany email jest nieprawidłowy",
+            INVALID_OLD_PASSWORD: "Stare hasło jest nieprawidłowe",
+            INVALID_NEW_PASSWORD: "Nowe hasło jest nieprawidłowe",
             UNAUTHENTICATED: "Brak dostępu",
             INVALID_ACTIVATION_TOKEN: "Nieprawidłowy link aktywacyjny. Wygeneruj go ponownie."
         }

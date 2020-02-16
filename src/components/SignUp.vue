@@ -68,11 +68,7 @@ export default {
         this.signingUp = false;
         this._setErrors(r.formErrors);
         if (r.success) {
-          showModal(
-            this,
-            this.$t("signUpSuccessTitle"),
-            this.$t("signUpSuccessMessage")
-          );
+          showModal(this, "signUpSuccessTitle", "signUpSuccessMessage");
           this.$router.replace(routes.signIn);
         } else {
           showErrorModal(this, r.requestErrors);

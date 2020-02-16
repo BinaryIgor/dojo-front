@@ -1,5 +1,5 @@
 <template>
-  <div class="centered-container">
+  <div class="centered-container body">
     <img v-bind:src="imagePath" class="profile"/>
     <h2>{{name}}</h2>
     <h2>{{email}}</h2>

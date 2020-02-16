@@ -12,11 +12,7 @@ export default {
   mounted() {
     service.activateAccount(this.$route.params.token).then(r => {
       if (r.success) {
-        showModal(
-          this,
-          this.$t("accountActivatedTitle"),
-          this.$t("accountActivatedMessage")
-        );
+        showModal(this, "accountActivatedTitle", "accountActivatedMessage");
       } else {
         showErrorModal(this, r.exceptions);
       }

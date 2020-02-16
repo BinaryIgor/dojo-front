@@ -29,10 +29,12 @@ export class Requests {
     }
 
     post(url, data = null, headers = {}) {
+        console.log("POST data", data);
         return this._execute(url, 'POST', headers, data);
     }
 
     put(url, data = null, headers = {}) {
+        console.log("PUT data", data);
         return this._execute(url, 'PUT', headers, data);
     }
 

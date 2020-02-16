@@ -9,7 +9,6 @@ export const tokenStore = {
     },
     get() {
         let token = JSON.parse(localStorage.getItem(KEY));
-        console.log("TokenStore, token:", token);
         return token == null ? null : token.token;
     },
     get empty() {

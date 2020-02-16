@@ -1,6 +1,6 @@
 export function showErrorModal(vue, exceptions) {
     if (exceptions.length > 0) {
-        showModal(vue, vue.$t('errorTitle'), translateExceptions(vue, exceptions));
+        _showModal(vue, vue.$t('errorTitle'), translateExceptions(vue, exceptions));
     }
 }
 
@@ -12,9 +12,15 @@ function translateExceptions(vue, exceptions) {
     });
 }
 
-export function showModal(vue, title, text) {
+export function showModal(vue, titleKey, textKey="") {
+    let title = vue.$t(titleKey);
+    let text = textKey == "" ? "" :vue.$(textKey); 
+    _showModal(vue, title, [text]);
+}
+
+function _showModal(vue, title, texts) {
     vue.$parent.$emit('show', {
         title: title,
-        texts: [text]
+        texts: texts
     });
 }

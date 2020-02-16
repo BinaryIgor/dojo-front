@@ -36,4 +36,8 @@ export class UserProfileRepository {
         form.append('image', image, image.name);
         return this._requests.postMultipart(this._currentUserProfileImageUploadEndpoint, form);
     }
+
+    updateUserProfile(userProfileUpdate) {
+        return this._requests.putJson(this._currentUserProfileEndpoint, userProfileUpdate);
+    }
 }

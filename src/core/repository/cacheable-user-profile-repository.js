@@ -16,7 +16,7 @@ export class CacheableUserProfileRepository {
                 return r;
             });
         }
-
+        
         return Promise.resolve(this._cachedUserProfileResponse);
     }
 
@@ -27,5 +27,14 @@ export class CacheableUserProfileRepository {
             }
             return r;
         });
+    }
+
+    updateUserProfile(userProfileUpdate) {
+        return this._userProfileRepository.updateUserProfile(userProfileUpdate).then(r => {
+            if (r.success) {
+                this._cachedUserProfileResponse = null;
+            }
+            return r;
+        })
     }
 }

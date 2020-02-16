@@ -65,9 +65,20 @@ button:hover, .button-like:hover {
   }
 
   /*Is this good place to handle scaling?*/
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
+    img.profile {
+      max-width: 45%;
+      max-height: 45%;
+    }
+}
+  
+  @media screen and (max-width: 600px) {
       img.profile {
         max-width: 60%;
         max-height: 60%;
       }
+  }
+
+  div.body {
+    margin: var(--padding-medium) 0;
   }
