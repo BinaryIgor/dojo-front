@@ -1,6 +1,7 @@
 import *  as validator from "../validator.js";
 import { InputResponse } from "./input-response.js";
 import { UserProfileUpdate } from "../model/user-profile-update.js";
+import { PasswordUpdate } from "../model/password-update.js";
 
 export class EditProfileService {
 
@@ -21,7 +22,7 @@ export class EditProfileService {
     }
 
     updateProfile(userProfileUpdate, previousUserProfile) {
-        let inputErrors = this._validate(userProfileUpdate, previousUserProfile);
+        let inputErrors = this._validateProfileUpdate(userProfileUpdate, previousUserProfile);
         let response;
         if (validator.hasErrors(inputErrors)) {
             response = InputResponse.inputFailure(inputErrors).asPromise();
@@ -44,7 +45,7 @@ export class EditProfileService {
         return response;
     }
 
-    _validate(userProfileUpdate, previousUserProfile) {
+    _validateProfileUpdate(userProfileUpdate, previousUserProfile) {
         let errors = {};
         if (userProfileUpdate.newName == '') {
             userProfileUpdate.newName = previousUserProfile.name;
@@ -54,6 +55,32 @@ export class EditProfileService {
         }
         errors.newNameError = !validator.isNameValid(userProfileUpdate.newName);
         errors.newEmailError = !validator.isEmailValid(userProfileUpdate.newEmail);
+        return errors;
+    }
+
+    updatePassword(passwordUpdateInput) {
+        let inputErrors = this._validatePasswordUpdate(passwordUpdateInput);
+        let response;
+        if (validator.hasErrors(inputErrors)) {
+            response = InputResponse.inputFailure(inputErrors).asPromise();
+        } else {
+            let passwordUpdate = new PasswordUpdate(passwordUpdateInput.oldPassword, passwordUpdateInput.newPassword);
+            response = this._userProfileRepository.updateUserPassword(passwordUpdate)
+                .then(r => InputResponse.fromResponse(r));
+        }
+        return response;
+    }
+
+    _validatePasswordUpdate(passwordUpdateInput) {
+        let errors = {};
+        errors.oldPasswordError = !validator.isPasswordValid(passwordUpdateInput.oldPassword);
+        errors.newPasswordError = !validator.isPasswordValid(passwordUpdateInput.newPassword);
+        if (errors.newPasswordError) {
+            errors.repeatedNewPasswordError = false;
+        } else {
+            errors.repeatedNewPasswordError = passwordUpdateInput.repeatedNewPassword !=
+                passwordUpdateInput.newPassword;
+        }
         return errors;
     }
 }

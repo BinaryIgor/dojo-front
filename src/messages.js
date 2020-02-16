@@ -62,7 +62,8 @@ export const messages = {
             INVALID_OLD_PASSWORD: "Stare hasło jest nieprawidłowe",
             INVALID_NEW_PASSWORD: "Nowe hasło jest nieprawidłowe",
             UNAUTHENTICATED: "Brak dostępu",
-            INVALID_ACTIVATION_TOKEN: "Nieprawidłowy link aktywacyjny. Wygeneruj go ponownie."
+            INVALID_ACTIVATION_TOKEN: "Nieprawidłowy link aktywacyjny. Wygeneruj go ponownie.",
+            USER_DOES_NOT_EXIST: "Podany użytkownik nie istnieje"
         }
     }
 };

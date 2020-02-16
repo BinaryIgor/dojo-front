@@ -42,7 +42,13 @@ import {
 export default {
   name: "EditProfile",
   created() {
-    registerConfirmationModalListener(this, this.updateOnConfirmation);
+    registerConfirmationModalListener(this, conf => {
+      if (this.passwordUpdate) {
+        this.updatePasswordOnConfirmation(conf);
+      } else {
+        this.updateProfileOnConfirmation(conf);
+      }
+    });
     this.getProfile();
   },
   data() {
@@ -63,7 +69,8 @@ export default {
       newPasswordError: false,
       repeatedNewPassword: "",
       repeatedNewPasswordError: false,
-      editPassword: false
+      editPassword: false,
+      passwordUpdate: false
     };
   },
   methods: {
@@ -121,10 +128,14 @@ export default {
       ) {
         showModal(this, "noChangesToSave");
       } else {
-        showConfirmationModal(this, "changesConfirmation");
+        this.updatePassword = false;
+        this.showConfirmationModal();
       }
     },
-    updateOnConfirmation(confirmed) {
+    showConfirmationModal() {
+      showConfirmationModal(this, "changesConfirmation");
+    },
+    updateProfileOnConfirmation(confirmed) {
       if (!confirmed) {
         return;
       }
@@ -157,10 +168,42 @@ export default {
       this.name = updatedProfile.name;
       this.email = updatedProfile.email;
       this.clearProfileInputs();
-      this.editProfile = this.editPassword = false;
+      this.editProfile = false;
     },
     updatePassword() {
-      console.log("Implement password update");
+      this.passwordUpdate = true;
+      this.showConfirmationModal();
+    },
+    updatePasswordOnConfirmation(confirmed) {
+      if (!confirmed) {
+        return;
+      }
+      let passwordUdateInput = {
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword,
+        repeatedNewPassword: this.repeatedNewPassword
+      };
+      service.updatePassword(passwordUdateInput).then(r => {
+        if (r.success) {
+          this.passwordUpdateSuccess();
+        } else {
+          this.setPasswordErrors(r.inputErrors);
+          showErrorModal(this, r.requestErrors);
+        }
+      });
+    },
+    setPasswordErrors(errors) {
+      this.oldPasswordError = errors.oldPasswordError;
+      this.newPasswordError = errors.newPasswordError;
+      this.repeatedNewPasswordError = errors.repeatedNewPasswordError;
+    },
+    clearPasswordInputs() {
+      this.oldPassword = this.newPassword = this.repeatedNewPassword = "";
+      this.oldPasswordError = this.newPasswordError = this.repeatedNewPasswordError = false;
+    },
+    passwordUpdateSuccess() {
+      this.clearPasswordInputs();
+      this.editPassword = false;
     }
   }
 };

@@ -37,4 +37,8 @@ export class CacheableUserProfileRepository {
             return r;
         })
     }
+
+    updateUserPassword(passwordUpdate) {
+        return this._userProfileRepository.updateUserPassword(passwordUpdate);
+    }
 }

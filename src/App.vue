@@ -96,7 +96,8 @@ const endpoints = {
   signIn: "auth/sign-in",
   activateAccount: "auth/activate",
   currentUserProfile: "user/profile",
-  currentUserProfileImageUpload: "user/profile/image"
+  currentUserProfileImageUpload: "user/profile/image",
+  passwordUpdate: "user/profile/password"
 };
 
 const requests = new Requests("http://localhost:8080", tokenStore);

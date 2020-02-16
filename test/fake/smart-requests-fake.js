@@ -27,6 +27,12 @@ export class SmartRequestsFake {
         return this._createPromise();
     }
 
+    putJson(url, data) {
+        this.capturedUrl = url;
+        this.capturedData = data;
+        return this._createPromise();
+    }
+
     postMultipart(url, formData) {
         this.capturedUrl = url;
         this.capturedFormData = formData;
@@ -39,7 +45,7 @@ export class SmartRequestsFake {
             if (this.rejectPromise) {
                 reject(this.expectedResponse);
             } else {
-                resolve(blob? this.expectedBlobResponse : this.expectedResponse);
+                resolve(blob ? this.expectedBlobResponse : this.expectedResponse);
             }
         });
     }

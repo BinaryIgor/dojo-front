@@ -6,6 +6,7 @@ export class UserProfileRepository {
         this._requests = smartRequests;
         this._currentUserProfileEndpoint = endpoints.currentUserProfile;
         this._currentUserProfileImageUploadEndpoint = endpoints.currentUserProfileImageUpload;
+        this._passwordUpdateEndpoint = endpoints.passwordUpdate;
         this._imagesEndpointPrefix = imagesEndpointPrefix;
     }
 
@@ -39,5 +40,9 @@ export class UserProfileRepository {
 
     updateUserProfile(userProfileUpdate) {
         return this._requests.putJson(this._currentUserProfileEndpoint, userProfileUpdate);
+    }
+
+    updateUserPassword(passwordUpdate) {
+        return this._requests.putJson(this._passwordUpdateEndpoint, passwordUpdate);
     }
 }
