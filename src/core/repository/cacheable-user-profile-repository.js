@@ -23,7 +23,7 @@ export class CacheableUserProfileRepository {
     uploadUserProfileImage(image) {
         return this._userProfileRepository.uploadUserProfileImage(image).then(r => {
             if (r.success) {
-                this._cachedUserProfileResponse = null;
+                this.invalidateCache();
             }
             return r;
         });
@@ -32,7 +32,7 @@ export class CacheableUserProfileRepository {
     updateUserProfile(userProfileUpdate) {
         return this._userProfileRepository.updateUserProfile(userProfileUpdate).then(r => {
             if (r.success) {
-                this._cachedUserProfileResponse = null;
+                this.invalidateCache();
             }
             return r;
         })
@@ -40,5 +40,9 @@ export class CacheableUserProfileRepository {
 
     updateUserPassword(passwordUpdate) {
         return this._userProfileRepository.updateUserPassword(passwordUpdate);
+    }
+
+    invalidateCache() {
+        this._cachedUserProfileResponse = null;
     }
 }

@@ -25,6 +25,8 @@ describe('CacheableUserRepository tests', () => {
     });
 
     it('Invalidates cache after image upload', () => {
+        repository.invalidateCache();
+
         let firstUser = provideUser();
         repositoryFake.expectedResponse = Response.successOf(firstUser);
         let newImagePath = '1/1/profile.jpg';
@@ -41,6 +43,35 @@ describe('CacheableUserRepository tests', () => {
         }).then(r => {
             expect(r.success).to.equal(true);
             expect(r.value).to.equal(newImagePath);
+
+            repositoryFake.expectedResponse = Response.successOf(secondUser);
+
+            return repository.findCurrentUserProfile();
+        }).then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.deep.equal(secondUser);
+        });
+    });
+
+    it('Invalidates cache after profile update', () => {
+        repository.invalidateCache();
+
+        let firstUser = provideUser();
+        repositoryFake.expectedResponse = Response.successOf(firstUser);
+        let secondUser = provideAnotherUser();
+
+        return repository.findCurrentUserProfile().then(r => {
+            expect(r.success).to.equal(true);
+            expect(r.value).to.deep.equal(firstUser);
+
+            repositoryFake.expectedResponse = Response.success();
+
+            return repository.updateUserProfile({
+                newName: secondUser.name,
+                newEmail: secondUser.email
+            });
+        }).then(r => {
+            expect(r.success).to.equal(true);
 
             repositoryFake.expectedResponse = Response.successOf(secondUser);
 
