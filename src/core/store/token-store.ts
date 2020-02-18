@@ -2,12 +2,12 @@ import {Token} from "../model/token";
 
 export interface TokenStore {
     
-    save(token: Token): void
+    save(token: Token): void;
 
-    clear(): void
+    clear(): void;
 
-    get(): string | null
+    get(): string | null;
 
-    isEmpty(): boolean
+    isEmpty(): boolean;
 
 }

@@ -6,7 +6,7 @@ const KEY = 'token';
 export class InBrowserTokenStore implements TokenStore {
 
     get(): string | null {
-        const token: Token = JSON.parse(localStorage.getItem(KEY) || "");
+        const token: Token = JSON.parse(localStorage.getItem(KEY) ?? "");
         return token == null ? null : token.token;
     }
 
