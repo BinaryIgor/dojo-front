@@ -8,25 +8,25 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import { startService as service } from "../App.vue";
-import { routes } from "../routes.js";
 
-export default {
-  name: "Start",
-  methods: {
-    goToStart() {
-      this.$router.push(routes.signUp);
-    },
-    goToContinue() {
-      if (service.needToSignIn()) {
-        this.$router.push(routes.signIn);
-      } else {
-        this.$router.push(routes.home);
-      }
+@Component
+export default class Start extends Vue {
+  goToStart() {
+    console.log("Router", this.$router);
+    console.log("Should go to start!");
+  }
+
+  goToContinue() {
+    if (service.needToSignIn()) {
+      console.log("Should sign in");
+    } else {
+      console.log("Should continue!");
     }
   }
-};
+}
 </script>
 
 <style scoped>

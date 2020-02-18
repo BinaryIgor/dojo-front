@@ -1,4 +1,4 @@
-# dojo
+# dojo-ts
 
 ## Project setup
 ```
@@ -15,21 +15,15 @@ npm run serve
 npm run build
 ```
 
+### Run your unit tests
+```
+npm run test:unit
+```
+
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Run tests
-```
-npm run test
-```
-
-### Run test
-```
-npm run test:only {test-prefix(under test folder)}
-```
-
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
