@@ -10,13 +10,14 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { SHOW_MODAL_EVENT } from "./modals";
 import { ModalMessage } from "./modal-message";
-import Component from 'vue-class-component'
+import Component from "vue-class-component";
 
 @Component
 export default class Modal extends Vue {
   title = "";
-  texts: Array<string> = [];
+  texts: string[] = [];
   show = false;
 
   hide(): void {
@@ -24,7 +25,7 @@ export default class Modal extends Vue {
   }
 
   created(): void {
-    this.$parent.$on("show", (m: ModalMessage) => {
+    this.$parent.$on(SHOW_MODAL_EVENT, (m: ModalMessage) => {
       this.title = m.title;
       this.texts = m.texts;
       this.show = true;

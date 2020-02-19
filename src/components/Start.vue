@@ -10,21 +10,21 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Component from 'vue-class-component'
+import Component from "vue-class-component";
 import { startService as service } from "../App.vue";
+import { routes } from "../routes";
 
 @Component
 export default class Start extends Vue {
   goToStart() {
-    console.log("Router", this.$router);
-    console.log("Should go to start!");
+    this.$router.push(routes.signUp);
   }
 
   goToContinue() {
     if (service.needToSignIn()) {
-      console.log("Should sign in");
+      this.$router.push(routes.signIn);
     } else {
-      console.log("Should continue!");
+      this.$router.push(routes.home);
     }
   }
 }

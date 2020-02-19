@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { NavigationService } from "../src/core/service/navigation-service";
+import { NavigationService } from "../../src/core/service/navigation-service";
 
 const navigationRoutes = ["/first", "/second", "/third", "/fourth"];
 const defaultRouteName = 'Start';

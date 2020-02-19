@@ -11,14 +11,17 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
 import { messages } from "./messages";
-import {InBrowserTokenStore} from "./core/store/in-browser-token-store";
-import {StartService} from "./core/service/start-service";
+import { InBrowserTokenStore } from "./core/store/in-browser-token-store";
+import { StartService } from "./core/service/start-service";
+import { NavigationService } from "./core/service/navigation-service";
+import { routes as routesNames } from "./routes";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
-const routes = [
-  { path: "*", component: Start },
-];
+
+const routes = [{ path: "*", component: Start }];
+
+const defaultRouteName = "Start";
 
 const router = new VueRouter({ routes });
 //get it dynamically
@@ -30,6 +33,11 @@ const i18n = new VueI18n({
 
 export const tokenStore = new InBrowserTokenStore();
 export const startService = new StartService(tokenStore);
+
+export const navigationService = new NavigationService(
+  [routesNames.home, routesNames.tasks, routesNames.doers, routesNames.profile],
+  defaultRouteName
+);
 
 export default {
   router,

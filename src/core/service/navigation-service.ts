@@ -15,7 +15,7 @@ export class NavigationService {
         return new NavigationResponse(visible, navigationState);
     }
 
-    private createFalseNavigationState() {
+    private createFalseNavigationState(): Map<string, boolean> {
         return this.createNavigationState(null);
     }
 
@@ -35,7 +35,7 @@ export class NavigationService {
 }
 
 
-class NavigationResponse {
+export class NavigationResponse {
 
     constructor(readonly visible: boolean, readonly navigationState: Map<string, boolean>) {
         this.visible = visible;
