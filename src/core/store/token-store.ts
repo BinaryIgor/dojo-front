@@ -6,7 +6,7 @@ export interface TokenStore {
 
     clear(): void;
 
-    get(): string | null;
+    get(): string;
 
     isEmpty(): boolean;
 

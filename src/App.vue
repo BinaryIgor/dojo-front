@@ -15,15 +15,37 @@ import { InBrowserTokenStore } from "./core/store/in-browser-token-store";
 import { StartService } from "./core/service/start-service";
 import { NavigationService } from "./core/service/navigation-service";
 import { routes as routesNames } from "./routes";
+import { RouteGuard } from "./core/route-guard";
+import {getMatchedRouteName} from "./components/common/routes";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 
+export const tokenStore = new InBrowserTokenStore();
+
 const routes = [{ path: "*", component: Start }];
 
 const defaultRouteName = "Start";
+const routeGuard = new RouteGuard(
+  tokenStore,
+  [
+    routesNames.start,
+    routesNames.signUp,
+    routesNames.signIn,
+    routesNames.accountActivation
+  ],
+  defaultRouteName
+);
 
 const router = new VueRouter({ routes });
+router.beforeEach((to, from, next) => {
+  const route = to.path;
+  if (routeGuard.allowsEntry(route, getMatchedRouteName(router, route))) {
+    next();
+  } else {
+    next({ path: "/" });
+  }
+});
 //get it dynamically
 const i18n = new VueI18n({
   locale: "pl",
@@ -31,7 +53,6 @@ const i18n = new VueI18n({
   messages
 });
 
-export const tokenStore = new InBrowserTokenStore();
 export const startService = new StartService(tokenStore);
 
 export const navigationService = new NavigationService(

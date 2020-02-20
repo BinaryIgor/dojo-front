@@ -40,6 +40,7 @@ export default class ConfirmationModal extends Vue {
     this.$parent.$on(
       SHOW_CONFIRMATION_MODAL_EVENT,
       (m: ConfirmationModalMessage) => {
+        this.$t
         this.title = m.title;
         this.text = m.text;
         this.show = true;

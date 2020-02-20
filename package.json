@@ -55,7 +55,8 @@
           "classes": false,
           "variables": true
         }
-      ]
+      ],
+      "@typescript-eslint/no-explicit-any": 0
     },
     "overrides": [
       {
