@@ -33,5 +33,16 @@ describe('ApiUserRepository tests', () => {
             expect(r.exceptions).to.deep.equal(errors);
         });
     })
+
+    it('Activates user', () => {
+        const token = 'secret_token';
+        fakeRequests.requestResponse = FakeRequestResponse.withEmptyJson();
+        const expectedUrl = activateAccountEndpoint + '/' + token;
+
+        return repository.activateUser(token).then(r => {
+            expect(r.success).to.equal(true);
+            expect(fakeRequests.capturedUrl).to.equal(expectedUrl);
+        });
+    });
 });
 

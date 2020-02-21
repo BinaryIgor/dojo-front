@@ -23,6 +23,10 @@ export class FakeRequestResponse implements Response {
         return response;
     }
 
+    static withJsonAsText(json: any, status = 200): FakeRequestResponse {
+        return FakeRequestResponse.withText(JSON.stringify(json), status);
+    }
+
     static withEmptyJson(status = 200): FakeRequestResponse {
         return FakeRequestResponse.withText("{}", status);
     }

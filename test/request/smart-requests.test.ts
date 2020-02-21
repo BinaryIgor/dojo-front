@@ -4,7 +4,7 @@ import { FakeRequests } from "../fake/fake-requests";
 import {SmartRequests} from "@/core/request/smart-requests";
 
 const fakeRequests = new FakeRequests();
-const smartRequests = new SmartRequests(fakeRequests);
+const requests = new SmartRequests(fakeRequests);
 
 describe('SmartRequests tests', () => {
     it('getJson returns success with data', () => {
@@ -17,11 +17,21 @@ describe('SmartRequests tests', () => {
         fakeRequests.requestResponse = expectedResponse;
         const url = "data";
 
-        return smartRequests.getJson(url).then(r => {
+        return requests.getJson(url).then(r => {
             expect(fakeRequests.capturedUrl).to.equal(url);
 
             expect(r.success).to.equal(true);
             expect(r.value).to.deep.equal(expectedData);
+        });
+    });
+
+    it('getJson propagates error', () => {
+        const errors = ["PROPAGATED"];
+        fakeRequests.requestResponse = FakeRequestResponse.withErrors(errors);
+
+        return requests.getJson('interesting-data').then(r => {
+            expect(r.success).to.equal(false);
+            expect(r.exceptions).to.deep.equal(errors);
         });
     });
 
@@ -35,7 +45,7 @@ describe('SmartRequests tests', () => {
         fakeRequests.requestResponse = expectedResponse;
         const url = "post";
 
-        return smartRequests.postJson(url, expectedData).then(r => {
+        return requests.postJson(url, expectedData).then(r => {
             expect(fakeRequests.capturedUrl).to.equal(url);
             expect(fakeRequests.capturedData).to.equal(JSON.stringify(expectedData));
 
