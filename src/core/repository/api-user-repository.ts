@@ -1,8 +1,8 @@
 import UserRepository from "./user-repository"
 import NewUser from "../model/new-user"
 import { ResponsePromise, Empty } from "../types";
-import SmartRequests from "../request/smart-requests";
 import Response from "../response/response";
+import SmartRequests from '../request/smart-requests';
 
 export default class ApiUserRepository implements UserRepository {
 
@@ -22,7 +22,7 @@ export default class ApiUserRepository implements UserRepository {
     }
 
     activateUser(token: string): ResponsePromise<Empty> {
-        return this.requests.post(`${this.activateAccountEndpoint}/${token}`)
+        return this.requests.postJson(`${this.activateAccountEndpoint}/${token}`)
             .then(r => Response.wrapAsEmpty(r));
     }
 }

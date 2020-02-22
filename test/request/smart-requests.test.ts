@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import FakeRequestResponse from "../fake/fake-request-response";
 import FakeRequests from "../fake/fake-requests";
-import SmartRequests from "@/core/request/smart-requests";
+import SmartRequestsWrapper from "@/core/request/smart-requests-wrapper";
 
 const fakeRequests = new FakeRequests();
-const requests = new SmartRequests(fakeRequests);
+const requests = new SmartRequestsWrapper(fakeRequests);
 
 describe('SmartRequests tests', () => {
     it('getJson returns success with data', () => {

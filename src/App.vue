@@ -17,7 +17,7 @@ import VueI18n from "vue-i18n";
 import { messages } from "./messages";
 
 import HttpRequests from "./core//request/http-requests";
-import SmartRequests from "./core/request/smart-requests";
+import SmartRequestsWrapper from "./core/request/smart-requests-wrapper";
 
 import ApiUserRepository from "./core/repository/api-user-repository";
 import InBrowserTokenStore from "./core/store/in-browser-token-store";
@@ -29,8 +29,8 @@ import { NavigationService } from "./core/service/navigation-service";
 import { routes as routesNames } from "./routes";
 import RouteGuard from "./core/route-guard";
 import { getMatchedRouteName } from "./components/common/routes";
-import SignInService from './core/service/sign-in-service';
-import ApiTokenRepository from './core/repository/api-token-repository';
+import SignInService from "./core/service/sign-in-service";
+import ApiTokenRepository from "./core/repository/api-token-repository";
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
@@ -80,7 +80,7 @@ const endpoints = {
   passwordUpdate: "user/profile/password"
 };
 
-const requests = new SmartRequests(
+const requests = new SmartRequestsWrapper(
   new HttpRequests("http://localhost:8080", tokenStore)
 );
 

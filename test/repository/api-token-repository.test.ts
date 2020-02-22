@@ -1,13 +1,12 @@
 import { expect } from 'chai';
-import FakeRequestResponse from "../fake/fake-request-response";
-import FakeRequests from "../fake/fake-requests";
-import SmartRequests from "@/core/request/smart-requests";
 import ApiTokenRepository from "@/core/repository/api-token-repository";
 import * as expectations from "../expectation/response-expectation";
+import FakeSmartRequests from '../fake/fake-smart-requests';
+import Response from "@/core/response/response";
 
-const fakeRequests = new FakeRequests();
+const fakeRequests = new FakeSmartRequests();
 const signInEndpoint = "sign-in";
-const repository = new ApiTokenRepository(new SmartRequests(fakeRequests), signInEndpoint);
+const repository = new ApiTokenRepository(fakeRequests, signInEndpoint);
 
 describe('ApiTokenRepository tests', () => {
     it('gets token', async () => {
@@ -16,11 +15,12 @@ describe('ApiTokenRepository tests', () => {
             password: 'secret1222one'
         };
         const expectedResponse = { token: 'secretToken' };
-        fakeRequests.requestResponse = FakeRequestResponse.withJsonAsText(expectedResponse);
+        fakeRequests.expectedResponse = Response.successOf(expectedResponse);
 
-        const r = await repository.getOne(tokenRequest);
-        expectations.expectSuccess(r, expectedResponse);
+        const response = await repository.getOne(tokenRequest);
+
+        expectations.expectSuccess(response, expectedResponse);
         expect(fakeRequests.capturedUrl).to.equal(signInEndpoint);
-        expect(fakeRequests.capturedData).to.equal(JSON.stringify(tokenRequest));
+        expect(fakeRequests.capturedData).to.equal(tokenRequest);
     });
 });

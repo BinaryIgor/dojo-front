@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang=ts>
 import Vue from "vue";
 import Component from "vue-class-component";
 import SignInInput from "../core/model/input/sign-in-input";
