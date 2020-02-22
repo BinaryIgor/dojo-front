@@ -9,6 +9,11 @@
 import Start from "./components/Start.vue";
 import SignUp from "./components/SignUp.vue";
 import SignIn from "./components/SignIn.vue";
+import AccountActivation from "./components/AccountActivation.vue";
+import Home from "./components/Home.vue";
+import Tasks from "./components/Tasks.vue";
+import Doers from "./components/Doers.vue";
+import Profile from "./components/Profile.vue";
 
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -40,7 +45,12 @@ export const tokenStore = new InBrowserTokenStore();
 const routes = [
   { path: "*", component: Start },
   { path: routesNames.signUp, component: SignUp },
-  { path: routesNames.signIn, component: SignIn }
+  { path: routesNames.signIn, component: SignIn },
+  { path: routesNames.accountActivation, component: AccountActivation },
+  { path: routesNames.home, component: Home },
+  { path: routesNames.tasks, component: Tasks },
+  { path: routesNames.doers, component: Doers },
+  { path: routesNames.profile, component: Profile }
 ];
 
 const defaultRouteName = "Start";

@@ -8,7 +8,6 @@ import Response from "@/core/response/response";
 const fakeRepository = new FakeUserProfileRepository();
 let repository: CacheableUserProfileRepository;
 
-
 describe('CacheableUserProfileRepository tests', () => {
     beforeEach(() => {
         repository = new CacheableUserProfileRepository(fakeRepository);
