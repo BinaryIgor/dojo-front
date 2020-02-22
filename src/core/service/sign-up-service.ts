@@ -3,8 +3,8 @@ import { InputResponse } from "../response/input-response";
 import { NewUserInputErrors } from "../error/new-user-input-errors";
 import { UserRepository } from "../repository/user-repository";
 import { NewUserInput } from "../model/input/new-user-input";
-import { NewUser } from "../model/new-user";
 import { Empty, InputResponsePromise } from "../types";
+import {toNewUser} from "../mapper/input-mapper";
 
 export class SignUpService {
 
@@ -20,8 +20,7 @@ export class SignUpService {
         if (inputErrors.hasAny()) {
             response = InputResponse.failure(inputErrors).asPromise();
         } else {
-            const newUser = new NewUser(input.name, input.email, input.password);
-            response = this.userRepository.createNewUser(newUser).then(r =>
+            response = this.userRepository.createNewUser(toNewUser(input)).then(r =>
                 InputResponse.fromResponse(r, inputErrors));
         }
         return response;

@@ -1,15 +1,28 @@
-const map = new Map<string, boolean>();
-map.set('1', false);
-map.set('2', false);
+class UserLogo {
+    constructor(readonly logo: string) {
 
-console.log('Dummy test!');
-console.log(map.keys());
-for (const [k,v] of map.entries()) {
-    console.log(k);
-    console.log(v);
+    }
 }
 
-console.log('---');
-for (const e of map) {
-    console.log(e);
+class UserName {
+    constructor(readonly name: string) {
+
+    }
 }
+
+function map<S, T>(source: S, keysMapping = new Map<string, string>()): T {
+    const t: any = {};
+    for (const k in source) {
+        const kMapping = keysMapping.get(k);
+        if (kMapping) {
+            t[kMapping] = source[k];
+        } else {
+            t[k] = source[k];
+        }
+    }
+    return t as T;
+}
+
+const userLogo = new UserLogo('Igor');
+const userName = map(userLogo, new Map<string, string>([['logo', 'name']]));
+console.log('Mapped: ', userName);
