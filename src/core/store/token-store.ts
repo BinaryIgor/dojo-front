@@ -1,6 +1,6 @@
-import {Token} from "../model/token";
+import Token from "../model/token";
 
-export interface TokenStore {
+export default interface TokenStore {
     
     save(token: Token): void;
 

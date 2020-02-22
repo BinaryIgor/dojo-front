@@ -1,10 +1,10 @@
-import { UserRepository } from "../../src/core/repository/user-repository";
-import { NewUser } from "../../src/core/model/new-user"
+import UserRepository from "../../src/core/repository/user-repository";
+import NewUser from "../../src/core/model/new-user"
 import { ResponsePromise, Empty } from "../../src/core/types";
-import { Response } from "../../src/core/response/response";
+import Response from "../../src/core/response/response";
 import { resolveResponse } from "./fakes";
 
-export class FakeUserRepository implements UserRepository {
+export default class FakeUserRepository implements UserRepository {
 
     capturedNewUser?: NewUser
     expectedResponse?: Response<Empty>

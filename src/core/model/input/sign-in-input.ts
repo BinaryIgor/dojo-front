@@ -1,3 +1,3 @@
-export class SignInInput {
+export default class SignInInput {
     constructor(readonly nameOrEmail: string, readonly password: string) { }
 }

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { InputResponse } from "@/core/response/input-response";
-import { InputErrors } from "@/core/error/input-errors";
+import InputResponse from "@/core/response/input-response";
+import InputErrors from "@/core/error/input-errors";
 
 export function expectRequestErrors(response: InputResponse<any, any>, exceptions: string[]): void {
     expect(response.success).to.equal(false);

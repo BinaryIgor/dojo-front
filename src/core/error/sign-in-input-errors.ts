@@ -1,6 +1,6 @@
-import { InputErrors } from "./input-errors";
+import InputErrors from "./input-errors";
 
-export class SignInInputErrors extends InputErrors {
+export default class SignInInputErrors extends InputErrors {
 
     constructor(readonly name: boolean, readonly email: boolean, readonly password: boolean) {
         super();

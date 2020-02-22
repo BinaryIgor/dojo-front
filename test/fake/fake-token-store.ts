@@ -1,7 +1,7 @@
-import { TokenStore } from "../../src/core/store/token-store";
-import { Token } from "../../src/core/model/token";
+import TokenStore from "../../src/core/store/token-store";
+import Token from "../../src/core/model/token";
 
-export class FakeTokenStore implements TokenStore {
+export default class FakeTokenStore implements TokenStore {
 
     private token: Token | null = null;
 

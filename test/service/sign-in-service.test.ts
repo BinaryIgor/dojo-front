@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { Response } from "@/core/response/response";
-import { Token } from "@/core/model/token";
-import { FakeTokenRepository } from "../fake/fake-token-repository";
-import { FakeTokenStore } from "../fake/fake-token-store";
-import { SignInService } from "@/core/service/sign-in-service";
-import { SignInInput } from "@/core/model/input/sign-in-input";
-import { SignInInputErrors } from "@/core/error/sign-in-input-errors";
+import Response from "@/core/response/response";
+import Token from "@/core/model/token";
+import FakeTokenRepository from "../fake/fake-token-repository";
+import FakeTokenStore from "../fake/fake-token-store";
+import SignInService from "@/core/service/sign-in-service";
+import SignInInput from "@/core/model/input/sign-in-input";
+import SignInInputErrors from "@/core/error/sign-in-input-errors";
 import { messageWithObjects } from "../tool/test-tools";
 import { toTokenRequest } from "@/core/mapper/input-mapper";
 import * as expectations from "../expectation/input-response-expectations";
@@ -21,26 +21,24 @@ describe('SignInService tests', () => {
         );
     }
 
-    it('Signs in', () => {
+    it('Signs in', async () => {
         const token = new Token('Secret234');
         fakeTokenRepository.expectedResponse = Response.successOf(token);
 
         const input = provideProperInput();
         const expectedCapturedRequest = toTokenRequest(input);
 
-        return service.signIn(input).then(r => {
-            expectations.expectSuccess(r, token);
-            expect(fakeTokenRepository.capturedTokenRequest).to.deep.equal(expectedCapturedRequest);
-        });
+        const r = await service.signIn(input);
+        expectations.expectSuccess(r, token);
+        expect(fakeTokenRepository.capturedTokenRequest).to.deep.equal(expectedCapturedRequest);
     });
 
-    it('Propagates sign in errors', () => {
+    it('Propagates sign in errors', async () => {
         const errors = ['ERROR1', 'ERROR2'];
         fakeTokenRepository.expectedResponse = Response.failure(errors);
 
-        return service.signIn(provideProperInput()).then(r =>
-            expectations.expectRequestErrors(r, errors)
-        );
+        const r = await service.signIn(provideProperInput());
+        return expectations.expectRequestErrors(r, errors);
     });
 });
 

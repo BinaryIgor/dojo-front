@@ -1,7 +1,7 @@
-import { Requests } from "@/core/request/requests";
-import { FakeRequestResponse } from "./fake-request-response";
+import Requests from "@/core/request/requests";
+import FakeRequestResponse from "./fake-request-response";
 
-export class FakeRequests implements Requests {
+export default class FakeRequests implements Requests {
 
     capturedUrl?: string
     capturedHeaders?: Headers

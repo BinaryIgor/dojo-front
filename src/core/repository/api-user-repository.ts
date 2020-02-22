@@ -1,11 +1,10 @@
-import { UserRepository } from "./user-repository"
-import { NewUser } from "../model/new-user"
-import { ResponsePromise } from "../types";
-import { Empty } from '../types';
-import { SmartRequests } from "../request/smart-requests";
-import { Response } from "../response/response";
+import UserRepository from "./user-repository"
+import NewUser from "../model/new-user"
+import { ResponsePromise, Empty } from "../types";
+import SmartRequests from "../request/smart-requests";
+import Response from "../response/response";
 
-export class ApiUserRepository implements UserRepository {
+export default class ApiUserRepository implements UserRepository {
 
     private readonly requests: SmartRequests
     private readonly signUpEndpoint: string

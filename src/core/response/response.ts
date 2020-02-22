@@ -1,6 +1,6 @@
 import { Empty } from "../types";
 
-export class Response<T> {
+export default class Response<T> {
 
     private readonly _value: T | null
     private readonly _exceptions: string[] | null

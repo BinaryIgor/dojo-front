@@ -1,9 +1,9 @@
-import { TokenStore } from "./token-store";
-import { Token } from "../model/token";
+import TokenStore from "./token-store";
+import Token from "../model/token";
 
 const KEY = 'token';
 
-export class InBrowserTokenStore implements TokenStore {
+export default class InBrowserTokenStore implements TokenStore {
 
     get(): string {
         const token: Token = JSON.parse(localStorage.getItem(KEY) ?? "");

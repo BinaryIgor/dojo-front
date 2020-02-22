@@ -1,6 +1,6 @@
-import { TokenStore } from "./store/token-store";
+import TokenStore from "./store/token-store";
 
-export class RouteGuard {
+export default class RouteGuard {
 
     private readonly tokenStore: TokenStore;
     private readonly publicRoutes: string[];

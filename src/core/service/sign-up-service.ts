@@ -1,12 +1,12 @@
 import * as validator from "../validator";
-import { InputResponse } from "../response/input-response";
-import { NewUserInputErrors } from "../error/new-user-input-errors";
-import { UserRepository } from "../repository/user-repository";
-import { NewUserInput } from "../model/input/new-user-input";
+import InputResponse from "../response/input-response";
+import NewUserInputErrors from "../error/new-user-input-errors";
+import UserRepository from "../repository/user-repository";
+import NewUserInput from "../model/input/new-user-input";
 import { Empty, InputResponsePromise } from "../types";
-import {toNewUser} from "../mapper/input-mapper";
+import { toNewUser } from "../mapper/input-mapper";
 
-export class SignUpService {
+export default class SignUpService {
 
     private readonly userRepository: UserRepository
 

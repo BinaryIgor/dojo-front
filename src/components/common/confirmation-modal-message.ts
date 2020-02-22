@@ -1,4 +1,4 @@
-export class ConfirmationModalMessage {
+export default class ConfirmationModalMessage {
 
     readonly title: string
     readonly text: string

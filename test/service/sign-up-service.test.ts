@@ -1,12 +1,11 @@
 import { expect } from 'chai';
-import { Response } from "@/core/response/response";
-import { FakeUserRepository } from "../fake/fake-user-repository";
-import { SignUpService } from "@/core/service/sign-up-service";
-import { NewUserInput } from "@/core/model/input/new-user-input";
-import { NewUserInputErrors } from "@/core/error/new-user-input-errors";
+import Response from "@/core/response/response";
+import FakeUserRepository from "../fake/fake-user-repository";
+import SignUpService from "@/core/service/sign-up-service";
+import NewUserInput from "@/core/model/input/new-user-input";
+import NewUserInputErrors from "@/core/error/new-user-input-errors";
 import { messageWithObjects } from "../tool/test-tools";
-import {toNewUser} from "@/core/mapper/input-mapper";
-import { NewUser } from '@/core/model/new-user';
+import { toNewUser } from "@/core/mapper/input-mapper";
 import * as expectations from "../expectation/input-response-expectations";
 
 const fakeUserRepository = new FakeUserRepository();
@@ -19,7 +18,7 @@ describe('SignUpService tests', () => {
         );
     }
 
-    it ('Signs up user', () => {
+    it('Signs up user', () => {
         const input = new NewUserInput('ala', 'ala@gmail.com', 'Minimal12', 'Minimal12');
         fakeUserRepository.expectedResponse = Response.successOf(1);
         const newUser = toNewUser(input);
@@ -35,7 +34,7 @@ describe('SignUpService tests', () => {
         const exceptions = ["INTERNAL_ERROR"];
         fakeUserRepository.expectedResponse = Response.failure(exceptions);
 
-        return service.signUp(input).then(r =>expectations.expectRequestErrors(r, exceptions));
+        return service.signUp(input).then(r => expectations.expectRequestErrors(r, exceptions));
     });
 });
 

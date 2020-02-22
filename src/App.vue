@@ -16,19 +16,21 @@ import VueI18n from "vue-i18n";
 
 import { messages } from "./messages";
 
-import { HttpRequests } from "./core//request/http-requests";
-import { SmartRequests } from "./core/request/smart-requests";
+import HttpRequests from "./core//request/http-requests";
+import SmartRequests from "./core/request/smart-requests";
 
-import { ApiUserRepository } from "./core/repository/api-user-repository";
-import { InBrowserTokenStore } from "./core/store/in-browser-token-store";
+import ApiUserRepository from "./core/repository/api-user-repository";
+import InBrowserTokenStore from "./core/store/in-browser-token-store";
 
-import { StartService } from "./core/service/start-service";
-import { SignUpService } from "./core/service/sign-up-service";
+import StartService from "./core/service/start-service";
+import SignUpService from "./core/service/sign-up-service";
 import { NavigationService } from "./core/service/navigation-service";
 
 import { routes as routesNames } from "./routes";
-import { RouteGuard } from "./core/route-guard";
+import RouteGuard from "./core/route-guard";
 import { getMatchedRouteName } from "./components/common/routes";
+import SignInService from './core/service/sign-in-service';
+import ApiTokenRepository from './core/repository/api-token-repository';
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
@@ -87,9 +89,11 @@ const userRepository = new ApiUserRepository(
   endpoints.signUp,
   endpoints.activateAccount
 );
+const tokenRepository = new ApiTokenRepository(requests, endpoints.signIn);
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
+export const signInService = new SignInService(tokenRepository, tokenStore);
 
 export const navigationService = new NavigationService(
   [routesNames.home, routesNames.tasks, routesNames.doers, routesNames.profile],

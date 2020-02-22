@@ -17,7 +17,7 @@ import {
   HIDE_CONFIRMATION_MODAL_EVENT
 } from "./modals.js";
 import Component from "vue-class-component";
-import { ConfirmationModalMessage } from "./confirmation-modal-message";
+import ConfirmationModalMessage from "./confirmation-modal-message";
 
 @Component
 export default class ConfirmationModal extends Vue {

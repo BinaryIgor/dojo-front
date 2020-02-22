@@ -25,12 +25,12 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { InputErrors } from "../core/error/input-errors";
-import { NewUserInputErrors } from "../core/error/new-user-input-errors";
+import InputErrors from "../core/error/input-errors";
+import NewUserInputErrors from "../core/error/new-user-input-errors";
 import { signUpService as service } from "../App.vue";
 import { showModal, showErrorModal } from "./common/modals";
 import { routes } from "../routes";
-import { NewUserInput } from "../core/model/input/new-user-input";
+import NewUserInput from "../core/model/input/new-user-input";
 
 @Component
 export default class SignUp extends Vue {

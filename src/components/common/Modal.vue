@@ -11,7 +11,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { SHOW_MODAL_EVENT } from "./modals";
-import { ModalMessage } from "./modal-message";
+import ModalMessage from "./modal-message";
 import Component from "vue-class-component";
 
 @Component

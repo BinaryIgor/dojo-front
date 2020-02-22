@@ -1,7 +1,7 @@
-import {NewUser} from "../model/new-user"
-import {ResponsePromise, Empty} from "../types";
+import NewUser from "../model/new-user"
+import { ResponsePromise, Empty } from "../types";
 
-export interface UserRepository {
+export default interface UserRepository {
 
     createNewUser(newUser: NewUser): ResponsePromise<Empty>
 

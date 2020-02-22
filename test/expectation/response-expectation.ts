@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Response } from "@/core/response/response";
+import Response from "@/core/response/response";
 
 export function expectFailure(response: Response<any>, exceptions: string[]): void {
     expect(response.success).to.equal(false);

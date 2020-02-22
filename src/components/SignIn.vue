@@ -20,9 +20,12 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { SignInInputErrors } from "../core/error/sign-in-input-errors";
+import SignInInput from "../core/model/input/sign-in-input";
+import SignInInputErrors from "../core/error/sign-in-input-errors";
 import { showModal, showErrorModal } from "./common/modals";
 import { routes } from "../routes";
+import { signInService as service } from "../App.vue";
+
 @Component
 export default class SignIn extends Vue {
   nameOrEmail = "";
@@ -39,12 +42,23 @@ export default class SignIn extends Vue {
   }
 
   removeErrors() {
-    this.nameError = this.emailError = this.passwordError;
+    this.nameError = this.emailError = this.passwordError = false;
   }
 
   signIn() {
     this.removeErrors();
     this.signingIn = true;
+    const input = new SignInInput(this.nameOrEmail, this.password);
+
+    service.signIn(input).then(r => {
+      this.signingIn = false;
+      if (r.success) {
+        this.$router.replace(routes.home);
+      } else {
+        this.setErrors(r.inputErrors);
+        showErrorModal(this, r.requestErrors);
+      }
+    });
   }
 
   goToSignUp() {

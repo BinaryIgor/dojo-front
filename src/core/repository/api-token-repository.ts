@@ -1,10 +1,10 @@
-import { TokenRequest } from "../model/token-request";
+import TokenRequest from "../model/token-request";
 import { ResponsePromise } from "../types"
-import { Token } from "../model/token"
-import { TokenRepository } from './token-repository';
-import { SmartRequests } from '../request/smart-requests';
+import Token from "../model/token"
+import TokenRepository from './token-repository';
+import SmartRequests from '../request/smart-requests';
 
-export class ApiTokenRepository implements TokenRepository {
+export default class ApiTokenRepository implements TokenRepository {
 
     private readonly requests: SmartRequests;
     private readonly signInEndpoint: string

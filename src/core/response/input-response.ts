@@ -1,8 +1,8 @@
-import { InputErrors } from "../error/input-errors";
+import  InputErrors  from "../error/input-errors";
 import { Empty } from "../types";
-import { Response } from "./response";
+import  Response  from "./response";
 
-export class InputResponse<V, IE extends InputErrors> {
+export default class InputResponse<V, IE extends InputErrors> {
 
     private readonly _value: V | null
     private readonly _inputErrors: IE | null

@@ -1,4 +1,4 @@
-export abstract class InputErrors {
+export default abstract class InputErrors {
     abstract hasAny(): boolean
 
     protected hasAnyErrors(...errors: boolean[]): boolean {

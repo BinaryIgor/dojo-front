@@ -1,7 +1,7 @@
 
-import { FakeHeaders } from "./fake-headers";
+import FakeHeaders from "./fake-headers";
 
-export class FakeRequestResponse implements Response {
+export default class FakeRequestResponse implements Response {
 
     ok = true;
     headers = new FakeHeaders();
@@ -31,7 +31,7 @@ export class FakeRequestResponse implements Response {
         return FakeRequestResponse.withText("{}", status);
     }
 
-    static withErrors(errors: string[], status=400): FakeRequestResponse {
+    static withErrors(errors: string[], status = 400): FakeRequestResponse {
         const response = new FakeRequestResponse();
         response.textResponse = JSON.stringify({
             errors: errors

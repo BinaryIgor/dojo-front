@@ -1,13 +1,13 @@
 import * as validator from "../validator";
-import { InputResponse } from "../response/input-response";
-import { SignInInputErrors } from "../error/sign-in-input-errors";
-import { TokenRepository } from "../repository/token-repository";
-import { SignInInput } from "../model/input/sign-in-input";
+import InputResponse from "../response/input-response";
+import SignInInputErrors from "../error/sign-in-input-errors";
+import TokenRepository from "../repository/token-repository";
+import SignInInput from "../model/input/sign-in-input";
 import { Empty, InputResponsePromise } from "../types";
-import {toTokenRequest} from "../mapper/input-mapper";
-import {TokenStore} from "../store/token-store";
+import { toTokenRequest } from "../mapper/input-mapper";
+import TokenStore from "../store/token-store";
 
-export class SignInService {
+export default class SignInService {
 
     private readonly tokenRepository: TokenRepository
     private readonly tokenStore: TokenStore
@@ -30,7 +30,7 @@ export class SignInService {
             return InputResponse.fromResponse(r, inputErrors);
         });
 
-    } 
+    }
 
     private validateInput(input: SignInInput): SignInInputErrors {
         let nameError: boolean;

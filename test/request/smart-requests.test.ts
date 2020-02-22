@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import {FakeRequestResponse} from "../fake/fake-request-response";
-import { FakeRequests } from "../fake/fake-requests";
-import {SmartRequests} from "@/core/request/smart-requests";
+import FakeRequestResponse from "../fake/fake-request-response";
+import FakeRequests from "../fake/fake-requests";
+import SmartRequests from "@/core/request/smart-requests";
 
 const fakeRequests = new FakeRequests();
 const requests = new SmartRequests(fakeRequests);

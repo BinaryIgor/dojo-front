@@ -1,7 +1,7 @@
-import { Requests } from "./requests";
-import { TokenStore } from "../store/token-store";
+import Requests from "./requests";
+import TokenStore from "../store/token-store";
 
-export class HttpRequests implements Requests {
+export default class HttpRequests implements Requests {
 
     private readonly baseUrl: string;
     private readonly tokenStore: TokenStore;
@@ -43,7 +43,7 @@ export class HttpRequests implements Requests {
     put(url: string, data?: any, headers?: Headers): Promise<Response> {
         return this.execute(url, 'PUT', headers, data);
     }
-    
+
     delete(url: string, headers?: Headers): Promise<Response> {
         return this.execute(url, 'DELETE', headers);
     }

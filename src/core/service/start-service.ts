@@ -1,6 +1,6 @@
-import {TokenStore} from "../store/token-store"
+import TokenStore from "../store/token-store"
 
-export class StartService {
+export default class StartService {
 
     private readonly tokenStore: TokenStore
 

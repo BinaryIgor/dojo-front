@@ -1,4 +1,4 @@
-export class ModalMessage {
+export default class ModalMessage {
 
     readonly title: string
     readonly texts: string[]

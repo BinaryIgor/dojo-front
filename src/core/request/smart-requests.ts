@@ -1,8 +1,9 @@
-import { Response } from "../response/response";
-import { Requests, RequestResponse } from "./requests";
-import {ResponsePromise} from "../types";
+import Response from "../response/response";
+import { RequestResponse } from "./requests";
+import Requests from "./requests";
+import { ResponsePromise } from "../types";
 
-export class SmartRequests {
+export default class SmartRequests {
 
     private readonly requests: Requests
 

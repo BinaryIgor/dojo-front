@@ -1,4 +1,4 @@
-export class FakeHeaders implements Headers {
+export default class FakeHeaders implements Headers {
 
     private readonly source = new Map<string, string>();
     
