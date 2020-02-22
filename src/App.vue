@@ -8,6 +8,7 @@
 <script lang=ts>
 import Start from "./components/Start.vue";
 import SignUp from "./components/SignUp.vue";
+import SignIn from "./components/SignIn.vue";
 
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -36,7 +37,8 @@ export const tokenStore = new InBrowserTokenStore();
 
 const routes = [
   { path: "*", component: Start },
-  { path: routesNames.signUp, component: SignUp }
+  { path: routesNames.signUp, component: SignUp },
+  { path: routesNames.signIn, component: SignIn }
 ];
 
 const defaultRouteName = "Start";

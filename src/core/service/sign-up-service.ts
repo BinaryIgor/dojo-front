@@ -16,9 +16,9 @@ export class SignUpService {
 
     signUp(input: NewUserInput): InputResponsePromise<Empty, NewUserInputErrors> {
         const inputErrors = this.validateInput(input);
-        let response: InputResponsePromise<any, NewUserInputErrors>;
+        let response;
         if (inputErrors.hasAny()) {
-            response = InputResponse.failure(inputErrors).asPromise();
+            response = InputResponse.failure<Empty, NewUserInputErrors>(inputErrors).asPromise();
         } else {
             response = this.userRepository.createNewUser(toNewUser(input)).then(r =>
                 InputResponse.fromResponse(r, inputErrors));

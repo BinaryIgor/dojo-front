@@ -3,6 +3,7 @@ import { FakeRequestResponse } from "../fake/fake-request-response";
 import { FakeRequests } from "../fake/fake-requests";
 import { SmartRequests } from "@/core/request/smart-requests";
 import { ApiTokenRepository } from "@/core/repository/api-token-repository";
+import * as expectations from "../expectation/response-expectation";
 
 const fakeRequests = new FakeRequests();
 const signInEndpoint = "sign-in";
@@ -18,8 +19,7 @@ describe('ApiTokenRepository tests', () => {
         fakeRequests.requestResponse = FakeRequestResponse.withJsonAsText(expectedResponse);
 
         return repository.getOne(tokenRequest).then(r => {
-            expect(r.success).to.equal(true);
-            expect(r.value).to.deep.equal(expectedResponse);
+            expectations.expectSuccess(r, expectedResponse);
 
             expect(fakeRequests.capturedUrl).to.equal(signInEndpoint);
             expect(fakeRequests.capturedData).to.equal(JSON.stringify(tokenRequest));

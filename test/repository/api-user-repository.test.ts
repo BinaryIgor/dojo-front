@@ -4,6 +4,7 @@ import { FakeRequests } from "../fake/fake-requests";
 import { SmartRequests } from "@/core/request/smart-requests";
 import { ApiUserRepository } from "@/core/repository/api-user-repository";
 import { NewUser } from "@/core/model/new-user";
+import * as expectations from "../expectation/response-expectation";
 
 const fakeRequests = new FakeRequests();
 const signUpEndpoint = "sign-up";
@@ -19,8 +20,7 @@ describe('ApiUserRepository tests', () => {
             expect(fakeRequests.capturedUrl).to.equal(signUpEndpoint);
             expect(fakeRequests.capturedData).to.equal(JSON.stringify(newUser));
 
-            expect(r.success).to.equal(true);
-            expect(r.value).to.deep.equal({});
+            expectations.expectSuccessEmptyValue(r);
         });
     })
 
@@ -28,10 +28,9 @@ describe('ApiUserRepository tests', () => {
         const errors = ["EXCEPTION"];
         fakeRequests.requestResponse = FakeRequestResponse.withErrors(errors);
 
-        return repository.createNewUser({name: 'A', email: 'c', password: 'xxx'}).then(r => {
-            expect(r.success).to.equal(false);
-            expect(r.exceptions).to.deep.equal(errors);
-        });
+        return repository.createNewUser({ name: 'A', email: 'c', password: 'xxx' }).then(r =>
+            expectations.expectFailure(r, errors)
+        );
     })
 
     it('Activates user', () => {
@@ -40,7 +39,7 @@ describe('ApiUserRepository tests', () => {
         const expectedUrl = activateAccountEndpoint + '/' + token;
 
         return repository.activateUser(token).then(r => {
-            expect(r.success).to.equal(true);
+            expectations.expectSuccessEmptyValue(r);
             expect(fakeRequests.capturedUrl).to.equal(expectedUrl);
         });
     });

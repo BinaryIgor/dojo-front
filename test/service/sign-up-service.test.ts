@@ -7,6 +7,7 @@ import { NewUserInputErrors } from "@/core/error/new-user-input-errors";
 import { messageWithObjects } from "../tool/test-tools";
 import {toNewUser} from "@/core/mapper/input-mapper";
 import { NewUser } from '@/core/model/new-user';
+import * as expectations from "../expectation/input-response-expectations";
 
 const fakeUserRepository = new FakeUserRepository();
 const service = new SignUpService(fakeUserRepository);
@@ -14,10 +15,7 @@ const service = new SignUpService(fakeUserRepository);
 describe('SignUpService tests', () => {
     for (const [input, errors] of provideInputsWithExpectedErrors()) {
         it(messageWithObjects('Sets ? errors with ? input', errors, input), () =>
-            service.signUp(input).then(r => {
-                expect(r.success).to.equal(false);
-                expect(r.inputErrors).to.deep.equal(errors);
-            })
+            service.signUp(input).then(r => expectations.expectInputErrors(r, errors))
         );
     }
 
@@ -27,9 +25,7 @@ describe('SignUpService tests', () => {
         const newUser = toNewUser(input);
 
         return service.signUp(input).then(r => {
-            expect(r.success).to.equal(true);
-            expect(r.value).to.equal(1);
-
+            expectations.expectSuccess(r, 1);
             expect(fakeUserRepository.capturedNewUser).to.deep.equal(newUser);
         });
     });
@@ -39,10 +35,7 @@ describe('SignUpService tests', () => {
         const exceptions = ["INTERNAL_ERROR"];
         fakeUserRepository.expectedResponse = Response.failure(exceptions);
 
-        return service.signUp(input).then(r => {
-            expect(r.success).to.equal(false);
-            expect(r.requestErrors).to.deep.equal(exceptions);
-        });
+        return service.signUp(input).then(r =>expectations.expectRequestErrors(r, exceptions));
     });
 });
 
