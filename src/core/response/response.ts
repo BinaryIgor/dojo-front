@@ -37,7 +37,7 @@ export default class Response<T> {
     }
 
     static isNullOrFailure(response: Response<any> | null): boolean {
-        return response == null || response.success;
+        return response == null || !response.success;
     }
 
     get success(): boolean {

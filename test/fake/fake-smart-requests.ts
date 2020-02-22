@@ -10,6 +10,7 @@ export default class FakeSmartRequests implements SmartRequests {
     capturedUrl?: string
     capturedBlobUrl?: string
     capturedData?: any
+    capturedFormData?: FormData
 
     getJson<T>(url: string): ResponsePromise<T> {
         this.capturedUrl = url;
@@ -23,6 +24,7 @@ export default class FakeSmartRequests implements SmartRequests {
 
     postMultipart<T>(url: string, form: FormData): ResponsePromise<T> {
         this.capturedUrl = url;
+        this.capturedFormData = form;
         return resolveResponse(this.expectedResponse);
     }
 
