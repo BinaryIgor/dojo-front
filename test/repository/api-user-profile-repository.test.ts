@@ -4,7 +4,7 @@ import ApiUserProfileRepository from "@/core/repository/api-user-profile-reposit
 import UserProfileUpdate from "@/core/model/user-profile-update";
 import PasswordUpdate from "@/core/model/password-update";
 import UserProfile from "@/core/model/user-profile";
-import * as expectations from "../expectation/response-expectation";
+import * as expectations from "../expectation/response-expectations";
 import Response from "@/core/response/response";
 
 const fakeRequests = new FakeSmartRequests();

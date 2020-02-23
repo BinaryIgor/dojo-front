@@ -57,4 +57,8 @@ export default class Response<T> {
         }
         return this._exceptions as string[];
     }
+
+    asPromise(): Promise<Response<T>> {
+        return Promise.resolve(this);
+    }
 }

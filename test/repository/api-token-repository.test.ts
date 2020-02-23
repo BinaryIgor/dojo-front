@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import ApiTokenRepository from "@/core/repository/api-token-repository";
-import * as expectations from "../expectation/response-expectation";
+import * as expectations from "../expectation/response-expectations";
 import FakeSmartRequests from '../fake/fake-smart-requests';
 import Response from "@/core/response/response";
 

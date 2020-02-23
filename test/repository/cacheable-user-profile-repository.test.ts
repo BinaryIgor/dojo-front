@@ -2,7 +2,7 @@ import FakeUserProfileRepository from "../fake/fake-user-profile-repository";
 import CacheableUserProfileRepository from "@/core/repository/cacheable-user-profile-repository";
 import UserProfileUpdate from "@/core/model/user-profile-update";
 import UserProfile from "@/core/model/user-profile";
-import * as expectations from "../expectation/response-expectation";
+import * as expectations from "../expectation/response-expectations";
 import Response from "@/core/response/response";
 
 const fakeRepository = new FakeUserProfileRepository();

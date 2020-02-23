@@ -13,6 +13,11 @@ export function expectSuccess<T>(response: InputResponse<T, any>, expected: T): 
     expect(response.value).to.deep.equal(expected);
 }
 
+export function expectSucessEmptyValue<Empty>(response: InputResponse<Empty, any>): void {
+    expect(response.success).to.equal(true);
+    expect(response.value).to.deep.equal({});
+}
+
 export function expectInputErrors<T extends InputErrors>(response: InputResponse<any, T>, expected: T): void {
     expect(response.success).to.equal(false);
     expect(response.inputErrors).to.deep.equal(expected);

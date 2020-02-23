@@ -44,12 +44,3 @@ export function isPasswordValid(password: string): boolean {
     }
     return digit && upperCase && lowerCase;
 }
-
-export function hasErrors(errorsObject: any) {
-    for (const k in errorsObject) {
-        if (errorsObject[k]) {
-            return true;
-        }
-    }
-    return false;
-}

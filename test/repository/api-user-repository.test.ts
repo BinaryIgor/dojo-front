@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import FakeSmartRequests from "../fake/fake-smart-requests";
 import ApiUserRepository from "@/core/repository/api-user-repository";
 import NewUser from "@/core/model/new-user";
-import * as expectations from "../expectation/response-expectation";
+import * as expectations from "../expectation/response-expectations";
 import Response from '@/core/response/response';
 
 const fakeRequests = new FakeSmartRequests();

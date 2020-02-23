@@ -1,3 +1,3 @@
 export default class UserProfileUpdate {
-    constructor(readonly newName: string, readonly newEmail: string) { }
+    constructor(public newName: string, public newEmail: string) { }
 }
