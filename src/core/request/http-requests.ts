@@ -31,7 +31,7 @@ export default class HttpRequests implements Requests {
     private addTokenIf(headers: Headers | undefined): Headers | undefined {
         if (!this.tokenStore.isEmpty()) {
             headers = headers == null ? new Headers() : headers;
-            headers.append('Authorization', this.tokenStore.get());
+            headers.append('Authorization', `Bearer ${this.tokenStore.get()}`);
         }
         return headers;
     }

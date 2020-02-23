@@ -6,12 +6,12 @@ const KEY = 'token';
 export default class InBrowserTokenStore implements TokenStore {
 
     get(): string {
-        const token: Token = JSON.parse(localStorage.getItem(KEY) ?? "");
-        return token.token;
+        const json = localStorage.getItem(KEY);
+        return json ? JSON.parse(json).token : "";
     }
 
     isEmpty(): boolean {
-        return this.get() == null;
+        return this.get() == '';
     }
 
     save(token: Token): void {
