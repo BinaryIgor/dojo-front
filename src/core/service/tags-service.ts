@@ -1,4 +1,5 @@
 import SearchFilterRepository from "../repository/search-filter-repository";
+import TagsRepository from "../repository/tags-repository";
 import { ResponsePromise } from "../types";
 import Response from "../response/response";
 import SelectableTag from "../../core/model/selectable-tag";
@@ -6,9 +7,11 @@ import SelectableTag from "../../core/model/selectable-tag";
 export default class TagsService {
 
     private readonly tasksFilterRepository: SearchFilterRepository
+    private readonly tagsRepository: TagsRepository
 
-    constructor(tasksFilterRepository: SearchFilterRepository) {
+    constructor(tasksFilterRepository: SearchFilterRepository, tagsRepository: TagsRepository) {
         this.tasksFilterRepository = tasksFilterRepository;
+        this.tagsRepository = tagsRepository;
     }
 
     toggleTag(tag: string): void {
@@ -30,9 +33,8 @@ export default class TagsService {
 
     getTags(): ResponsePromise<SelectableTag[]> {
         const currentTags = this.tasksFilterRepository.getCurrent().tags;
-        return Promise.resolve(Response.successOf([
-            "Remont", "Rozrywka", "Matematyka", "Wyzwanie"
-        ])).then(r => Response.wrap(r, t => this.toSelectableTags(t, currentTags)));
+        return this.tagsRepository.getAll()
+            .then(r => Response.wrap(r, t => this.toSelectableTags(t, currentTags)));
     }
 
     private toSelectableTags(tags: string[], currentTags: string[]): SelectableTag[] {

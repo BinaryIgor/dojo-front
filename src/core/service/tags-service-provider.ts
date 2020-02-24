@@ -1,4 +1,5 @@
 import SearchFilterRepository from "../repository/search-filter-repository";
+import TagsRepository from "../repository/tags-repository";
 import TagsService from "./tags-service";
 
 export enum TagsCategory {
@@ -7,12 +8,13 @@ export enum TagsCategory {
 
 export class TagsServiceProvider {
 
-    private readonly tasksService: TagsService;
-    private readonly doersService: TagsService;
+    private readonly tasksService: TagsService
+    private readonly doersService: TagsService
 
-    constructor(tasksFilterRepository: SearchFilterRepository, doersFilterRepository: SearchFilterRepository) {
-        this.tasksService = new TagsService(tasksFilterRepository);
-        this.doersService = new TagsService(doersFilterRepository);
+    constructor(tasksFilterRepository: SearchFilterRepository, doersFilterRepository: SearchFilterRepository,
+        tagsRepository: TagsRepository) {
+        this.tasksService = new TagsService(tasksFilterRepository, tagsRepository);
+        this.doersService = new TagsService(doersFilterRepository, tagsRepository);
     }
 
     provide(category: TagsCategory): TagsService {

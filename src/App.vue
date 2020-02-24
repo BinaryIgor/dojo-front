@@ -36,12 +36,17 @@ import CacheableUserProfileRepository from "./core/repository/cacheable-user-pro
 import InBrowserTokenStore from "./core/store/in-browser-token-store";
 import ApiTokenRepository from "./core/repository/api-token-repository";
 import InMemorySearchFilterRepository from "./core/repository/in-memory-search-filter-repository";
+import ApiTagsRepository from "./core/repository/api-tags-repository";
 
 import StartService from "./core/service/start-service";
 import SignUpService from "./core/service/sign-up-service";
 import SignInService from "./core/service/sign-in-service";
 import TasksService from "./core/service/tasks-service";
-import {TagsServiceProvider, TagsCategory} from "./core/service/tags-service-provider";
+import {
+  TagsServiceProvider,
+  TagsCategory
+} from "./core/service/tags-service-provider";
+import TagsService from "./core/service/tags-service";
 import ProfileService from "./core/service/profile-service";
 import EditProfileService from "./core/service/edit-profile-service";
 import { NavigationService } from "./core/service/navigation-service";
@@ -63,8 +68,12 @@ const routes = [
   { path: routesNames.home, component: Home },
   { path: routesNames.tasks, component: Tasks },
   { path: routesNames.newTask, component: EditTask },
-  { path: routesNames.tasksTags, component: Tags, props: {tagsCategory: TagsCategory.TASKS} },
-  { path: routesNames.tasksLocations, component: Locations},
+  {
+    path: routesNames.tasksTags,
+    component: Tags,
+    props: { tagsCategory: TagsCategory.TASKS }
+  },
+  { path: routesNames.tasksLocations, component: Locations },
   { path: routesNames.doers, component: Doers },
   { path: routesNames.profile, component: Profile },
   { path: routesNames.editProfile, component: EditProfile },
@@ -106,7 +115,8 @@ const endpoints = {
   activateAccount: "auth/activate",
   currentUserProfile: "user/profile",
   currentUserProfileImageUpload: "user/profile/image",
-  passwordUpdate: "user/profile/password"
+  passwordUpdate: "user/profile/password",
+  tags: "tag"
 };
 
 const requests = new SmartRequestsWrapper(
@@ -130,13 +140,21 @@ const userProfileRepository = new CacheableUserProfileRepository(
 const tokenRepository = new ApiTokenRepository(requests, endpoints.signIn);
 const tasksFilterRepository = new InMemorySearchFilterRepository();
 const doersFilterRepository = new InMemorySearchFilterRepository();
+const tagsRepository = new ApiTagsRepository(requests, endpoints.tags);
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
 export const signInService = new SignInService(tokenRepository, tokenStore);
 export const tasksService = new TasksService(tasksFilterRepository);
-export const tagsServiceProvider = new TagsServiceProvider(tasksFilterRepository, doersFilterRepository);
-export const profileService = new ProfileService(tokenStore, userProfileRepository);
+export const tagsServiceProvider = new TagsServiceProvider(
+  tasksFilterRepository,
+  doersFilterRepository,
+  tagsRepository
+);
+export const profileService = new ProfileService(
+  tokenStore,
+  userProfileRepository
+);
 export const editProfileService = new EditProfileService(userProfileRepository);
 
 export const navigationService = new NavigationService(
