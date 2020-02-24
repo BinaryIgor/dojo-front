@@ -12,7 +12,7 @@ export default class TagsService {
     }
 
     toggleTag(tag: string): void {
-        const filtersTags = this.tasksFilterRepository.getCurrentTags();
+        const filtersTags = this.tasksFilterRepository.getCurrent().tags;
         const newTags = new Array<string>();
         let removed = false;
         for (const t of filtersTags) {
@@ -29,7 +29,7 @@ export default class TagsService {
     }
 
     getTags(): ResponsePromise<SelectableTag[]> {
-        const currentTags = this.tasksFilterRepository.getCurrentTags();
+        const currentTags = this.tasksFilterRepository.getCurrent().tags;
         return Promise.resolve(Response.successOf([
             "Remont", "Rozrywka", "Matematyka", "Wyzwanie"
         ])).then(r => Response.wrap(r, t => this.toSelectableTags(t, currentTags)));
