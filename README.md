@@ -1,4 +1,4 @@
-# dojo-ts
+# dojo-front
 
 ## Project setup
 ```
