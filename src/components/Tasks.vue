@@ -3,11 +3,11 @@
     <h2 v-on:click="goToNewTask">{{$t('newTaskHint')}}</h2>
     <input v-bind:placeholder="$t('searchTaskHint')" />
     <div class="tags">
-      <button>{{$t('tags')}}</button>
+      <button v-on:click="chooseTags">{{$t('tags')}}</button>
       <div class="tag" v-for="(t, index) in tags" v-bind:key="index">#{{t}}</div>
     </div>
     <div class="locations">
-      <button>{{$t('location')}}</button>
+      <button v-on:click="chooseLocations">{{$t('location')}}</button>
       <div class="location" v-for="(l, index) in locations" v-bind:key="index">{{l}}</div>
     </div>
   </div>
@@ -27,6 +27,14 @@ export default class Tasks extends Vue {
 
   goToNewTask(): void {
     this.$router.push(routes.newTask);
+  }
+
+  chooseTags(): void {
+    this.$router.push(routes.tasksTags);
+  }
+
+  chooseLocations(): void {
+    this.$router.push(routes.tasksLocations);
   }
 }
 </script>

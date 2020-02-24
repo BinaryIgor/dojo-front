@@ -18,6 +18,8 @@ import Profile from "./components/Profile.vue";
 import EditProfile from "./components/EditProfile.vue";
 import ProfileDetails from "./components/ProfileDetails.vue";
 import Messages from "./components/Messages.vue";
+import Tags from "./components/common/Tags.vue";
+import Locations from "./components/common/Locations.vue";
 
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -58,6 +60,8 @@ const routes = [
   { path: routesNames.home, component: Home },
   { path: routesNames.tasks, component: Tasks },
   { path: routesNames.newTask, component: EditTask },
+  { path: routesNames.tasksTags, component: Tags },
+  { path: routesNames.tasksLocations, component: Locations},
   { path: routesNames.doers, component: Doers },
   { path: routesNames.profile, component: Profile },
   { path: routesNames.editProfile, component: EditProfile },

@@ -3,10 +3,10 @@
 }
 
 html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: auto;
 }
 
 :root {
@@ -48,100 +48,104 @@ button:hover, .button-like:hover {
   }
 
 .error {
-    color: var(--error-color);
+  color: var(--error-color);
 }
 
 .centered-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-  }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-medium);
+}
 
+img.profile {
+  max-width: 30%;
+  max-height: 30%;
+}
+
+img.icon {
+  max-width: 40px;
+  max-height: 40px;
+}
+
+.tags, .locations {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  grid-gap: var(--padding-medium);
+}
+
+.tag, .location {
+  border-radius: var(--small-radius);
+  color: var(--font-light);
+  background-color: var(--accent-light);
+  padding : var(--padding-medium);
+}
+
+.location {
+  background-color: var(--primary);
+}
+
+@media screen and (max-width: 1000px) {
   img.profile {
-    max-width: 30%;
-    max-height: 30%;
+    max-width: 45%;
+    max-height: 45%;
   }
 
   .tags, .locations {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center;
-    grid-gap: var(--padding-medium);
+    grid-template-columns: 1fr 1fr 1fr;
   }
-
-  .tag, .location {
-    border-radius: var(--small-radius);
-    color: var(--font-light);
-    background-color: var(--accent-light);
-    padding : var(--padding-medium);
-  }
-
-  .location {
-    background-color: var(--primary);
-  }
-
-  /*Is this good place to handle scaling?*/
-  @media screen and (max-width: 1000px) {
-    img.profile {
-      max-width: 45%;
-      max-height: 45%;
-    }
-
-    .tags, .locations {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-
 }
   
-  @media screen and (max-width: 600px) {
-      img.profile {
-        max-width: 60%;
-        max-height: 60%;
-      }
-
-      .tags, .locations {
-        grid-template-columns: 1fr 1fr;
-      }
+@media screen and (max-width: 600px) {
+  img.profile {
+    max-width: 60%;
+    max-height: 60%;
   }
 
-  div.body {
-    margin: var(--padding-medium) 0;
+  .tags, .locations {
+    grid-template-columns: 1fr 1fr;
   }
+}
 
-  .modal-mask {
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s ease;
-  }
+div.body {
+  margin: var(--padding-medium) 0;
+}
 
-  .hidden {
-    display: none;
-  }
+.modal-mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
 
-  .modal {
-    width: 50%;
-    background-color: white;
-    padding: var(--pading-large);
-  }
+.hidden {
+  display: none;
+}
 
-  .left-container {
-    padding: var(--padding-medium);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: left;
-  }
+.modal {
+  width: 50%;
+  background-color: white;
+  padding: var(--pading-large);
+}
+
+.left-container {
+  padding: var(--padding-medium);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: left;
+}

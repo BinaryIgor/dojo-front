@@ -11,11 +11,13 @@ export const routes = {
     accountActivation: '/account-activation/:token',
     tasks: tasks,
     newTask: createSubpath(tasks, "new"),
+    tasksTags: createSubpath(tasks, "tags"),
+    tasksLocations: createSubpath(tasks, "locations"),
     doers: doers,
     profile: profile,
     editProfile: createSubpath(profile, 'edit'),
     profileDetails: createSubpath(profile, 'details'),
-    messages: createSubpath(profile, 'messages')
+    messages: createSubpath(profile, 'messages'),
 };
 
 function createSubpath(main: string, path: string) {
