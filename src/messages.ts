@@ -48,6 +48,13 @@ export const messages = {
         changesConfirmation: "Czy jesteś pewny dokonanych zmian?",
         changesSaved: "Zmiany zostały zapisane",
         noChangesToSave: "Brak zmian do zapisania",
+        newTaskHint: "Masz coś do zrobienia?",
+        newTask: "Nowe zadanie",
+        location: "Lokalizacja",
+        tags: "Tagi",
+        addTag: "Dodaj tag",
+        searchTaskHint: "Szukaj zadania...",
+        addTask: "Dodaj zadanie",
         navigation: {
             home: 'Home',
             events: 'Wydarzenia',

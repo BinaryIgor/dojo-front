@@ -26,3 +26,10 @@ function map<S, T>(source: S, keysMapping = new Map<string, string>()): T {
 const userLogo = new UserLogo('Igor');
 const userName = map(userLogo, new Map<string, string>([['logo', 'name']]));
 console.log('Mapped: ', userName);
+
+const nullOne = null;
+let valueOrEmpty = nullOne || "Ala";
+console.log("Value after null", valueOrEmpty);
+const undefinedOne = undefined;
+valueOrEmpty = undefinedOne || "Ala"; 
+console.log("Value after undefined", valueOrEmpty);

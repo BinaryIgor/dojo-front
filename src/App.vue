@@ -12,6 +12,7 @@ import SignIn from "./components/SignIn.vue";
 import AccountActivation from "./components/AccountActivation.vue";
 import Home from "./components/Home.vue";
 import Tasks from "./components/Tasks.vue";
+import EditTask from "./components/EditTask.vue";
 import Doers from "./components/Doers.vue";
 import Profile from "./components/Profile.vue";
 import EditProfile from "./components/EditProfile.vue";
@@ -56,6 +57,7 @@ const routes = [
   { path: routesNames.accountActivation, component: AccountActivation },
   { path: routesNames.home, component: Home },
   { path: routesNames.tasks, component: Tasks },
+  { path: routesNames.newTask, component: EditTask },
   { path: routesNames.doers, component: Doers },
   { path: routesNames.profile, component: Profile },
   { path: routesNames.editProfile, component: EditProfile },

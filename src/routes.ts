@@ -10,6 +10,7 @@ export const routes = {
     home: home,
     accountActivation: '/account-activation/:token',
     tasks: tasks,
+    newTask: createSubpath(tasks, "new"),
     doers: doers,
     profile: profile,
     editProfile: createSubpath(profile, 'edit'),
