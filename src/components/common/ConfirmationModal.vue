@@ -9,36 +9,45 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 //TODO: fix modals html,css and js code duplication
-import {SHOW_CONFIRMATION_MODAL_EVENT, HIDE_CONFIRMATION_MODAL_EVENT} from "./modals.js";
-export default {
-  data() {
-    return {
-      title: "",
-      text: "",
-      confirmed: false,
-      show: false
-    };
-  },
-  methods: {
-    hide() {
-      this.show = false;
-      this.$parent.$emit(HIDE_CONFIRMATION_MODAL_EVENT, this.confirmed);
-      this.confirmed = false;
-    },
-    confirm() {
-      this.confirmed = true;
-    }
-  },
-  created() {
-    this.$parent.$on(SHOW_CONFIRMATION_MODAL_EVENT, d => {
-      this.title = d.title;
-      this.texts = d.text;
-      this.show = true;
-    });
+import {
+  SHOW_CONFIRMATION_MODAL_EVENT,
+  HIDE_CONFIRMATION_MODAL_EVENT
+} from "./modals";
+import Component from "vue-class-component";
+import ConfirmationModalMessage from "./confirmation-modal-message";
+
+@Component
+export default class ConfirmationModal extends Vue {
+  title = "";
+  text = "";
+  confirmed = false;
+  show = false;
+
+  hide(): void {
+    this.show = false;
+    this.$parent.$emit(HIDE_CONFIRMATION_MODAL_EVENT, this.confirmed);
+    this.confirmed = false;
   }
-};
+
+  confirm(): void {
+    this.confirmed = true;
+  }
+
+  created(): void {
+    this.$parent.$on(
+      SHOW_CONFIRMATION_MODAL_EVENT,
+      (m: ConfirmationModalMessage) => {
+        this.$t
+        this.title = m.title;
+        this.text = m.text;
+        this.show = true;
+      }
+    );
+  }
+}
 </script>
 
 <style scoped>

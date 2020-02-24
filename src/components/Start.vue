@@ -8,25 +8,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 import { startService as service } from "../App.vue";
-import { routes } from "../routes.js";
+import { routes } from "../routes";
 
-export default {
-  name: "Start",
-  methods: {
-    goToStart() {
-      this.$router.push(routes.signUp);
-    },
-    goToContinue() {
-      if (service.needToSignIn()) {
-        this.$router.push(routes.signIn);
-      } else {
-        this.$router.push(routes.home);
-      }
+@Component
+export default class Start extends Vue {
+  goToStart() {
+    this.$router.push(routes.signUp);
+  }
+
+  goToContinue() {
+    if (service.needToSignIn()) {
+      this.$router.push(routes.signIn);
+    } else {
+      this.$router.push(routes.home);
     }
   }
-};
+}
 </script>
 
 <style scoped>

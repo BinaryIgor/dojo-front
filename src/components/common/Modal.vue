@@ -8,28 +8,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: "",
-      texts: [],
-      show: false
-    };
-  },
-  methods: {
-    hide() {
-      this.show = false;
-    }
-  },
-  created() {
-    this.$parent.$on("show", d => {
-      this.title = d.title;
-      this.texts = d.texts;
+<script lang="ts">
+import Vue from "vue";
+import { SHOW_MODAL_EVENT } from "./modals";
+import ModalMessage from "./modal-message";
+import Component from "vue-class-component";
+
+@Component
+export default class Modal extends Vue {
+  title = "";
+  texts: string[] = [];
+  show = false;
+
+  hide(): void {
+    this.show = false;
+  }
+
+  created(): void {
+    this.$parent.$on(SHOW_MODAL_EVENT, (m: ModalMessage) => {
+      this.title = m.title;
+      this.texts = m.texts;
       this.show = true;
     });
   }
-};
+}
 </script>
 
 <style scoped>

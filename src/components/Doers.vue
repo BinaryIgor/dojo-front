@@ -1,14 +1,14 @@
 <template>
+  <div>
     <h1>Doers</h1>
+  </div>
 </template>
 
-<script>
-export default {
-    name: 'Doers',
-    data() {
-        return {
-
-        };
-    }
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component
+export default class Doers extends Vue {
+    
 }
 </script>

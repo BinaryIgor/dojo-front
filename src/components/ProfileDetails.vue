@@ -1,12 +1,14 @@
 <template>
-  <div>Profile Details</div>
+  <div>
+    <h1>Profile Details</h1>
+  </div>
 </template>
 
-<script>
-export default {
-    name: 'ProfileDetails'
-};
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component
+export default class ProfileDetails extends Vue {
+    
+}
 </script>
-
-<style>
-</style>

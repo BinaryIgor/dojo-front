@@ -1,12 +1,14 @@
 <template>
-  <div>Messages</div>
+  <div>
+    <h1>Messages</h1>
+  </div>
 </template>
 
-<script>
-export default {
-    name: 'Messages'
-};
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component
+export default class Messages extends Vue {
+    
+}
 </script>
-
-<style>
-</style>

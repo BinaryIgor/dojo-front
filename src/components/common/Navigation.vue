@@ -7,57 +7,60 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Watch } from "vue-property-decorator";
+import { Route } from "vue-router/types/router";
 import { navigationService as service } from "../../App.vue";
-import { routes } from "../../routes.js";
-import {getMatchedRouteName} from "./router.js";
+import { routes } from "../../routes";
+import { getMatchedRouteName } from "./routes";
+import { NavigationResponse } from "../../core/service/navigation-service";
 
-export default {
-  created() {
-    this._resolveState(this.$router.currentRoute.path);
-  },
-  watch: {
-    $route(to) {
-      this._resolveState(to.path);
-    }
-  },
-  data() {
-    return {
-      active: "active",
-      visible: false,
-      homeActive: false,
-      tasksActive: false,
-      doersActive: false,
-      profileActive: false
-    };
-  },
-  methods: {
-    _resolveState(route) {
-      let matched = getMatchedRouteName(this.$router, route);
-      let response = service.resolveState(route, matched);
-      this.visible = response.visible;
-      this.homeActive = response.navigationState.homeActive;
-      this.tasksActive = response.navigationState.tasksActive;
-      this.doersActive = response.navigationState.doersActive;
-      this.profileActive = response.navigationState.profileActive;
-    },
-    goToHome() {
-      this.$router.replace(routes.home);
-    },
-    goToEvents() {
-      this.$router.replace(routes.events);
-    },
-    goToTasks() {
-      this.$router.replace(routes.tasks);
-    },
-    goToDoers() {
-      this.$router.replace(routes.doers);
-    },
-    goToProfile() {
-      this.$router.replace(routes.profile);
-    }
+@Component
+export default class Navigation extends Vue {
+  readonly active = "active";
+  visible = false;
+  homeActive = false;
+  tasksActive = false;
+  doersActive = false;
+  profileActive = false;
+
+  //Suspiciously complex
+  @Watch("$route", { immediate: true, deep: true })
+  onRouteChange(to: Route) {
+    this.resolveState(to.path);
   }
-};
+
+  private resolveState(route: string): void {
+    const matched = getMatchedRouteName(this, route);
+    //TODO change map to proper object
+    const response = service.resolveState(route, matched);
+    this.visible = response.visible;
+    this.homeActive = this.isActive(response, "home");
+    this.tasksActive = this.isActive(response, "tasks");
+    this.doersActive = this.isActive(response, "doers");
+    this.profileActive = this.isActive(response, "profile");
+  }
+
+  private isActive(response: NavigationResponse, key: string): boolean {
+    return response.navigationState.get(`${key}Active`) ?? false;
+  }
+
+  goToHome() {
+    this.$router.replace(routes.home);
+  }
+
+  goToTasks() {
+    this.$router.replace(routes.tasks);
+  }
+
+  goToDoers() {
+    this.$router.replace(routes.doers);
+  }
+
+  goToProfile() {
+    this.$router.replace(routes.profile);
+  }
+}
 </script>
 
 <style scoped>
@@ -83,14 +86,12 @@ div button {
   border: none;
   border-radius: 0;
 }
-
 div button:hover {
   color: var(--font-light);
   background-color: var(--primary-dark);
   border: none;
   outline: none;
 }
-
 div button.active {
   background-color: var(--primary);
 }

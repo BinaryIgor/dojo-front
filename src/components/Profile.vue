@@ -10,55 +10,57 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 import { profileService as service } from "../App.vue";
-import { showErrorModal } from "../components/common/modals.js";
-import { routes } from "../routes.js"; 
+import { showErrorModal } from "../components/common/modals";
+import { routes } from "../routes";
 
-export default {
-  name: "Profile",
-  created() {
-    this.getProfile();
-  },
-  data() {
-    return {
-      imagePath: "",
-      name: "",
-      email: ""
-    };
-  },
-  methods: {
-    getProfile() {
+@Component
+export default class Profile extends Vue {
+    
+    imagePath = "";
+    name = "";
+    email = "";
+
+    created(): void {
+      this.getProfile();
+    }
+
+    getProfile(): void {
       service.getProfile().then(r => {
         if (r.success) {
-          let profile = r.value;
+          const profile = r.value;
           this.name = profile.name;
           this.email = profile.email;
-          this.imagePath = profile.imagePath ? profile.imagePath : "placeholder.jpg";
+          this.imagePath = profile.imagePath;
         } else {
           showErrorModal(this, r.exceptions);
         }
       });
-    },
-    goToEditProfile() {
-      this.$router.push(routes.editProfile);
-    },
-    goToDetails() {
-      this.$router.push(routes.profileDetails);
-    },
-    goToMessages() {
-      this.$router.push(routes.messages);
-    },
-    signOut() {
-      service.signOut();
-      this.$router.replace("/");
     }
-  }
-};
+
+    goToEditProfile(): void {
+      this.$router.push(routes.editProfile);
+    }
+
+    goToDetails(): void {
+      this.$router.push(routes.profileDetails);
+    }
+
+    goToMessages(): void {
+      this.$router.push(routes.messages);
+    }
+
+    signOut(): void {
+      service.signOut();
+      this.$router.replace('/');
+    }
+}
 </script>
 
 <style scoped>
-
 button {
   width: 40%;
 }
