@@ -5,7 +5,7 @@
     <modal></modal>
   </div>
 </template>
-<script lang=ts>
+<script lang="ts">
 import Start from "./components/Start.vue";
 import SignUp from "./components/SignUp.vue";
 import SignIn from "./components/SignIn.vue";
@@ -14,6 +14,9 @@ import Home from "./components/Home.vue";
 import Tasks from "./components/Tasks.vue";
 import Doers from "./components/Doers.vue";
 import Profile from "./components/Profile.vue";
+import EditProfile from "./components/EditProfile.vue";
+import ProfileDetails from "./components/ProfileDetails.vue";
+import Messages from "./components/Messages.vue";
 
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -54,7 +57,10 @@ const routes = [
   { path: routesNames.home, component: Home },
   { path: routesNames.tasks, component: Tasks },
   { path: routesNames.doers, component: Doers },
-  { path: routesNames.profile, component: Profile }
+  { path: routesNames.profile, component: Profile },
+  { path: routesNames.editProfile, component: EditProfile },
+  { path: routesNames.profileDetails, component: ProfileDetails },
+  { path: routesNames.messages, component: Messages }
 ];
 
 const defaultRouteName = "Start";

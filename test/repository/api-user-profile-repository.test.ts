@@ -12,13 +12,15 @@ const userProfileEndpoint = "user/profile";
 const userProfileImageUploadEndpoint = "user/profile/image";
 const passwordUpdateEnpoint = "user/profile/password";
 const imagesEndpointPrefix = "image";
+const imagePlaceholderPath = 'placeholder.jpg';
 const repository = new ApiUserProfileRepository(fakeRequests, userProfileEndpoint,
-    userProfileImageUploadEndpoint, passwordUpdateEnpoint, imagesEndpointPrefix);
+    userProfileImageUploadEndpoint, passwordUpdateEnpoint, imagesEndpointPrefix, 
+    imagePlaceholderPath);
 
 
 describe('ApiUserProfileRepository tests', () => {
     it('Returns current user', async () => {
-        const expectedUser = new UserProfile('name', 'name@email.com', '1/profile.jpg');
+        const expectedUser = provideProperUserProfile();
         const expectedCapturedImagePath = `${imagesEndpointPrefix}/${expectedUser.imagePath}`;
         const expectedBlobUrl = "blob:http://localhost:8081/1a075489-d34f-4293-9bba-0aa3f478c11d";
         fakeRequests.expectedResponse = Response.successOf(expectedUser);
@@ -28,9 +30,23 @@ describe('ApiUserProfileRepository tests', () => {
             expectedBlobUrl);
 
         const response = await repository.getCurrent();
+ 
         expectations.expectSuccess(response, mutatedExpectedUser);
         expect(fakeRequests.capturedUrl).to.equal(userProfileEndpoint);
         expect(fakeRequests.capturedBlobUrl).to.equal(expectedCapturedImagePath);
+    });
+
+    it('Returns current user with image placeholder', async () => {
+        const expectedUser = provideProperUserProfile();
+        expectedUser.imagePath = "";
+
+        fakeRequests.expectedResponse = Response.successOf(expectedUser);
+
+        const mutatedExpectedUser = new UserProfile(expectedUser.name, expectedUser.email, imagePlaceholderPath);
+
+        const response = await repository.getCurrent();
+        
+        expectations.expectSuccess(response, mutatedExpectedUser);
     });
 
     it('Does not return current user on get image failure', async () => {
@@ -79,4 +95,8 @@ describe('ApiUserProfileRepository tests', () => {
         expect(fakeRequests.capturedData).to.deep.equal(passwordUpdate);
     });
 });
+
+function provideProperUserProfile(): UserProfile {
+    return new UserProfile('name', 'name@email.com', '1/profile.jpg');
+}
 

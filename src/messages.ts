@@ -55,6 +55,7 @@ export const messages = {
             doers: 'Sprawcy',
             profile: 'Profil'
         },
+        uploadFileFirst: 'Wstaw plik aby kontynuować',
         //TODO create apiErrors dictionary
         apiErrors: {
             INVALID_NAME: "Podana nazwa jest nieprawidłowa",

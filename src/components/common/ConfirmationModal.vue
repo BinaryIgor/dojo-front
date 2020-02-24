@@ -15,7 +15,7 @@ import Vue from "vue";
 import {
   SHOW_CONFIRMATION_MODAL_EVENT,
   HIDE_CONFIRMATION_MODAL_EVENT
-} from "./modals.js";
+} from "./modals";
 import Component from "vue-class-component";
 import ConfirmationModalMessage from "./confirmation-modal-message";
 
@@ -33,7 +33,7 @@ export default class ConfirmationModal extends Vue {
   }
 
   confirm(): void {
-    this.confirmed = false;
+    this.confirmed = true;
   }
 
   created(): void {

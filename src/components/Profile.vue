@@ -34,8 +34,7 @@ export default class Profile extends Vue {
           const profile = r.value;
           this.name = profile.name;
           this.email = profile.email;
-          //TODO externalize this
-          this.imagePath = profile.imagePath ? profile.imagePath : 'placeholder.jpg';
+          this.imagePath = profile.imagePath;
         } else {
           showErrorModal(this, r.exceptions);
         }

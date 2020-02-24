@@ -13,22 +13,29 @@ export default class ApiUserProfileRepository implements UserProfileRepository {
     private readonly userProfileImageUploadEndpoint: string
     private readonly passwordUpdateEndpoint: string
     private readonly imagesEndpointPrefix: string
+    private readonly imagePlaceholderPath: string
 
     constructor(requests: SmartRequests, userProfileEndpoint: string, userProfileImageUploadEndpoint: string,
-        passwordUpdateEndpoint: string, imagesEndpointPrefix: string) {
+        passwordUpdateEndpoint: string, imagesEndpointPrefix: string, imagePlaceholderPath = "placeholder.jpg") {
         this.requests = requests;
         this.userProfileEndpoint = userProfileEndpoint;
         this.userProfileImageUploadEndpoint = userProfileImageUploadEndpoint;
         this.passwordUpdateEndpoint = passwordUpdateEndpoint;
         this.imagesEndpointPrefix = imagesEndpointPrefix;
+        this.imagePlaceholderPath = imagePlaceholderPath;
     }
 
     getCurrent(): ResponsePromise<UserProfile> {
         return this.requests.getJson<UserProfile>(this.userProfileEndpoint).then(ur => {
             if (ur.success) {
                 const user = ur.value;
-                return this.requests.getBlob(`${this.imagesEndpointPrefix}/${user.imagePath}`)
-                    .then(ir => this.userWithImagePathOrFailure(user, ir));
+                if (user.imagePath) {
+                    return this.requests.getBlob(`${this.imagesEndpointPrefix}/${user.imagePath}`)
+                        .then(ir => this.userWithImagePathOrFailure(user, ir));
+                } else {
+                    user.imagePath = this.imagePlaceholderPath;
+                    return ur;
+                }
             } else {
                 return ur;
             }
