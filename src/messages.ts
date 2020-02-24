@@ -62,6 +62,7 @@ export const messages = {
             doers: 'Sprawcy',
             profile: 'Profil'
         },
+        search: "Szukaj",
         uploadFileFirst: 'Wstaw plik aby kontynuować',
         //TODO create apiErrors dictionary
         apiErrors: {

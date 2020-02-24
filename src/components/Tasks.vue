@@ -1,7 +1,7 @@
 <template>
   <div class="left-container">
     <h2 v-on:click="goToNewTask">{{$t('newTaskHint')}}</h2>
-    <input v-bind:placeholder="$t('searchTaskHint')" />
+    <input type="text" v-model="title" v-bind:placeholder="$t('searchTaskHint')" />
     <div class="tags">
       <button v-on:click="chooseTags">{{$t('tags')}}</button>
       <div class="tag" v-for="(t, index) in tags" v-bind:key="index">#{{t}}</div>
@@ -17,13 +17,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { routes } from "../routes";
+import { tasksService as service } from "../App.vue";
 
 @Component
 export default class Tasks extends Vue {
-  //TODO unhardcode
-  tags: string[] = ["Remont", "Rozrywka", "Matematyka", "Wyzwanie"];
+  title = "";
+  tags: string[] = [];
+  locations: string[] = [];
 
-  locations: string[] = ["Warszawa, 20km", "Zdalnie"];
+  created(): void {
+    const filter = service.getFilters();
+    this.title = filter.title;
+    this.tags = filter.tags;
+    this.locations = filter.locations;
+  }
 
   goToNewTask(): void {
     this.$router.push(routes.newTask);
