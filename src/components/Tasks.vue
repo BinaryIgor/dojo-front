@@ -10,21 +10,12 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { routes } from "../routes";
-import {showModal} from "./common/modals";
 
 @Component
 export default class Tasks extends Vue {
   
   goToNewTask(): void {
     this.$router.push(routes.newTask);
-  }
-
-  chooseTags(): void {
-    this.$router.push(routes.tasksTags);
-  }
-
-  chooseLocations(): void {
-    this.$router.push(routes.tasksLocations);
   }
 }
 </script>

@@ -14,6 +14,8 @@ export const routes = {
     tasksTags: createSubpath(tasks, "tags"),
     tasksLocations: createSubpath(tasks, "locations"),
     doers: doers,
+    doersTags: createSubpath(doers, "tags"),
+    doersLocations: createSubpath(doers, "locations"),
     profile: profile,
     editProfile: createSubpath(profile, 'edit'),
     profileDetails: createSubpath(profile, 'details'),

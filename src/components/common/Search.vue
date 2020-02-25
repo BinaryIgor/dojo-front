@@ -20,7 +20,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { routes } from "../../routes";
 import { Component, Prop } from "vue-property-decorator";
 import { searchFilterServiceProvider as serviceProvider } from "../../App.vue";
 import SearchFilterService from "../../core/service/search-filter-service";
@@ -50,11 +49,11 @@ export default class Search extends Vue {
   }
 
   chooseTags(): void {
-    this.$router.push(routes.tasksTags);
+    this.$router.push(this.service().routes.tagsRoute);
   }
 
   chooseLocations(): void {
-    this.$router.push(routes.tasksLocations);
+    this.$router.push(this.service().routes.locationsRoute);
   }
 }
 </script>

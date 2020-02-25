@@ -44,6 +44,7 @@ import SignUpService from "./core/service/sign-up-service";
 import SignInService from "./core/service/sign-in-service";
 import TasksService from "./core/service/tasks-service";
 import SearchFilterServiceProvider from "./core/service/search-filter-service-provider";
+import SearchFilterRoutes from "./core/model/search-filter-routes";
 import TagsServiceProvider from "./core/service/tags-service-provider";
 import TagsService from "./core/service/tags-service";
 import LocationsServiceProvider from "./core/service/locations-service-provider";
@@ -81,6 +82,16 @@ const routes = [
     props: { locationsCategory: FilterCategory.TASKS }
   },
   { path: routesNames.doers, component: Doers },
+  {
+    path: routesNames.doersTags,
+    component: Tags,
+    props: { tagsCategory: FilterCategory.DOERS }
+  },
+  {
+    path: routesNames.doersLocations,
+    component: Locations,
+    props: { locationsCategory: FilterCategory.DOERS }
+  },
   { path: routesNames.profile, component: Profile },
   { path: routesNames.editProfile, component: EditProfile },
   { path: routesNames.profileDetails, component: ProfileDetails },
@@ -157,10 +168,22 @@ export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
 export const signInService = new SignInService(tokenRepository, tokenStore);
 export const tasksService = new TasksService(tasksFilterRepository);
+
+const tasksFilterRoutes = new SearchFilterRoutes(
+  routesNames.tasksTags,
+  routesNames.tasksLocations
+);
+const doersFilterRoutes = new SearchFilterRoutes(
+  routesNames.doersTags,
+  routesNames.doersLocations
+);
 export const searchFilterServiceProvider = new SearchFilterServiceProvider(
   tasksFilterRepository,
-  doersFilterRepository
+  tasksFilterRoutes,
+  doersFilterRepository,
+  doersFilterRoutes
 );
+
 export const tagsServiceProvider = new TagsServiceProvider(
   tasksFilterRepository,
   doersFilterRepository,

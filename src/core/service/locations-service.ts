@@ -4,7 +4,6 @@ import { ResponsePromise } from "../types";
 import Response from "../response/response";
 import SelectableLocation from "../model/selectable-location";
 
-//TODO tests!
 export default class LocationsService {
 
     private readonly tasksFilterRepository: SearchFilterRepository
