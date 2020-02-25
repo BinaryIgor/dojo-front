@@ -17,7 +17,7 @@ html, body {
     --gray: #666;
     --light-gray: #eee;
     --accent-light: #77dae5;
-    --accent-dark: #00e5ff;
+    --accent-dark: #00c1d6;
     --error-color: red;
     --font-dark: black;
     --font-light: white;
@@ -87,7 +87,7 @@ img.icon {
 }
 
 .location {
-  background-color: var(--primary);
+  background-color: var(--accent-dark);
 }
 
 @media screen and (max-width: 1000px) {

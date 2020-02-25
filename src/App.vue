@@ -37,19 +37,20 @@ import InBrowserTokenStore from "./core/store/in-browser-token-store";
 import ApiTokenRepository from "./core/repository/api-token-repository";
 import InMemorySearchFilterRepository from "./core/repository/in-memory-search-filter-repository";
 import ApiTagsRepository from "./core/repository/api-tags-repository";
+import ApiLocationsRepository from "./core/repository/api-locations-repository";
 
 import StartService from "./core/service/start-service";
 import SignUpService from "./core/service/sign-up-service";
 import SignInService from "./core/service/sign-in-service";
 import TasksService from "./core/service/tasks-service";
-import {
-  TagsServiceProvider,
-  TagsCategory
-} from "./core/service/tags-service-provider";
+import TagsServiceProvider from "./core/service/tags-service-provider";
 import TagsService from "./core/service/tags-service";
+import LocationsServiceProvider from "./core/service/locations-service-provider";
+import LocationsService from "./core/service/locations-service";
 import ProfileService from "./core/service/profile-service";
 import EditProfileService from "./core/service/edit-profile-service";
 import { NavigationService } from "./core/service/navigation-service";
+import { FilterCategory } from "./core/model/filter-category";
 
 import { routes as routesNames } from "./routes";
 import RouteGuard from "./core/route-guard";
@@ -71,9 +72,13 @@ const routes = [
   {
     path: routesNames.tasksTags,
     component: Tags,
-    props: { tagsCategory: TagsCategory.TASKS }
+    props: { tagsCategory: FilterCategory.TASKS }
   },
-  { path: routesNames.tasksLocations, component: Locations },
+  {
+    path: routesNames.tasksLocations,
+    component: Locations,
+    props: { locationsCategory: FilterCategory.TASKS }
+  },
   { path: routesNames.doers, component: Doers },
   { path: routesNames.profile, component: Profile },
   { path: routesNames.editProfile, component: EditProfile },
@@ -116,7 +121,8 @@ const endpoints = {
   currentUserProfile: "user/profile",
   currentUserProfileImageUpload: "user/profile/image",
   passwordUpdate: "user/profile/password",
-  tags: "tag"
+  tags: "tag",
+  locations: "city"
 };
 
 const requests = new SmartRequestsWrapper(
@@ -141,6 +147,10 @@ const tokenRepository = new ApiTokenRepository(requests, endpoints.signIn);
 const tasksFilterRepository = new InMemorySearchFilterRepository();
 const doersFilterRepository = new InMemorySearchFilterRepository();
 const tagsRepository = new ApiTagsRepository(requests, endpoints.tags);
+const locationsRepository = new ApiLocationsRepository(
+  requests,
+  endpoints.locations
+);
 
 export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
@@ -150,6 +160,11 @@ export const tagsServiceProvider = new TagsServiceProvider(
   tasksFilterRepository,
   doersFilterRepository,
   tagsRepository
+);
+export const locationsServiceProvider = new LocationsServiceProvider(
+  tasksFilterRepository,
+  doersFilterRepository,
+  locationsRepository
 );
 export const profileService = new ProfileService(
   tokenStore,

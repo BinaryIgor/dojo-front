@@ -12,4 +12,8 @@ export default class InMemorySearchFilterRepository implements SearchFilterRepos
     updateTags(tags: string[]): void {
         this.filter = new SearchFilter(this.filter.title, tags, this.filter.locations);
     }
+
+    updateLocations(locations: string[]): void {
+        this.filter = new SearchFilter(this.filter.title, this.filter.tags, locations);
+    }
 }

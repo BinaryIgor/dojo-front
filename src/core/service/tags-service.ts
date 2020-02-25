@@ -15,10 +15,10 @@ export default class TagsService {
     }
 
     toggleTag(tag: string): void {
-        const filtersTags = this.tasksFilterRepository.getCurrent().tags;
+        const filterTags = this.tasksFilterRepository.getCurrent().tags;
         const newTags = new Array<string>();
         let removed = false;
-        for (const t of filtersTags) {
+        for (const t of filterTags) {
             if (t == tag) {
                 removed = true;
             } else {

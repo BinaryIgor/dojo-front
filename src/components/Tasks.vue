@@ -18,6 +18,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { routes } from "../routes";
 import { tasksService as service } from "../App.vue";
+import {showModal} from "./common/modals";
 
 @Component
 export default class Tasks extends Vue {

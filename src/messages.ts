@@ -51,6 +51,7 @@ export const messages = {
         newTaskHint: "Masz coś do zrobienia?",
         newTask: "Nowe zadanie",
         location: "Lokalizacja",
+        locations: "Lokalizacje",
         tags: "Tagi",
         addTag: "Dodaj tag",
         searchTaskHint: "Szukaj zadania...",

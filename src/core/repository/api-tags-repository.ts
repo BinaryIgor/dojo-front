@@ -1,5 +1,5 @@
 import TagsRepository from "./tags-repository";
-import {ResponsePromise} from "../types";
+import { ResponsePromise } from "../types";
 import SmartRequests from '../request/smart-requests';
 
 export default class ApiTagsRepository implements TagsRepository {

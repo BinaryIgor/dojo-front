@@ -5,4 +5,6 @@ export default interface SearchFilterRepository {
     getCurrent(): SearchFilter;
 
     updateTags(tags: string[]): void;
+
+    updateLocations(locations: string[]): void;
 }

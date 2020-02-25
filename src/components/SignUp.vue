@@ -68,7 +68,7 @@ export default class SignUp extends Vue {
       this.signingUp = false;
       if (r.success) {
         //TODO create types instead of strings
-        showModal(this, "signUpSuccessTitle", "signUpSucessMessage");
+        showModal(this, "signUpSuccessTitle", "signUpSuccessMessage");
         this.$router.replace(routes.signIn);
       } else {
         this.setErrors(r.inputErrors);

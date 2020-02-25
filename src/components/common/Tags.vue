@@ -22,15 +22,15 @@ import { Component, Prop } from "vue-property-decorator";
 import SelectableTag from "../../core/model/selectable-tag";
 import { tagsServiceProvider as serviceProvider } from "../../App.vue";
 import { showErrorModal } from "./modals";
-import { TagsCategory } from "../../core/service/tags-service-provider";
+import { FilterCategory } from "../../core/model/filter-category";
 import TagsService from "../../core/service/tags-service";
 
 @Component
 export default class Tags extends Vue {
   tags: SelectableTag[] = [];
 
-  @Prop({ default: TagsCategory.TASKS })
-  readonly tagsCategory!: TagsCategory;
+  @Prop({ default: FilterCategory.TASKS })
+  readonly tagsCategory!: FilterCategory;
 
   created() {
     this.service()
@@ -62,6 +62,7 @@ export default class Tags extends Vue {
 </script>
 
 <style scoped>
+/*Combat tags/locations code duplication if needed*/
 .tags-title {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;

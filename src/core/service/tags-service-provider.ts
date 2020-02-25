@@ -1,12 +1,9 @@
 import SearchFilterRepository from "../repository/search-filter-repository";
 import TagsRepository from "../repository/tags-repository";
 import TagsService from "./tags-service";
+import { FilterCategory } from "../model/filter-category";
 
-export enum TagsCategory {
-    TASKS, DOERS
-}
-
-export class TagsServiceProvider {
+export default class TagsServiceProvider {
 
     private readonly tasksService: TagsService
     private readonly doersService: TagsService
@@ -17,7 +14,7 @@ export class TagsServiceProvider {
         this.doersService = new TagsService(doersFilterRepository, tagsRepository);
     }
 
-    provide(category: TagsCategory): TagsService {
-        return category == TagsCategory.TASKS ? this.tasksService : this.doersService;
+    provide(category: FilterCategory): TagsService {
+        return category == FilterCategory.TASKS ? this.tasksService : this.doersService;
     }
 }
