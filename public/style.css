@@ -90,6 +90,10 @@ img.icon {
   background-color: var(--accent-dark);
 }
 
+button.location {
+  background-color: var(--primary); 
+}
+
 @media screen and (max-width: 1000px) {
   img.profile {
     max-width: 45%;

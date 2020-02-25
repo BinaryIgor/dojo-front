@@ -7,7 +7,7 @@
     <div class="locations">
       <div
         class="location"
-        v-bind:class="{selected: l.selected}"
+        v-bind:class="{unselected: !l.selected}"
         v-for="(l, index) in locations"
         @click="toggleLocationState(l, index)"
         v-bind:key="index"
@@ -67,7 +67,7 @@ export default class Location extends Vue {
   height: 100%;
   align-items: center;
 }
-.selected {
-  background-color: var(--primary-light);
+.unselected {
+  background-color: var(--primary);
 }
 </style>

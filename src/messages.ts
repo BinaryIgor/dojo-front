@@ -55,6 +55,7 @@ export const messages = {
         tags: "Tagi",
         addTag: "Dodaj tag",
         searchTaskHint: "Szukaj zadania...",
+        searchDoerHint: "Szukaj wykonawcy...",
         addTask: "Dodaj zadanie",
         navigation: {
             home: 'Home',

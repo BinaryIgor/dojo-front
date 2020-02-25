@@ -43,6 +43,7 @@ import StartService from "./core/service/start-service";
 import SignUpService from "./core/service/sign-up-service";
 import SignInService from "./core/service/sign-in-service";
 import TasksService from "./core/service/tasks-service";
+import SearchFilterServiceProvider from "./core/service/search-filter-service-provider";
 import TagsServiceProvider from "./core/service/tags-service-provider";
 import TagsService from "./core/service/tags-service";
 import LocationsServiceProvider from "./core/service/locations-service-provider";
@@ -156,6 +157,10 @@ export const startService = new StartService(tokenStore);
 export const signUpService = new SignUpService(userRepository);
 export const signInService = new SignInService(tokenRepository, tokenStore);
 export const tasksService = new TasksService(tasksFilterRepository);
+export const searchFilterServiceProvider = new SearchFilterServiceProvider(
+  tasksFilterRepository,
+  doersFilterRepository
+);
 export const tagsServiceProvider = new TagsServiceProvider(
   tasksFilterRepository,
   doersFilterRepository,

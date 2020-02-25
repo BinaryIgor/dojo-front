@@ -7,7 +7,7 @@
     <div class="tags">
       <div
         class="tag"
-        v-bind:class="{selected: t.selected}"
+        v-bind:class="{unselected: !t.selected}"
         v-for="(t, index) in tags"
         @click="toggleTagState(t, index)"
         v-bind:key="index"
@@ -70,7 +70,7 @@ export default class Tags extends Vue {
   height: 100%;
   align-items: center;
 }
-.selected {
+.unselected {
   background-color: var(--primary-dark);
 }
 </style>

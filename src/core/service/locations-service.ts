@@ -1,5 +1,5 @@
 import SearchFilterRepository from "../repository/search-filter-repository";
-import CitiesRepository from "../repository/cities-repository";
+import LocationsRepository from "../repository/locations-repository";
 import { ResponsePromise } from "../types";
 import Response from "../response/response";
 import SelectableLocation from "../model/selectable-location";
@@ -8,11 +8,11 @@ import SelectableLocation from "../model/selectable-location";
 export default class LocationsService {
 
     private readonly tasksFilterRepository: SearchFilterRepository
-    private readonly citiesRepository: CitiesRepository
+    private readonly locationsRepository: LocationsRepository
 
-    constructor(tasksFilterRepository: SearchFilterRepository, citiesRepository: CitiesRepository) {
+    constructor(tasksFilterRepository: SearchFilterRepository, locationsRepository: LocationsRepository) {
         this.tasksFilterRepository = tasksFilterRepository;
-        this.citiesRepository = citiesRepository;
+        this.locationsRepository = locationsRepository;
     }
 
     toggleLocation(location: string): void {
@@ -34,7 +34,7 @@ export default class LocationsService {
 
     getLocations(): ResponsePromise<SelectableLocation[]> {
         const currentLocations = this.tasksFilterRepository.getCurrent().locations;
-        return this.citiesRepository.getAll()
+        return this.locationsRepository.getAll()
             .then(r => Response.wrap(r, t => this.toSelectableLocations(t, currentLocations)));
     }
 
